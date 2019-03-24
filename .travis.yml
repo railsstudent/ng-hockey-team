@@ -38,6 +38,6 @@ branches:
 notifications:
   email:
     recipients:
-      - '$GITHUB_EMAIL'
+      - cleung334@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
