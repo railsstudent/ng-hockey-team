@@ -309,6 +309,11 @@
   resolved "https://registry.yarnpkg.com/@clr/ui/-/ui-1.1.2.tgz#ca055be5c1d77d7acd1d744aa64c103376eedd41"
   integrity sha512-48uX8d5lYEyuLDRva21Dz7dHiIXZWBbrZxzSUrqYnb6C5yFYfkTxjtNRA250ebhOgAyn3Pnhz8F1K9c+/BoPAQ==
 
+"@fortawesome/fontawesome-free@^5.8.1":
+  version "5.8.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.8.1.tgz#cbafbfe8894c4e3e3c3a9da6774e249ac1f2da8b"
+  integrity sha512-GJtx6e55qLEOy2gPOsok2lohjpdWNGrYGtQx0FFT/++K4SYx+Z8LlPHdQBaFzKEwH5IbBB4fNgb//uyZjgYXoA==
+
 "@ngrx/schematics@^7.3.0":
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-7.3.0.tgz#edd5d5e592284d66dcc2613486c5e8b82e0032ee"
