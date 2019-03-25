@@ -1,10 +1,20 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { TeamContainerComponent } from './team-container/team-container.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: TeamContainerComponent,
+  },
+  {
+    path: 'player',
+    component: TeamContainerComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
