@@ -11,10 +11,10 @@ cache:
 env:
   global:
     - GITHUB_ORG="https://GH_TOKEN@github.com"
-    - REPO_NAME="ng-nhl-team"
+    - REPO_NAME="ng-hockey-team"
     - GITHUB_NAME="railsstudent"
     - GITHUB_EMAIL="cleung334@gmail.com"
-    - DIST_DIR="dist/ng-nhl-team"
+    - DIST_DIR="dist/ng-hockey-team"
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s
@@ -38,6 +38,6 @@ branches:
 notifications:
   email:
     recipients:
-      - '$GITHUB_EMAIL'
+      - cleung334@gmail.com
     on_success: never # default: change
     on_failure: always # default: always

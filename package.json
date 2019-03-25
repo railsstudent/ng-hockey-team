@@ -1,5 +1,5 @@
 {
-  "name": "ng-nhl-team",
+  "name": "ng-hockey-team",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-ngh": "ng build --prod --base-href \"https://railsstudent.github.io/ng-nhl-team/\""
+    "build-ngh": "ng build --prod --base-href \"https://railsstudent.github.io/ng-hockey-team/\""
   },
   "private": true,
   "dependencies": {
@@ -29,7 +29,6 @@
     "@ngrx/schematics": "^7.3.0",
     "@ngrx/store": "^7.3.0",
     "@webcomponents/custom-elements": "^1.0.0",
-    "angular-cli-ghpages": "^0.5.3",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
@@ -38,6 +37,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
     "@angular/cli": "~7.3.4",
+    "angular-cli-ghpages": "^0.5.3",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
     "@types/jasmine": "~2.8.8",

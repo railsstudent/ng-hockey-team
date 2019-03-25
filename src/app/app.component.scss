@@ -1,0 +1,32 @@
+footer.footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.666667rem;
+  font-weight: 400;
+  font-family: Metropolis, 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  height: 2.5rem;
+  color: #fafafa;
+  padding: 0 0.75rem;
+
+  &.footer5 {
+    background-color: #004a70;
+  }
+
+  .info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .author {
+      padding-right: 0.25rem;
+    }
+
+    i {
+      padding-right: 0.25rem;
+    }
+
+    a {
+      color: #fafafa;
+    }
+  }
+}
