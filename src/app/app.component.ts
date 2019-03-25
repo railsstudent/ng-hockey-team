@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,11 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ng-nhl-team';
+  currentYear = new Date().getFullYear();
+
+  repo = environment.repo;
 
   constructor(titleService: Title) {
-    titleService.setTitle('ng NHL Teams');
+    titleService.setTitle('NG NHL Teams');
   }
 }
