@@ -1,0 +1,20 @@
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    '. a .'
+    '. a .'
+    '. a .';
+}
+
+app-menu-card {
+  grid-area: a;
+
+  div.card-block {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+    }
+  }
+}

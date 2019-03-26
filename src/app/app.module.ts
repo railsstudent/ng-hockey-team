@@ -1,3 +1,4 @@
+import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomSerializer } from './custom-route-serializer';
 import { metaReducers, reducers } from './reducers';
+import { SharedModule } from './shared';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +27,8 @@ import { metaReducers, reducers } from './reducers';
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),
+    PortalModule,
+    SharedModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
