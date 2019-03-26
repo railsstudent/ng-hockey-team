@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectAllTeams, State } from '../reducers';
-import { Team } from '../team';
-import * as teamActions from '../team/team.actions';
+import * as teamActions from '../team.actions';
+import { Team } from '../team.model';
+import { selectAllTeams, TeamState } from '../team.reducer';
 
 @Component({
-  selector: 'app-team',
+  selector: 'team-container',
   templateUrl: './team-container.component.html',
   styleUrls: ['./team-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,7 +14,7 @@ import * as teamActions from '../team/team.actions';
 export class TeamContainerComponent implements OnInit {
   teams$: Observable<Team[]>;
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<TeamState>) {
     this.teams$ = this.store.pipe(select(selectAllTeams));
   }
 

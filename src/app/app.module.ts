@@ -11,18 +11,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomSerializer } from './custom-route-serializer';
 import { metaReducers, reducers } from './reducers';
-import { TeamContainerComponent } from './team-container/team-container.component';
-import { TeamEffects } from './team/team.effects';
 
 @NgModule({
-  declarations: [AppComponent, TeamContainerComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([TeamEffects]),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ name: 'ng hockey teams', maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,

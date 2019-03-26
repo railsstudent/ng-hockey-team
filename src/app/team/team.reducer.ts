@@ -3,19 +3,19 @@ import { Action } from '@ngrx/store';
 import { TeamActions, TeamActionTypes } from './team.actions';
 import { Team } from './team.model';
 
-export interface State extends EntityState<Team> {
+export interface TeamState extends EntityState<Team> {
   // additional entities state properties
   error: string | null;
 }
 
 export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: TeamState = adapter.getInitialState({
   // additional entity state properties
   error: null,
 });
 
-export function reducer(state = initialState, action: Action): State {
+export function teamReducer(state = initialState, action: Action): TeamState {
   const teamAction = action as TeamActions;
 
   switch (teamAction.type) {
