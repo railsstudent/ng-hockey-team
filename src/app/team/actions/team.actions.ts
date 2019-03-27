@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Team } from './team.model';
+import { Team } from '../models/team.model';
 
 export enum TeamActionTypes {
   LoadTeams = '[Team] Load Teams',
@@ -84,7 +84,7 @@ export class LoadTeamsFailed implements Action {
 //   readonly type = TeamActionTypes.ClearTeams;
 // }
 
-export type TeamActions = LoadTeams | LoadTeamsSuccess | LoadTeamsFailed;
+export type TeamActionsUnion = LoadTeams | LoadTeamsSuccess | LoadTeamsFailed;
 // | AddTeam
 // | UpsertTeam
 // | AddTeams

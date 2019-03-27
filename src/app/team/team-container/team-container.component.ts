@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as teamActions from '../team.actions';
-import { Team } from '../team.model';
-import { selectAllTeams, TeamState } from '../team.reducer';
+import { TeamActions } from '../actions';
+import { Team } from '../models';
+import { selectAllTeams, TeamState } from '../reducers';
 
 @Component({
   selector: 'team-container',
@@ -19,6 +19,6 @@ export class TeamContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new teamActions.LoadTeams());
+    this.store.dispatch(new TeamActions.LoadTeams());
   }
 }

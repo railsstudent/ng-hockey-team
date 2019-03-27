@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { TeamActionTypes } from './team.actions';
-import { TeamService } from './team.service';
+import { TeamActions } from '../actions';
+import { TeamService } from '../services';
 
 @Injectable()
 export class TeamEffects {
@@ -11,14 +11,14 @@ export class TeamEffects {
 
   @Effect()
   loadTeams$ = this.actions$.pipe(
-    ofType(TeamActionTypes.LoadTeams),
+    ofType(TeamActions.TeamActionTypes.LoadTeams),
     mergeMap(() =>
       this.teamService.getAll().pipe(
-        map(teams => ({ type: TeamActionTypes.LoadTeamsSuccess, payload: { teams } })),
+        map(teams => new TeamActions.LoadTeamsSuccess({ teams })),
         catchError((err: Error) => {
           console.error(err);
           return of({
-            type: TeamActionTypes.LoadTeamsFailed,
+            type: TeamActions.TeamActionTypes.LoadTeamsFailed,
             error: err.message,
           });
         }),
