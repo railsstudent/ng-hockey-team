@@ -1,20 +1,19 @@
 .container {
   height: 100%;
-  display: grid;
-  grid-template-areas:
-    '. a .'
-    '. a .'
-    '. a .';
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.spacer,
 app-menu-card {
-  grid-area: a;
+  flex: 1 1 calc(100% / 3);
+}
 
-  div.card-block {
-    display: flex;
-    justify-content: center;
-    button {
-      width: 100%;
-    }
+div.card-block {
+  display: flex;
+
+  button {
+    flex-grow: 1;
   }
 }
