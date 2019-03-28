@@ -4,8 +4,10 @@ import { Team } from '../models/team.model';
 export enum TeamActionTypes {
   LoadTeams = '[Team] Load Teams',
   LoadTeamsSuccess = '[Team] Load Teams Success',
-  LoadTeamsFailed = '[Team] Load Teams Failed',
-  // AddTeam = '[Team] Add Team',
+  LoadTeamsFailure = '[Team] Load Teams Failed',
+  AddTeam = '[Team] Add Team',
+  AddTeamSuccess = '[Team] Add Team Success',
+  AddTeamFailure = '[Team] Add Team Failure',
   // UpsertTeam = '[Team] Upsert Team',
   // AddTeams = '[Team] Add Teams',
   // UpsertTeams = '[Team] Upsert Teams',
@@ -26,17 +28,29 @@ export class LoadTeamsSuccess implements Action {
   constructor(public payload: { teams: Team[] }) {}
 }
 
-export class LoadTeamsFailed implements Action {
-  readonly type = TeamActionTypes.LoadTeamsFailed;
+export class LoadTeamsFailure implements Action {
+  readonly type = TeamActionTypes.LoadTeamsFailure;
 
   constructor(public payload: { error: string }) {}
 }
 
-// export class AddTeam implements Action {
-//   readonly type = TeamActionTypes.AddTeam;
+export class AddTeam implements Action {
+  readonly type = TeamActionTypes.AddTeam;
 
-//   constructor(public payload: { team: Team }) {}
-// }
+  constructor(public payload: { division: string; name: string }) {}
+}
+
+export class AddTeamSuccess implements Action {
+  readonly type = TeamActionTypes.AddTeamSuccess;
+
+  constructor(public payload: { team: Team; message: string }) {}
+}
+
+export class AddTeamFailure implements Action {
+  readonly type = TeamActionTypes.AddTeamFailure;
+
+  constructor(public payload: { error: string }) {}
+}
 
 // export class UpsertTeam implements Action {
 //   readonly type = TeamActionTypes.UpsertTeam;
@@ -84,8 +98,13 @@ export class LoadTeamsFailed implements Action {
 //   readonly type = TeamActionTypes.ClearTeams;
 // }
 
-export type TeamActionsUnion = LoadTeams | LoadTeamsSuccess | LoadTeamsFailed;
-// | AddTeam
+export type TeamActionsUnion =
+  | LoadTeams
+  | LoadTeamsSuccess
+  | LoadTeamsFailure
+  | AddTeam
+  | AddTeamSuccess
+  | AddTeamFailure;
 // | UpsertTeam
 // | AddTeams
 // | UpsertTeams
