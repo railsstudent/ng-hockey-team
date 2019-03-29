@@ -1,8 +1,6 @@
-import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ClarityModule } from '@clr/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
@@ -19,7 +17,6 @@ import { SharedModule } from './shared';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ClarityModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),
@@ -27,7 +24,6 @@ import { SharedModule } from './shared';
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),
-    PortalModule,
     SharedModule.forRoot(),
   ],
   providers: [],

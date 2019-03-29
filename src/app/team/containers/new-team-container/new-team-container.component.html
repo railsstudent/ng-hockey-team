@@ -1,12 +1,29 @@
-<div>
-  <div class="back">
+<div class="team-container">
+  <div class="heading">
     <a (click)="returnToMenu()" aria-label="Return to team menu">
       <i class="fas fa-chevron-circle-left fa-3x"></i>
     </a>
-    <div class="heading">
+    <div class="title">
       <span class="center">Add New Team</span>
     </div>
     <span class="spacer"></span>
+  </div>
+  <div class="form-container">
+    <form clrForm [formGroup]="form" (ngSubmit)="addTeam()">
+      <clr-input-container>
+        <label for="name">Name:</label>
+        <input id="name" clrInput type="text" formControlName="name" />
+        <clr-control-helper>Helper text that shows while it is pristine and valid</clr-control-helper>
+        <clr-control-error>Error message that appears after focus is lost and control is invalid</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label for="division">Division:</label>
+        <input id="division" clrInput type="text" formControlName="division" />
+        <clr-control-helper>Helper text that shows while it is pristine and valid</clr-control-helper>
+        <clr-control-error>Error message that appears after focus is lost and control is invalid</clr-control-error>
+      </clr-input-container>
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
   </div>
 </div>
 <p>

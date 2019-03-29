@@ -1,4 +1,4 @@
-.back {
+.heading {
   height: 60px;
   padding: 0.25rem;
 
@@ -7,11 +7,16 @@
   align-items: center;
   flex: 1 1 calc(100% / 3);
 
-  .heading {
+  .title {
     font-size: 1.25rem;
   }
 
   .spacer {
     width: 42px;
   }
+}
+
+.form-container {
+  margin-top: 1rem;
+  border: 3px solid black;
 }
