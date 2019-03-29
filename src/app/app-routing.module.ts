@@ -3,13 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
+    path: 'team',
     loadChildren: './team/team.module#TeamModule',
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'team',
   },
 ];
 
