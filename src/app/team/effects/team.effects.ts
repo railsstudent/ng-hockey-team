@@ -16,7 +16,7 @@ export class TeamEffects {
       this.teamService.getAll().pipe(
         map(teams => new TeamActions.LoadTeamsSuccess({ teams })),
         catchError((err: Error) => {
-          console.error(err);
+          console.log(err);
           return of(new TeamActions.LoadTeamsFailure({ error: err.message }));
         }),
       ),
@@ -27,13 +27,10 @@ export class TeamEffects {
   addTeam$ = this.actions$.pipe(
     ofType(TeamActions.TeamActionTypes.AddTeam),
     map((action: TeamActions.AddTeam) => action.payload),
-    concatMap(({ name, division }) =>
-      this.teamService.addTeam(name, division).pipe(
+    concatMap(({ division, name }) =>
+      this.teamService.addTeam(division, name).pipe(
         map(team => new TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
-        catchError((err: Error) => {
-          console.error(err);
-          return of(new TeamActions.AddTeamFailure({ error: err.message }));
-        }),
+        catchError((error: string) => of(new TeamActions.AddTeamFailure({ error }))),
       ),
     ),
   );

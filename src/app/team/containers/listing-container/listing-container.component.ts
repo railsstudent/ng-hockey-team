@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { TeamState } from '../../reducers';
+import { HockeyState } from '../../reducers';
 
 @Component({
   selector: 'team-listing',
@@ -9,7 +9,7 @@ import { TeamState } from '../../reducers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListingContainerComponent implements OnInit {
-  constructor(private store: Store<TeamState>) {}
+  constructor(private store: Store<HockeyState>) {}
 
   ngOnInit() {}
 }

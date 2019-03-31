@@ -21,10 +21,19 @@
   border: 3px solid black;
 }
 
-.success-box {
+.error-box {
   border: 2px solid red;
   background-color: #ffabab;
   color: #ffffff;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.success-box {
+  border: 2px solid #00ff00;
+  background-color: #dff2bf;
+  color: #4f8a10;
   font-size: 1rem;
   margin-top: 1rem;
   padding: 0.5rem;

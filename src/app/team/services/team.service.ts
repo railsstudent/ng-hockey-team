@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { Team } from '../models';
 
@@ -13,15 +13,19 @@ export class TeamService {
     return of(teamArray);
   }
 
-  addTeam(name: string, division: string) {
+  addTeam(division: string, name: string): Observable<Team> {
     if (name.toLowerCase() === 'bad ass') {
-      throw new Error('Bad Ass is not an appropriate team name');
+      return throwError('Bad Ass is not an appropriate team name');
     }
 
     const teamStr = localStorage.getItem('teams');
     const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
-    const id = uuid();
+    const isNameDuplicated = teamArray.some(t => t.name.toLowerCase() === name.toLowerCase());
+    if (isNameDuplicated) {
+      return throwError(`${name} is already used in the league`);
+    }
 
+    const id = uuid();
     const newTeam: Team = {
       id,
       name,

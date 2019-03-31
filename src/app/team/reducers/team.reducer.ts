@@ -35,9 +35,12 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.LoadTeams:
     case TeamActions.TeamActionTypes.AddTeam: {
-      return state;
+      return {
+        ...state,
+        message: null,
+        error: null,
+      };
     }
 
     case TeamActions.TeamActionTypes.AddTeamSuccess: {
