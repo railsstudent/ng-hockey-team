@@ -14,7 +14,7 @@ import { TeamRoutingModule } from './team-routing.module';
   imports: [
     CommonModule,
     TeamRoutingModule,
-    StoreModule.forFeature('teams', reducers),
+    StoreModule.forFeature('teams', reducers.teams),
     EffectsModule.forFeature([TeamEffects]),
     SharedModule,
   ],

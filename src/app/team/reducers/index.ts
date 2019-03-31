@@ -1,18 +1,31 @@
 import { Action, ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromTeam from './team.reducer';
 
-export interface TeamState {
+export interface HockeyState {
   teams: fromTeam.State;
 }
 
-export const reducers: ActionReducerMap<TeamState, Action> = {
+export const reducers: ActionReducerMap<HockeyState, Action> = {
   teams: fromTeam.reducer,
 };
 
-export const selectTeamsFeature = createFeatureSelector<TeamState, fromTeam.State>('teams');
+export const selectTeamsFeature = createFeatureSelector<HockeyState, fromTeam.State>('teams');
 export const selectAllTeams = createSelector(
   selectTeamsFeature,
   fromTeam.selectAll,
+);
+
+export const selectTeamMessage = createSelector(
+  selectTeamsFeature,
+  hockeyState => {
+    console.log('hockeyState', hockeyState);
+    return hockeyState.teams;
+  },
+  state => {
+    console.log('state', state);
+    console.log('xxxx - ', state.message, state.entities, state.ids);
+    return state.message;
+  },
 );
 
 // select the array of teams

@@ -1,8 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { TeamState } from '../../reducers';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
+import { TeamActions } from '../../actions';
+import { HockeyState, selectTeamMessage } from '../../reducers';
 
 @Component({
   selector: 'app-new-team-container',
@@ -11,10 +14,14 @@ import { TeamState } from '../../reducers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewTeamContainerComponent implements OnInit {
+  @ViewChild('f')
+  formDirective: NgForm;
+
   form: FormGroup;
+  message$: Observable<string | null>;
 
   constructor(
-    private store: Store<TeamState>,
+    private store: Store<HockeyState>,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -22,8 +29,19 @@ export class NewTeamContainerComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: [null, Validators.required, { updateOn: 'blur' }],
-      division: [null, Validators.required, { updateOn: 'blur' }],
+      name: new FormControl('', { validators: Validators.required, updateOn: 'blur' }),
+      division: new FormControl('', { validators: Validators.required, updateOn: 'blur' }),
+    });
+    this.message$ = this.store.pipe(
+      select(selectTeamMessage),
+      share(),
+    );
+
+    this.message$.subscribe(msg => {
+      if (msg) {
+        this.formDirective.resetForm();
+        this.form.reset();
+      }
     });
   }
 
@@ -33,5 +51,6 @@ export class NewTeamContainerComponent implements OnInit {
 
   addTeam() {
     console.log('Add team submitted');
+    this.store.dispatch(new TeamActions.AddTeam(this.form.value));
   }
 }
