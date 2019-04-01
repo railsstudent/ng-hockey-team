@@ -31,5 +31,5 @@
     </form>
   </div>
   <div *ngIf="(message$ | async) as message" class="success-box">{{ message }}</div>
-  {{ form.value | json }}
+  <div *ngIf="(error$ | async) as error" class="error-box">{{ error }}</div>
 </div>

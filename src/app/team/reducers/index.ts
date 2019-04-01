@@ -17,15 +17,14 @@ export const selectAllTeams = createSelector(
 
 export const selectTeamMessage = createSelector(
   selectTeamsFeature,
-  hockeyState => {
-    console.log('hockeyState', hockeyState);
-    return hockeyState.teams;
-  },
-  state => {
-    console.log('state', state);
-    console.log('xxxx - ', state.message, state.entities, state.ids);
-    return state.message;
-  },
+  hockeyState => hockeyState.teams,
+  state => state.message,
+);
+
+export const selectTeamErrorMessage = createSelector(
+  selectTeamsFeature,
+  hockeyState => hockeyState.teams,
+  state => state.error,
 );
 
 // select the array of teams

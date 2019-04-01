@@ -3,9 +3,9 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { filter, share } from 'rxjs/operators';
 import { TeamActions } from '../../actions';
-import { HockeyState, selectTeamMessage } from '../../reducers';
+import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../../reducers';
 
 @Component({
   selector: 'app-new-team-container',
@@ -19,6 +19,7 @@ export class NewTeamContainerComponent implements OnInit {
 
   form: FormGroup;
   message$: Observable<string | null>;
+  error$: Observable<string | null>;
 
   constructor(
     private store: Store<HockeyState>,
@@ -32,17 +33,18 @@ export class NewTeamContainerComponent implements OnInit {
       name: new FormControl('', { validators: Validators.required, updateOn: 'blur' }),
       division: new FormControl('', { validators: Validators.required, updateOn: 'blur' }),
     });
+
     this.message$ = this.store.pipe(
       select(selectTeamMessage),
       share(),
     );
 
-    this.message$.subscribe(msg => {
-      if (msg) {
-        this.formDirective.resetForm();
-        this.form.reset();
-      }
+    this.message$.pipe(filter(msg => !!msg)).subscribe(() => {
+      this.formDirective.resetForm();
+      this.form.reset();
     });
+
+    this.error$ = this.store.pipe(select(selectTeamErrorMessage));
   }
 
   returnToMenu() {
@@ -50,7 +52,6 @@ export class NewTeamContainerComponent implements OnInit {
   }
 
   addTeam() {
-    console.log('Add team submitted');
     this.store.dispatch(new TeamActions.AddTeam(this.form.value));
   }
 }
