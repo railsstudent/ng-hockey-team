@@ -1,0 +1,19 @@
+<div class="container">
+  <span class="spacer"></span>
+  <app-menu-card></app-menu-card>
+  <span class="spacer"></span>
+</div>
+<ng-template #teamMenu>
+  <div class="card-header">
+    Team Menu
+  </div>
+  <div class="card-block">
+    <button class="btn btn-outline" (click)="navigate('new')">Add Team</button>
+  </div>
+  <div class="card-block">
+    <button class="btn btn-outline" (click)="navigate('list')">List Teams</button>
+  </div>
+  <div class="card-block">
+    <button class="btn btn-outline">Statistics</button>
+  </div>
+</ng-template>

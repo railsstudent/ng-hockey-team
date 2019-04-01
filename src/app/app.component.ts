@@ -13,6 +13,6 @@ export class AppComponent {
   repo = environment.repo;
 
   constructor(titleService: Title) {
-    titleService.setTitle('NG NHL Teams');
+    titleService.setTitle('NG Hockey League');
   }
 }

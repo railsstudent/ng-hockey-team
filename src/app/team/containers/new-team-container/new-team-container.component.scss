@@ -1,0 +1,40 @@
+.heading {
+  height: 60px;
+  padding: 0.25rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 calc(100% / 3);
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .spacer {
+    width: 42px;
+  }
+}
+
+.form-container {
+  margin-top: 1rem;
+  border: 3px solid black;
+}
+
+.error-box {
+  border: 2px solid red;
+  background-color: #ffd2d2;
+  color: #d8000c;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.success-box {
+  border: 2px solid #00ff00;
+  background-color: #dff2bf;
+  color: #4f8a10;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
