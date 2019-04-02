@@ -1,3 +1,16 @@
+.team-container {
+  display: grid;
+  border: 1px solid red;
+  height: 100%;
+
+  grid-template-rows: max-content 1fr;
+}
+
+.list-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
 .heading {
   height: 60px;
   padding: 0.25rem;
@@ -19,6 +32,11 @@
 .record {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr) );
+}
+
+.score {
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .card-header {
