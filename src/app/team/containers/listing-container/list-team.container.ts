@@ -8,11 +8,11 @@ import { HockeyState, selectAllTeams } from '../../reducers';
 
 @Component({
   selector: 'team-listing',
-  templateUrl: './list-team-container.component.html',
-  styleUrls: ['./list-team-container.component.scss'],
+  templateUrl: './list-team.container.html',
+  styleUrls: ['./list-team.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListingContainerComponent implements OnInit {
+export class ListingContainer implements OnInit {
   teams$: Observable<Team[]>;
 
   constructor(private store: Store<HockeyState>, private router: Router, private route: ActivatedRoute) {}

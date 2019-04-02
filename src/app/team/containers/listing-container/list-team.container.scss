@@ -1,0 +1,41 @@
+.heading {
+  height: 60px;
+  padding: 0.25rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 calc(100% / 3);
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .spacer {
+    width: 42px;
+  }
+}
+
+.record {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr) );
+}
+
+.card-header {
+  p, p.p2 {
+    margin-top: 0;
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content:  flex-end;
+
+  .btn {
+    margin-right: 0;
+
+    span {
+      margin-right: 0.5rem;
+    }
+  }
+}

@@ -15,9 +15,9 @@ export class TeamEffects {
     mergeMap(() =>
       this.teamService.getAll().pipe(
         map(teams => new TeamActions.LoadTeamsSuccess({ teams })),
-        catchError((err: Error) => {
-          console.log(err);
-          return of(new TeamActions.LoadTeamsFailure({ error: err.message }));
+        catchError((error: string) => {
+          console.log(error);
+          return of(new TeamActions.LoadTeamsFailure({ error }));
         }),
       ),
     ),
