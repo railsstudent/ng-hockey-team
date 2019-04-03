@@ -1,7 +1,7 @@
 .team-container {
   display: grid;
   border: 1px solid red;
-  height: 100%;
+  min-height: 100%;
 
   grid-template-rows: max-content 1fr;
 }
@@ -31,23 +31,24 @@
 
 .record {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
 }
 
-.score {
-  font-weight: bold;
-  font-size: 1rem;
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 }
 
 .card-header {
-  p, p.p2 {
+  p,
+  p.p2 {
     margin-top: 0;
   }
 }
 
 .card-footer {
   display: flex;
-  justify-content:  flex-end;
+  justify-content: flex-end;
 
   .btn {
     margin-right: 0;

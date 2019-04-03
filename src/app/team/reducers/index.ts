@@ -1,4 +1,5 @@
 import { Action, ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
+import { Team, TeamWithScore } from '../models';
 import * as fromTeam from './team.reducer';
 
 export interface HockeyState {
@@ -13,6 +14,16 @@ export const selectTeamsFeature = createFeatureSelector<HockeyState, fromTeam.St
 export const selectAllTeams = createSelector(
   selectTeamsFeature,
   fromTeam.selectAll,
+);
+
+export const selectAllTeamPoints = createSelector(
+  selectAllTeams,
+  (teams: Team[]) =>
+    teams.map(team => {
+      const points = team.numWin * 3 + team.numDraw * 1 + team.numOTWin * 1;
+      const gamePlayed = team.numWin + team.numDraw + team.numLoss;
+      return { ...team, points, gamePlayed } as TeamWithScore;
+    }),
 );
 
 export const selectTeamMessage = createSelector(
