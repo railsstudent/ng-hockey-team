@@ -1,0 +1,51 @@
+.record {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  border-top: 1px solid #4a4a4a;
+  font-size: 0.75rem;
+}
+
+.card-header {
+  p,
+  p.p2 {
+    margin-top: 0;
+  }
+}
+
+.card-img {
+  display: flex;
+  justify-content: center;
+
+  .img-parent {
+    width: 100px;
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+    }
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  clr-dropdown {
+    margin-right: 0.5rem;
+  }
+
+  .btn {
+    margin-right: 0;
+
+    span {
+      margin-right: 0.5rem;
+    }
+  }
+}

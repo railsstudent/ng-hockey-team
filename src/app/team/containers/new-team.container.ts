@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { TeamActions } from '../../actions';
-import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../../reducers';
+import { TeamActions } from '../actions';
+import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../reducers';
 
 @Component({
   selector: 'app-new-team-container',

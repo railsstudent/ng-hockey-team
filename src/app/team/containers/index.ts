@@ -1,2 +1,2 @@
-export * from './listing-container/list-team.container';
-export * from './new-team-container/new-team.container';
+export * from './list-team.container';
+export * from './new-team.container';

@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { TeamActions } from '../../actions';
-import { TeamWithScore } from '../../models';
-import { HockeyState, selectAllTeamPoints } from '../../reducers';
+import { TeamActions } from '../actions';
+import { TeamWithScore } from '../models';
+import { HockeyState, selectAllTeamPoints } from '../reducers';
 
 @Component({
   selector: 'team-listing',
@@ -25,5 +25,9 @@ export class ListingContainer implements OnInit {
 
   returnToMenu() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  trackByFunction(index: number) {
+    return index;
   }
 }

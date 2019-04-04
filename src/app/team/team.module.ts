@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared';
+import { TeamComponent } from './components';
 import { ListingContainer, NewTeamContainer } from './containers/';
 import { TeamEffects } from './effects';
 import { reducers } from './reducers';
@@ -10,7 +11,7 @@ import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component
 import { TeamRoutingModule } from './team-routing.module';
 
 @NgModule({
-  declarations: [TeamMenuCardComponent, ListingContainer, NewTeamContainer],
+  declarations: [TeamMenuCardComponent, ListingContainer, NewTeamContainer, TeamComponent],
   imports: [
     CommonModule,
     TeamRoutingModule,

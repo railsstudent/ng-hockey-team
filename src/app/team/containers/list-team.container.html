@@ -10,14 +10,24 @@
   </div>
   <div class="list-container">
     <div class="clr-row">
-      <div *ngFor="let team of (teams$ | async)" class="clr-col-lg-4 clr-col-md-6 clr-col-sm-6 clr-col-12">
+      <div
+        *ngFor="let team of (teams$ | async); let i = index; trackBy: trackByFunction(i)"
+        class="clr-col-lg-4 clr-col-md-6 clr-col-sm-6 clr-col-12"
+      >
+        <team-summary [team]="team" [index]="i"></team-summary>
+        <!--
         <div class="card">
           <div class="card-header">
             <p>{{ team.name }}</p>
             <p class="p2">({{ team.division }} Division)</p>
           </div>
+          <div class="card-img">
+            <div class="img-parent">
+              <img [attr.src]="getLogoUrl(i)" alt="team logo" />
+            </div>
+          </div>
           <div class="card-block">
-            <div class="card-title">Record</div>
+            <div class="card-title">Record:</div>
             <div class="card-text">
               <div class="record">
                 <div>Win: {{ team.numWin }}</div>
@@ -33,7 +43,8 @@
             </div>
           </div>
           <div class="card-footer">
-            <clr-dropdown>
+          -->
+        <!-- <clr-dropdown>
               <button type="button" class="btn btn-outline-primary" clrDropdownTrigger>
                 Dropdown
                 <clr-icon shape="caret down"></clr-icon>
@@ -57,11 +68,12 @@
                 </clr-dropdown>
                 <button type="button" clrDropdownItem>Link 2</button>
               </clr-dropdown-menu>
-            </clr-dropdown>
+            </clr-dropdown> -->
+        <!--
             <button type="button" class="btn btn-primary"><span>Roster</span><i class="fas fa-users"></i></button>
           </div>
         </div>
-      </div>
+      --></div>
     </div>
     <div class="pagination">
       dummy pagination
