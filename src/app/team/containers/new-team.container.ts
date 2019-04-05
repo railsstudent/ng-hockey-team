@@ -3,17 +3,16 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, share } from 'rxjs/operators';
-import { TeamActions } from '../../actions';
-import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../../reducers';
+import { filter, tap } from 'rxjs/operators';
+import { TeamActions } from '../actions';
+import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../reducers';
 
 @Component({
-  selector: 'app-new-team-container',
-  templateUrl: './new-team-container.component.html',
-  styleUrls: ['./new-team-container.component.scss'],
+  templateUrl: './new-team.container.html',
+  styleUrls: ['./new-team.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewTeamContainerComponent implements OnInit {
+export class NewTeamContainer implements OnInit {
   @ViewChild('f')
   formDirective: NgForm;
 
@@ -36,13 +35,12 @@ export class NewTeamContainerComponent implements OnInit {
 
     this.message$ = this.store.pipe(
       select(selectTeamMessage),
-      share(),
+      filter(msg => !!msg),
+      tap(() => {
+        this.formDirective.resetForm();
+        this.form.reset();
+      }),
     );
-
-    this.message$.pipe(filter(msg => !!msg)).subscribe(() => {
-      this.formDirective.resetForm();
-      this.form.reset();
-    });
 
     this.error$ = this.store.pipe(select(selectTeamErrorMessage));
   }

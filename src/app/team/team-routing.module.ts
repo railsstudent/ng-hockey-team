@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListingContainerComponent, NewTeamContainerComponent } from './containers';
+import { ListingContainer, NewTeamContainer, TeamRosterContainer } from './containers';
 import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
 
 const routes: Routes = [
@@ -11,11 +11,15 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: NewTeamContainerComponent,
+    component: NewTeamContainer,
   },
   {
     path: 'list',
-    component: ListingContainerComponent,
+    component: ListingContainer,
+  },
+  {
+    path: 'roster/:teamId',
+    component: TeamRosterContainer,
   },
 ];
 

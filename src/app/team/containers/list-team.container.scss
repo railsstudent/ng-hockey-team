@@ -1,0 +1,29 @@
+.list-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.team-container {
+  display: grid;
+  min-height: 100%;
+
+  grid-template-rows: max-content 1fr;
+}
+
+.heading {
+  height: 60px;
+  padding: 0.25rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 calc(100% / 3);
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .spacer {
+    width: 42px;
+  }
+}

@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">
+    <p>{{ team.name }}</p>
+    <p class="p2">({{ team.division }} Division)</p>
+  </div>
+  <div class="card-img">
+    <div class="img-parent">
+      <img [attr.src]="getLogoUrl()" alt="team logo" (click)="showTeamRoster(team.id)" />
+    </div>
+  </div>
+  <div class="card-block">
+    <div class="card-title">Record:</div>
+    <div class="card-text">
+      <div class="record">
+        <div>Win: {{ team.numWin }}</div>
+        <div>Draw: {{ team.numDraw }}</div>
+        <div>Loss: {{ team.numLoss }}</div>
+        <div>OT Win: {{ team.numOTWin }}</div>
+        <div>OT Loss: {{ team.numOTLoss }}</div>
+      </div>
+      <div class="summary">
+        <div class="item">Game Played: {{ team.gamePlayed }}</div>
+        <div class="item">Points: {{ team.points }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button type="button" class="btn btn-primary" (click)="showTeamRoster(team.id)">
+      <span>Roster</span><i class="fas fa-users"></i>
+    </button>
+  </div>
+</div>

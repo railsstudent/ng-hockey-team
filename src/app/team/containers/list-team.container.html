@@ -1,0 +1,24 @@
+<div class="team-container">
+  <div class="heading">
+    <a (click)="returnToMenu()" aria-label="Return to team menu">
+      <i class="fas fa-chevron-circle-left fa-3x"></i>
+    </a>
+    <div class="title">
+      <span class="center">Teams</span>
+    </div>
+    <span class="spacer"></span>
+  </div>
+  <div class="list-container">
+    <div class="clr-row">
+      <div
+        *ngFor="let team of (teams$ | async); let i = index; trackBy: trackByFunction(i)"
+        class="clr-col-lg-4 clr-col-md-6 clr-col-sm-6 clr-col-12"
+      >
+        <team-summary [team]="team" [index]="i" (gotoTeam)="showTeamRoster($event)"></team-summary>
+      </div>
+    </div>
+    <div class="pagination">
+      dummy pagination
+    </div>
+  </div>
+</div>
