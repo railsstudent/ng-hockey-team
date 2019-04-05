@@ -31,8 +31,6 @@ export class ListingContainer implements OnInit {
   }
 
   showTeamRoster(teamId: string) {
-    console.log(teamId);
-
-    this.router.navigate(['../roster', teamId], { relativeTo: this.route });
+    this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
   }
 }

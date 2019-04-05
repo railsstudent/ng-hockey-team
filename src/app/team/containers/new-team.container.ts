@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../reducers';
 
@@ -35,10 +35,11 @@ export class NewTeamContainer implements OnInit {
 
     this.message$ = this.store.pipe(
       select(selectTeamMessage),
-      filter(msg => !!msg),
-      tap(() => {
-        this.formDirective.resetForm();
-        this.form.reset();
+      tap(msg => {
+        if (msg) {
+          this.formDirective.resetForm();
+          this.form.reset();
+        }
       }),
     );
 
