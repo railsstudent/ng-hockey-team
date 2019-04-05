@@ -26,8 +26,8 @@ export class ListingContainer implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  trackByFunction(index: number) {
-    return index;
+  trackByFunction(index: number, team: TeamWithScore) {
+    return team.id;
   }
 
   showTeamRoster(teamId: string) {
