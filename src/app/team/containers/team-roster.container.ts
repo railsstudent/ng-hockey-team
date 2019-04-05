@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -16,7 +17,16 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   team$: Observable<TeamWithPoints | undefined>;
   unsubscribe$ = new Subject();
 
-  constructor(private store: Store<HockeyState>, private router: Router, private route: ActivatedRoute) {}
+  isSmallSize$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
+
+  updateWin$ = new Subject<number>();
+
+  constructor(
+    private store: Store<HockeyState>,
+    private router: Router,
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
+  ) {}
 
   ngOnInit() {
     const teamId = this.route.snapshot.params.teamId;
@@ -31,6 +41,12 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
         }),
         takeUntil(this.unsubscribe$),
       )
+      .subscribe();
+
+    this.updateWin$
+      .pipe
+      // exhauseMap(delta =>)
+      ()
       .subscribe();
   }
 

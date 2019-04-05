@@ -1,3 +1,4 @@
+import { LayoutModule } from '@angular/cdk/layout';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
@@ -8,8 +9,8 @@ import { MenuCardComponent } from './menu-card/menu-card.component';
 
 @NgModule({
   declarations: [MenuCardComponent],
-  imports: [CommonModule, PortalModule],
-  exports: [MenuCardComponent, ReactiveFormsModule, ClarityModule],
+  imports: [CommonModule, PortalModule, LayoutModule],
+  exports: [MenuCardComponent, ReactiveFormsModule, ClarityModule, LayoutModule],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

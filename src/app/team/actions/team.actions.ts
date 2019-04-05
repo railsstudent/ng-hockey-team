@@ -11,6 +11,9 @@ export enum TeamActionTypes {
   LoadTeamRoster = '[Team] Load Team Roster',
   LoadTeamRosterSuccess = '[Team] Load Team Roster Success',
   LoadTeamRosterFailure = '[Team] Load Team Roster Failure',
+  UpdateTeamWin = '[Team] Update Team Win',
+  UpdateTeamWinSuccess = '[Team] Update Team Win',
+  UpdateTeamWinFailure = '[Team] Update Team Win',
 }
 
 export class LoadTeams implements Action {
@@ -65,6 +68,24 @@ export class LoadTeamsRosterFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
+export class UpdateTeamWin implements Action {
+  readonly type = TeamActionTypes.UpdateTeamWin;
+
+  constructor(public payload: { delta: number }) {}
+}
+
+export class UpdateTeamWinSuccess implements Action {
+  readonly type = TeamActionTypes.UpdateTeamWinSuccess;
+
+  constructor(public payload: { team: Team }) {}
+}
+
+export class UpdateTeamWinFailure implements Action {
+  readonly type = TeamActionTypes.UpdateTeamWinFailure;
+
+  constructor(public payload: { error: string }) {}
+}
+
 export type TeamActionsUnion =
   | LoadTeams
   | LoadTeamsSuccess
@@ -74,4 +95,7 @@ export type TeamActionsUnion =
   | AddTeamFailure
   | LoadTeamRoster
   | LoadTeamsRosterSuccess
-  | LoadTeamsRosterFailure;
+  | LoadTeamsRosterFailure
+  | UpdateTeamWin
+  | UpdateTeamWinSuccess
+  | UpdateTeamWinFailure;

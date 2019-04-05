@@ -95,6 +95,35 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
+    case TeamActions.TeamActionTypes.UpdateTeamWin: {
+      return {
+        ...state,
+        selectedTeam: null,
+        message: null,
+        error: null,
+      };
+    }
+
+    case TeamActions.TeamActionTypes.UpdateTeamWinSuccess: {
+      const { team } = teamAction.payload;
+      return {
+        ...state,
+        selectedTeam: team,
+        message: null,
+        error: null,
+      };
+    }
+
+    case TeamActions.TeamActionTypes.UpdateTeamWinFailure: {
+      const { error } = teamAction.payload;
+      return {
+        ...state,
+        selectedTeam: null,
+        message: null,
+        error,
+      };
+    }
+
     default: {
       return state;
     }

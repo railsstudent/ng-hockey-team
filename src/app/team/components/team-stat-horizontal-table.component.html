@@ -1,0 +1,89 @@
+<div class="team-stats">
+  <div class="clr-row">
+    <div class="team-stats-item">
+      <p class="header-cell">Game Played</p>
+    </div>
+    <div class="team-stats-item">
+      <p class="header-cell">Win</p>
+    </div>
+    <div class="team-stats-item">
+      <p class="header-cell">Loss</p>
+    </div>
+    <div class="team-stats-item">
+      <p class="header-cell">Draw</p>
+    </div>
+    <div class="team-stats-item">
+      <p class="header-cell">Overtime Win</p>
+    </div>
+    <div class="team-stats-item">
+      <p class="header-cell">Overtime Loss</p>
+    </div>
+    <div class="team-stats-item">
+      <p class="header-cell">Points</p>
+    </div>
+  </div>
+  <div class="clr-row">
+    <div class="team-stats-item">
+      <p class="text-cell">{{ team.gamePlayed }}</p>
+    </div>
+    <div class="team-stats-item">
+      <!-- <div class="counter">
+        <a href aria-label="Decrement win" (click)="$event.preventDefault(); $event.stopPropagation(); ">
+          <i class="fas fa-minus-circle fa-2x"></i>
+        </a>
+        <p class="text-cell">{{ team.numWin }}</p>
+        <a href aria-label="Increment win">
+          <i class="fas fa-plus-circle fa-2x"></i>
+        </a>
+      </div> -->
+      <team-match-counter [value]="team.numWin" (counter)="updateWin.emit($event)"></team-match-counter>
+    </div>
+    <div class="team-stats-item">
+      <div class="counter">
+        <a href aria-label="Decrement loss">
+          <i class="fas fa-minus-circle fa-2x"></i>
+        </a>
+        <p class="text-cell">{{ team.numLoss }}</p>
+        <a href aria-label="Increment loss">
+          <i class="fas fa-plus-circle fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="team-stats-item">
+      <div class="counter">
+        <a href aria-label="Decrement draw">
+          <i class="fas fa-minus-circle fa-2x"></i>
+        </a>
+        <p class="text-cell">{{ team.numDraw }}</p>
+        <a href aria-label="Increment draw">
+          <i class="fas fa-plus-circle fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="team-stats-item">
+      <div class="counter">
+        <a href aria-label="Decrement overtime win">
+          <i class="fas fa-minus-circle fa-2x"></i>
+        </a>
+        <p class="text-cell">{{ team.numOTWin }}</p>
+        <a href aria-label="Increment overtime win">
+          <i class="fas fa-plus-circle fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="team-stats-item">
+      <div class="counter">
+        <a href aria-label="Decrement overtime loss">
+          <i class="fas fa-minus-circle fa-2x"></i>
+        </a>
+        <p class="text-cell">{{ team.numOTLoss }}</p>
+        <a href aria-label="Increment overtime loss">
+          <i class="fas fa-plus-circle fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="team-stats-item">
+      <p class="text-cell">{{ team.points }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.counter {
+  display: flex;
+  > * {
+    flex: 1 1 calc(100% / 3);
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a:nth-child(1) {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+p.text-cell {
+  margin-top: 0;
+  text-align: center;
+}
