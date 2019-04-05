@@ -8,14 +8,9 @@ export enum TeamActionTypes {
   AddTeam = '[Team] Add Team',
   AddTeamSuccess = '[Team] Add Team Success',
   AddTeamFailure = '[Team] Add Team Failure',
-  // UpsertTeam = '[Team] Upsert Team',
-  // AddTeams = '[Team] Add Teams',
-  // UpsertTeams = '[Team] Upsert Teams',
-  // UpdateTeam = '[Team] Update Team',
-  // UpdateTeams = '[Team] Update Teams',
-  // DeleteTeam = '[Team] Delete Team',
-  // DeleteTeams = '[Team] Delete Teams',
-  // ClearTeams = '[Team] Clear Teams',
+  LoadTeamRoster = '[Team] Load Team Roster',
+  LoadTeamRosterSuccess = '[Team] Load Team Roster Success',
+  LoadTeamRosterFailure = '[Team] Load Team Roster Failure',
 }
 
 export class LoadTeams implements Action {
@@ -52,51 +47,23 @@ export class AddTeamFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
-// export class UpsertTeam implements Action {
-//   readonly type = TeamActionTypes.UpsertTeam;
+export class LoadTeamRoster implements Action {
+  readonly type = TeamActionTypes.LoadTeamRoster;
 
-//   constructor(public payload: { team: Team }) {}
-// }
+  constructor(public payload: { teamId: string }) {}
+}
 
-// export class AddTeams implements Action {
-//   readonly type = TeamActionTypes.AddTeams;
+export class LoadTeamsRosterSuccess implements Action {
+  readonly type = TeamActionTypes.LoadTeamRosterSuccess;
 
-//   constructor(public payload: { teams: Team[] }) {}
-// }
+  constructor(public payload: { teams: Team[] }) {}
+}
 
-// export class UpsertTeams implements Action {
-//   readonly type = TeamActionTypes.UpsertTeams;
+export class LoadTeamsRosterFailure implements Action {
+  readonly type = TeamActionTypes.LoadTeamRosterFailure;
 
-//   constructor(public payload: { teams: Team[] }) {}
-// }
-
-// export class UpdateTeam implements Action {
-//   readonly type = TeamActionTypes.UpdateTeam;
-
-//   constructor(public payload: { team: Update<Team> }) {}
-// }
-
-// export class UpdateTeams implements Action {
-//   readonly type = TeamActionTypes.UpdateTeams;
-
-//   constructor(public payload: { teams: Update<Team>[] }) {}
-// }
-
-// export class DeleteTeam implements Action {
-//   readonly type = TeamActionTypes.DeleteTeam;
-
-//   constructor(public payload: { id: string }) {}
-// }
-
-// export class DeleteTeams implements Action {
-//   readonly type = TeamActionTypes.DeleteTeams;
-
-//   constructor(public payload: { ids: string[] }) {}
-// }
-
-// export class ClearTeams implements Action {
-//   readonly type = TeamActionTypes.ClearTeams;
-// }
+  constructor(public payload: { error: string }) {}
+}
 
 export type TeamActionsUnion =
   | LoadTeams
@@ -104,12 +71,7 @@ export type TeamActionsUnion =
   | LoadTeamsFailure
   | AddTeam
   | AddTeamSuccess
-  | AddTeamFailure;
-// | UpsertTeam
-// | AddTeams
-// | UpsertTeams
-// | UpdateTeam
-// | UpdateTeams
-// | DeleteTeam
-// | DeleteTeams
-// | ClearTeams;
+  | AddTeamFailure
+  | LoadTeamRoster
+  | LoadTeamsRosterSuccess
+  | LoadTeamsRosterFailure;

@@ -41,4 +41,16 @@ export class TeamService {
     localStorage.setItem('teams', JSON.stringify(newTeamArray));
     return of(newTeam);
   }
+
+  getTeam(id: string): Observable<Team> {
+    const teamStr = localStorage.getItem('teams');
+    const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
+
+    const team = teamArray.find(t => t.id === id);
+    if (team) {
+      return of(team);
+    }
+    console.error(`team with ${id} does not exist.`);
+    return throwError('Team does not exist');
+  }
 }
