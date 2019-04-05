@@ -4,14 +4,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared';
 import { TeamComponent } from './components';
-import { ListingContainer, NewTeamContainer } from './containers/';
+import { ListingContainer, NewTeamContainer, TeamRosterContainer } from './containers/';
 import { TeamEffects } from './effects';
 import { reducers } from './reducers';
 import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
 import { TeamRoutingModule } from './team-routing.module';
 
 @NgModule({
-  declarations: [TeamMenuCardComponent, ListingContainer, NewTeamContainer, TeamComponent],
+  declarations: [TeamMenuCardComponent, ListingContainer, NewTeamContainer, TeamComponent, TeamRosterContainer],
   imports: [
     CommonModule,
     TeamRoutingModule,

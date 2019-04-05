@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import logos from '../../../assets/logos.json';
-import { Team } from '../models';
+import { TeamWithScore } from '../models';
 
 @Component({
   selector: 'team-summary',
@@ -10,12 +10,19 @@ import { Team } from '../models';
 })
 export class TeamComponent {
   @Input()
-  team: Team;
+  team: TeamWithScore;
 
   @Input()
   index: number;
 
+  @Output()
+  gotoTeam = new EventEmitter<string>();
+
   getLogoUrl() {
     return logos[this.index % logos.length];
+  }
+
+  showTeamRoster(teamId: string) {
+    this.gotoTeam.emit(teamId);
   }
 }

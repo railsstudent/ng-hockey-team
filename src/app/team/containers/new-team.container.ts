@@ -8,7 +8,6 @@ import { TeamActions } from '../actions';
 import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../reducers';
 
 @Component({
-  selector: 'app-new-team-container',
   templateUrl: './new-team.container.html',
   styleUrls: ['./new-team.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

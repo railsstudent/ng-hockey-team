@@ -5,7 +5,7 @@
 
 .summary {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(150px, 2fr) minmax(100px, 1fr);
 
   border-top: 1px solid #4a4a4a;
   font-size: 0.75rem;
@@ -23,12 +23,17 @@
   justify-content: center;
 
   .img-parent {
-    width: 100px;
+    width: 128px;
+    padding: 0.25rem;
     img {
       display: block;
       width: 100%;
       height: auto;
       max-width: 100%;
+    }
+
+    img:hover {
+      cursor: pointer;
     }
   }
 }

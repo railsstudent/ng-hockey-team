@@ -7,7 +7,6 @@ import { TeamWithScore } from '../models';
 import { HockeyState, selectAllTeamPoints } from '../reducers';
 
 @Component({
-  selector: 'team-listing',
   templateUrl: './list-team.container.html',
   styleUrls: ['./list-team.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,5 +28,11 @@ export class ListingContainer implements OnInit {
 
   trackByFunction(index: number) {
     return index;
+  }
+
+  showTeamRoster(teamId: string) {
+    console.log(teamId);
+
+    this.router.navigate(['../roster', teamId], { relativeTo: this.route });
   }
 }

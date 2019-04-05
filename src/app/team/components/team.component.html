@@ -5,7 +5,7 @@
   </div>
   <div class="card-img">
     <div class="img-parent">
-      <img [attr.src]="getLogoUrl()" alt="team logo" />
+      <img [attr.src]="getLogoUrl()" alt="team logo" (click)="showTeamRoster(team.id)" />
     </div>
   </div>
   <div class="card-block">
@@ -25,6 +25,8 @@
     </div>
   </div>
   <div class="card-footer">
-    <button type="button" class="btn btn-primary"><span>Roster</span><i class="fas fa-users"></i></button>
+    <button type="button" class="btn btn-primary" (click)="showTeamRoster(team.id)">
+      <span>Roster</span><i class="fas fa-users"></i>
+    </button>
   </div>
 </div>
