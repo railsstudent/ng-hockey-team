@@ -1,1 +1,14 @@
-<p>team-roster works! team id: {{ teamId }}</p>
+<div class="team-container">
+  <ng-container *ngIf="(team$ | async) as team">
+    <header class="heading">
+      <a (click)="returnToMenu()" aria-label="Return to team menu">
+        <i class="fas fa-chevron-circle-left fa-3x"></i>
+      </a>
+      <div class="title">
+        <span class="center">{{ team.division }} - {{ team.name }}</span>
+      </div>
+      <span class="spacer"></span>
+    </header>
+    <section>TBD</section>
+  </ng-container>
+</div>

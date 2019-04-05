@@ -1,5 +1,5 @@
 <div class="team-container">
-  <div class="heading">
+  <header class="heading">
     <a (click)="returnToMenu()" aria-label="Return to team menu">
       <i class="fas fa-chevron-circle-left fa-3x"></i>
     </a>
@@ -7,8 +7,8 @@
       <span class="center">Teams</span>
     </div>
     <span class="spacer"></span>
-  </div>
-  <div class="list-container">
+  </header>
+  <section class="list-container">
     <div class="clr-row">
       <div
         *ngFor="let team of (teams$ | async); index as i; trackBy: trackByFunction"
@@ -20,5 +20,5 @@
     <div class="pagination">
       dummy pagination
     </div>
-  </div>
+  </section>
 </div>

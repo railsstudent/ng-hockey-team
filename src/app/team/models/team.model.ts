@@ -9,7 +9,7 @@ export interface Team {
   numOTLoss: number;
 }
 
-export interface TeamWithScore extends Team {
+export interface TeamWithPoints extends Team {
   points: number;
   gamePlayed: number;
 }

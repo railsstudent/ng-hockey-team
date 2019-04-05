@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TeamActions } from '../actions';
-import { TeamWithScore } from '../models';
+import { TeamWithPoints } from '../models';
 import { HockeyState, selectAllTeamPoints } from '../reducers';
 
 @Component({
@@ -12,7 +12,7 @@ import { HockeyState, selectAllTeamPoints } from '../reducers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListingContainer implements OnInit {
-  teams$: Observable<TeamWithScore[]>;
+  teams$: Observable<TeamWithPoints[]>;
 
   constructor(private store: Store<HockeyState>, private router: Router, private route: ActivatedRoute) {}
 
@@ -26,7 +26,7 @@ export class ListingContainer implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  trackByFunction(index: number, team: TeamWithScore) {
+  trackByFunction(index: number, team: TeamWithPoints) {
     return team.id;
   }
 
