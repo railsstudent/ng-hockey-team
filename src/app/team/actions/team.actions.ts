@@ -56,7 +56,7 @@ export class LoadTeamRoster implements Action {
 export class LoadTeamsRosterSuccess implements Action {
   readonly type = TeamActionTypes.LoadTeamRosterSuccess;
 
-  constructor(public payload: { teams: Team[] }) {}
+  constructor(public payload: { team: Team }) {}
 }
 
 export class LoadTeamsRosterFailure implements Action {

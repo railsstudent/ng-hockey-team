@@ -5,7 +5,7 @@ import { Team } from '../models/team.model';
 
 export interface State extends EntityState<Team> {
   // additional entities state properties
-  selectedTeamId: number | null;
+  selectedTeam: Team | null;
   error: string | null;
   message: string | null;
 }
@@ -14,7 +14,7 @@ export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>();
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
-  selectedTeamId: null,
+  selectedTeam: null,
   error: null,
   message: null,
 });
@@ -31,6 +31,8 @@ export function reducer(state = initialState, action: Action): State {
       const { error = null } = teamAction.payload;
       return {
         ...state,
+        selectedTeam: null,
+        message: null,
         error,
       };
     }
@@ -38,6 +40,7 @@ export function reducer(state = initialState, action: Action): State {
     case TeamActions.TeamActionTypes.AddTeam: {
       return {
         ...state,
+        selectedTeam: null,
         message: null,
         error: null,
       };
@@ -47,6 +50,7 @@ export function reducer(state = initialState, action: Action): State {
       const { team, message } = teamAction.payload;
       return {
         ...adapter.addOne(team, state),
+        selectedTeam: null,
         error: null,
         message,
       };
@@ -56,6 +60,37 @@ export function reducer(state = initialState, action: Action): State {
       const { error } = teamAction.payload;
       return {
         ...state,
+        selectedTeam: null,
+        message: null,
+        error,
+      };
+    }
+
+    case TeamActions.TeamActionTypes.LoadTeamRoster: {
+      return {
+        ...state,
+        selectedTeam: null,
+        message: null,
+        error: null,
+      };
+    }
+
+    case TeamActions.TeamActionTypes.LoadTeamRosterSuccess: {
+      const { team } = teamAction.payload;
+      return {
+        ...state,
+        selectedTeam: team,
+        message: null,
+        error: null,
+      };
+    }
+
+    case TeamActions.TeamActionTypes.LoadTeamRosterFailure: {
+      const { error } = teamAction.payload;
+      return {
+        ...state,
+        selectedTeam: null,
+        message: null,
         error,
       };
     }
