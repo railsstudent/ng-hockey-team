@@ -16,7 +16,14 @@
       <!-- <div class="player-container"></div> -->
     </section>
     <ng-template #horizontalTable>
-      <team-stat-horizontal-table [team]="team" (updateWin)="updateWin$.next($event)"></team-stat-horizontal-table>
+      <team-stat-horizontal-table
+        [team]="team"
+        (updateWin)="updateWin$.next($event)"
+        (updateLoss)="updateLoss$.next($event)"
+        (updateDraw)="updateDraw$.next($event)"
+        (updateOvertimeWin)="updateOvertimeWin$.next($event)"
+        (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
+      ></team-stat-horizontal-table>
     </ng-template>
   </ng-container>
 </div>

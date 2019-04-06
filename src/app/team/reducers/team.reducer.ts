@@ -97,7 +97,9 @@ export function reducer(state = initialState, action: Action): State {
 
     case TeamActions.TeamActionTypes.UpdateTeamWin:
     case TeamActions.TeamActionTypes.UpdateTeamLoss:
-    case TeamActions.TeamActionTypes.UpdateTeamDraw: {
+    case TeamActions.TeamActionTypes.UpdateTeamDraw:
+    case TeamActions.TeamActionTypes.UpdateTeamOvertimeWin:
+    case TeamActions.TeamActionTypes.UpdateTeamOvertimeLoss: {
       return {
         ...state,
         message: null,
@@ -106,10 +108,17 @@ export function reducer(state = initialState, action: Action): State {
     }
 
     case TeamActions.TeamActionTypes.UpdateTeamWinSuccess:
-    case TeamActions.TeamActionTypes.UpdateTeamLossSuccess: {
+    case TeamActions.TeamActionTypes.UpdateTeamLossSuccess:
+    case TeamActions.TeamActionTypes.UpdateTeamDrawSuccess:
+    case TeamActions.TeamActionTypes.UpdateTeamOvertimeWinSuccess:
+    case TeamActions.TeamActionTypes.UpdateTeamOvertimeLossSuccess: {
       const { team } = teamAction.payload;
+      const changes = {
+        id: team.id,
+        changes: team,
+      };
       return {
-        ...adapter.updateOne({ id: team.id, changes: team }, state),
+        ...adapter.updateOne(changes, state),
         selectedTeam: team,
         message: null,
         error: null,
@@ -117,7 +126,10 @@ export function reducer(state = initialState, action: Action): State {
     }
 
     case TeamActions.TeamActionTypes.UpdateTeamWinFailure:
-    case TeamActions.TeamActionTypes.UpdateTeamLossFailure: {
+    case TeamActions.TeamActionTypes.UpdateTeamLossFailure:
+    case TeamActions.TeamActionTypes.UpdateTeamDrawFailure:
+    case TeamActions.TeamActionTypes.UpdateTeamOvertimeWinFailure:
+    case TeamActions.TeamActionTypes.UpdateTeamOvertimeLossFailure: {
       const { error } = teamAction.payload;
       return {
         ...state,

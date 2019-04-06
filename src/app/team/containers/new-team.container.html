@@ -1,4 +1,4 @@
-<div class="team-container">
+<article class="team-container">
   <header class="heading">
     <a (click)="returnToMenu()" aria-label="Return to team menu">
       <i class="fas fa-chevron-circle-left fa-3x"></i>
@@ -8,7 +8,7 @@
     </div>
     <span class="spacer"></span>
   </header>
-  <section class="form-container">
+  <main class="form-container">
     <form clrForm [formGroup]="form" (ngSubmit)="addTeam()" #f="ngForm">
       <clr-input-container>
         <label for="name">Name:</label>
@@ -29,7 +29,7 @@
       </clr-select-container>
       <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Add</button>
     </form>
-  </section>
+  </main>
   <div *ngIf="(message$ | async) as message" class="success-box">{{ message }}</div>
   <div *ngIf="(error$ | async) as error" class="error-box">{{ error }}</div>
-</div>
+</article>

@@ -188,4 +188,10 @@ export type TeamActionsUnion =
   | UpdateTeamLossFailure
   | UpdateTeamDraw
   | UpdateTeamDrawSuccess
-  | UpdateTeamDrawFailure;
+  | UpdateTeamDrawFailure
+  | UpdateTeamOvertimeWin
+  | UpdateTeamOvertimeWinSuccess
+  | UpdateTeamOvertimeWinFailure
+  | UpdateTeamOvertimeLoss
+  | UpdateTeamOvertimeLossSuccess
+  | UpdateTeamOvertimeLossFailure;

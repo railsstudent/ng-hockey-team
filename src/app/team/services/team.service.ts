@@ -55,45 +55,96 @@ export class TeamService {
   }
 
   updateWin(id: string, delta: number): Observable<Team> {
-    const teamStr = localStorage.getItem('teams');
-    const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
-
-    const team = teamArray.find(t => t.id === id);
-    if (team) {
-      if (team.numWin + delta < 0) {
-        team.numWin = 0;
-      } else {
-        team.numWin = team.numWin + delta;
-      }
-      localStorage.setItem('teams', JSON.stringify(teamArray));
-      return of(team);
-    }
-    console.error(`team with ${id} does not exist.`);
-    return throwError('Team does not exist to update total number of wins.');
+    return this.updateStat(id, delta, UPDATE_STAT_TYPE.WIN);
   }
 
-  updateStat(id: string, delta: number, statType: UPDATE_STAT_TYPE): Observable<Team> {
-    const teamStr = localStorage.getItem('teams');
-    const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
+  updateLoss(id: string, delta: number): Observable<Team> {
+    return this.updateStat(id, delta, UPDATE_STAT_TYPE.LOSS);
+  }
 
-    const team = teamArray.find(t => t.id === id);
-    if (team) {
-      if (team.numWin + delta < 0) {
-        team.numWin = 0;
-      } else {
-        team.numWin = team.numWin + delta;
-      }
+  updateDraw(id: string, delta: number): Observable<Team> {
+    return this.updateStat(id, delta, UPDATE_STAT_TYPE.DRAW);
+  }
 
-      switch (statType) {
-        case UPDATE_STAT_TYPE.WIN:
-          break;
-        default:
-          break;
-      }
-      localStorage.setItem('teams', JSON.stringify(teamArray));
-      return of(team);
+  updateOvertimeWin(id: string, delta: number): Observable<Team> {
+    return this.updateStat(id, delta, UPDATE_STAT_TYPE.OVERTIME_WIN);
+  }
+
+  updateOvertimeLoss(id: string, delta: number): Observable<Team> {
+    return this.updateStat(id, delta, UPDATE_STAT_TYPE.OVERTIME_LOSS);
+  }
+
+  private mapStatTypeToText(statType: UPDATE_STAT_TYPE) {
+    switch (statType) {
+      case UPDATE_STAT_TYPE.WIN:
+        return 'wins';
+      case UPDATE_STAT_TYPE.LOSS:
+        return 'losses';
+      case UPDATE_STAT_TYPE.DRAW:
+        return 'draws';
+      case UPDATE_STAT_TYPE.OVERTIME_WIN:
+        return 'overtime wins';
+      case UPDATE_STAT_TYPE.OVERTIME_LOSS:
+        return 'overtime losses';
+      default:
+        return 'N/A';
     }
-    console.error(`team with ${id} does not exist.`);
-    return throwError('Team does not exist to update total number of wins.');
+  }
+
+  private updateStat(id: string, delta: number, statType: UPDATE_STAT_TYPE): Observable<Team> {
+    try {
+      const teamStr = localStorage.getItem('teams');
+      const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
+      const description = this.mapStatTypeToText(statType);
+
+      const team = teamArray.find(t => t.id === id);
+      if (team) {
+        switch (statType) {
+          case UPDATE_STAT_TYPE.WIN:
+            if (team.numWin + delta < 0) {
+              team.numWin = 0;
+            } else {
+              team.numWin = team.numWin + delta;
+            }
+            break;
+          case UPDATE_STAT_TYPE.LOSS:
+            if (team.numLoss + delta < 0) {
+              team.numLoss = 0;
+            } else {
+              team.numLoss = team.numLoss + delta;
+            }
+            break;
+          case UPDATE_STAT_TYPE.DRAW:
+            if (team.numDraw + delta < 0) {
+              team.numDraw = 0;
+            } else {
+              team.numDraw = team.numDraw + delta;
+            }
+            break;
+          case UPDATE_STAT_TYPE.OVERTIME_WIN:
+            if (team.numOTWin + delta < 0) {
+              team.numOTWin = 0;
+            } else {
+              team.numOTWin = team.numOTWin + delta;
+            }
+            break;
+          case UPDATE_STAT_TYPE.OVERTIME_LOSS:
+            if (team.numOTLoss + delta < 0) {
+              team.numOTLoss = 0;
+            } else {
+              team.numOTLoss = team.numOTLoss + delta;
+            }
+            break;
+          default:
+            break;
+        }
+        localStorage.setItem('teams', JSON.stringify(teamArray));
+        return of(team);
+      }
+      console.error(`team with ${id} does not exist.`);
+      return throwError(`Team does not exist to update total number of ${description}.`);
+    } catch (e) {
+      return throwError(e.message);
+    }
   }
 }

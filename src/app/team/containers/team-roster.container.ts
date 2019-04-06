@@ -20,6 +20,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   isSmallSize$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
 
   updateWin$ = new Subject<number>();
+  updateLoss$ = new Subject<number>();
+  updateDraw$ = new Subject<number>();
+  updateOvertimeWin$ = new Subject<number>();
+  updateOvertimeLoss$ = new Subject<number>();
 
   constructor(
     private store: Store<HockeyState>,
@@ -47,6 +51,46 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       .pipe(
         exhaustMap(delta => {
           this.store.dispatch(new TeamActions.UpdateTeamWin({ teamId, delta }));
+          return empty();
+        }),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.updateLoss$
+      .pipe(
+        exhaustMap(delta => {
+          this.store.dispatch(new TeamActions.UpdateTeamLoss({ teamId, delta }));
+          return empty();
+        }),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.updateDraw$
+      .pipe(
+        exhaustMap(delta => {
+          this.store.dispatch(new TeamActions.UpdateTeamDraw({ teamId, delta }));
+          return empty();
+        }),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.updateOvertimeWin$
+      .pipe(
+        exhaustMap(delta => {
+          this.store.dispatch(new TeamActions.UpdateTeamOvertimeWin({ teamId, delta }));
+          return empty();
+        }),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.updateOvertimeLoss$
+      .pipe(
+        exhaustMap(delta => {
+          this.store.dispatch(new TeamActions.UpdateTeamOvertimeLoss({ teamId, delta }));
           return empty();
         }),
         takeUntil(this.unsubscribe$),
