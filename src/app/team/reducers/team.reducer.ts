@@ -95,6 +95,37 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
+    case TeamActions.TeamActionTypes.UpdateTeamWin:
+    case TeamActions.TeamActionTypes.UpdateTeamLoss:
+    case TeamActions.TeamActionTypes.UpdateTeamDraw: {
+      return {
+        ...state,
+        message: null,
+        error: null,
+      };
+    }
+
+    case TeamActions.TeamActionTypes.UpdateTeamWinSuccess:
+    case TeamActions.TeamActionTypes.UpdateTeamLossSuccess: {
+      const { team } = teamAction.payload;
+      return {
+        ...adapter.updateOne({ id: team.id, changes: team }, state),
+        selectedTeam: team,
+        message: null,
+        error: null,
+      };
+    }
+
+    case TeamActions.TeamActionTypes.UpdateTeamWinFailure:
+    case TeamActions.TeamActionTypes.UpdateTeamLossFailure: {
+      const { error } = teamAction.payload;
+      return {
+        ...state,
+        message: null,
+        error,
+      };
+    }
+
     default: {
       return state;
     }

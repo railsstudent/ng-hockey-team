@@ -54,4 +54,16 @@ export class TeamEffects {
     map((action: TeamActions.LoadTeamsRosterSuccess) => action.payload),
     tap(({ team }) => this.router.navigate(['/team/roster', team.id])),
   );
+
+  @Effect()
+  updateWin$ = this.actions$.pipe(
+    ofType(TeamActions.TeamActionTypes.UpdateTeamWin),
+    map((action: TeamActions.UpdateTeamWin) => action.payload),
+    concatMap(({ teamId, delta }) =>
+      this.teamService.updateWin(teamId, delta).pipe(
+        map(team => new TeamActions.UpdateTeamWinSuccess({ team })),
+        catchError((error: string) => of(new TeamActions.UpdateTeamWinFailure({ error }))),
+      ),
+    ),
+  );
 }

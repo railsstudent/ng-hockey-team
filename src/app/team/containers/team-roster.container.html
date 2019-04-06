@@ -9,6 +9,14 @@
       </div>
       <span class="spacer"></span>
     </header>
-    <section>TBD</section>
+    <section class="roster-container">
+      <ng-container *ngIf="(isSmallSize$ | async); else horizontalTable">
+        <team-stat-vertical-table></team-stat-vertical-table>
+      </ng-container>
+      <!-- <div class="player-container"></div> -->
+    </section>
+    <ng-template #horizontalTable>
+      <team-stat-horizontal-table [team]="team" (updateWin)="updateWin$.next($event)"></team-stat-horizontal-table>
+    </ng-template>
   </ng-container>
 </div>

@@ -1,8 +1,9 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { empty, Observable, Subject } from 'rxjs';
+import { exhaustMap, map, takeUntil } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { TeamWithPoints } from '../models';
 import { HockeyState, selectOneTeam } from '../reducers';
@@ -16,7 +17,16 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   team$: Observable<TeamWithPoints | undefined>;
   unsubscribe$ = new Subject();
 
-  constructor(private store: Store<HockeyState>, private router: Router, private route: ActivatedRoute) {}
+  isSmallSize$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
+
+  updateWin$ = new Subject<number>();
+
+  constructor(
+    private store: Store<HockeyState>,
+    private router: Router,
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
+  ) {}
 
   ngOnInit() {
     const teamId = this.route.snapshot.params.teamId;
@@ -28,6 +38,16 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
           if (!team) {
             return this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
           }
+        }),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.updateWin$
+      .pipe(
+        exhaustMap(delta => {
+          this.store.dispatch(new TeamActions.UpdateTeamWin({ teamId, delta }));
+          return empty();
         }),
         takeUntil(this.unsubscribe$),
       )

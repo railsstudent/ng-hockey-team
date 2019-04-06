@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { v4 as uuid } from 'uuid';
-import { Team } from '../models';
+import { Team, UPDATE_STAT_TYPE } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +51,49 @@ export class TeamService {
       return of(team);
     }
     console.error(`team with ${id} does not exist.`);
-    return throwError('Team does not exist');
+    return throwError('Team does not exist.');
+  }
+
+  updateWin(id: string, delta: number): Observable<Team> {
+    const teamStr = localStorage.getItem('teams');
+    const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
+
+    const team = teamArray.find(t => t.id === id);
+    if (team) {
+      if (team.numWin + delta < 0) {
+        team.numWin = 0;
+      } else {
+        team.numWin = team.numWin + delta;
+      }
+      localStorage.setItem('teams', JSON.stringify(teamArray));
+      return of(team);
+    }
+    console.error(`team with ${id} does not exist.`);
+    return throwError('Team does not exist to update total number of wins.');
+  }
+
+  updateStat(id: string, delta: number, statType: UPDATE_STAT_TYPE): Observable<Team> {
+    const teamStr = localStorage.getItem('teams');
+    const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
+
+    const team = teamArray.find(t => t.id === id);
+    if (team) {
+      if (team.numWin + delta < 0) {
+        team.numWin = 0;
+      } else {
+        team.numWin = team.numWin + delta;
+      }
+
+      switch (statType) {
+        case UPDATE_STAT_TYPE.WIN:
+          break;
+        default:
+          break;
+      }
+      localStorage.setItem('teams', JSON.stringify(teamArray));
+      return of(team);
+    }
+    console.error(`team with ${id} does not exist.`);
+    return throwError('Team does not exist to update total number of wins.');
   }
 }

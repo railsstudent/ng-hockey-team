@@ -13,3 +13,11 @@ export interface TeamWithPoints extends Team {
   points: number;
   gamePlayed: number;
 }
+
+export enum UPDATE_STAT_TYPE {
+  WIN = 0,
+  LOSS,
+  DRAW,
+  OVERTIME_WIN,
+  OVERTIME_LOSS,
+}

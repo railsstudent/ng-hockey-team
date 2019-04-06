@@ -23,7 +23,63 @@
   }
 }
 
-// .list-container {
-//   display: grid;
-//   grid-template-rows: 1fr auto;
+.roster-container {
+  border: 1px solid red;
+
+  .team-stats {
+    .clr-row {
+      margin-left: 0;
+      margin-right: 0;
+
+      div {
+        p.header-cell {
+          margin-top: 0;
+          text-align: center;
+        }
+
+        p.text-cell {
+          margin-top: 0;
+        }
+      }
+    }
+
+    &-item {
+      padding: 0.5rem;
+      flex: 0 0 calc(100% / 7);
+      max-width: calc(100% / 7);
+
+      display: flex;
+      a,
+      p.text-cell {
+        //width: calc(100% / 3);
+        border: 1px solid black;
+      }
+
+      a:nth-child(1) {
+        position: relative;
+        i {
+          position: absolute;
+          right: 0;
+        }
+        // display: flex;
+        // justify-content: flex-end;
+      }
+
+      &:nth-child(odd) {
+        background: #ccc;
+        border: 1px solid #9a9a9a;
+      }
+
+      &:nth-child(even) {
+        border: 1px solid #9a9a9a;
+      }
+    }
+  }
+}
+
+// @media screen and (min-width: 992px) {
+//   .clr-col-lg-2 {
+//     flex: 0 0 calc(100% / 7);
+//     max-width: calc(100% / 7);
+//   }
 // }

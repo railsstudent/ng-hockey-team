@@ -11,6 +11,21 @@ export enum TeamActionTypes {
   LoadTeamRoster = '[Team] Load Team Roster',
   LoadTeamRosterSuccess = '[Team] Load Team Roster Success',
   LoadTeamRosterFailure = '[Team] Load Team Roster Failure',
+  UpdateTeamWin = '[Team] Update Team Win',
+  UpdateTeamWinSuccess = '[Team] Update Team Win Success',
+  UpdateTeamWinFailure = '[Team] Update Team Win Failure',
+  UpdateTeamLoss = '[Team] Update Team Loss',
+  UpdateTeamLossSuccess = '[Team] Update Team Loss Success',
+  UpdateTeamLossFailure = '[Team] Update Team Loss Failure',
+  UpdateTeamDraw = '[Team] Update Team Draw',
+  UpdateTeamDrawSuccess = '[Team] Update Team Draw Success',
+  UpdateTeamDrawFailure = '[Team] Update Team Draw Failure',
+  UpdateTeamOvertimeWin = '[Team] Update Team Overtime Win',
+  UpdateTeamOvertimeWinSuccess = '[Team] Update Team Overtime Win Success',
+  UpdateTeamOvertimeWinFailure = '[Team] Update Team Overtime Win Failure',
+  UpdateTeamOvertimeLoss = '[Team] Update Team Overtime Loss',
+  UpdateTeamOvertimeLossSuccess = '[Team] Update Team Overtime Loss Success',
+  UpdateTeamOvertimeLossFailure = '[Team] Update Team Overtime Loss Failure',
 }
 
 export class LoadTeams implements Action {
@@ -65,6 +80,96 @@ export class LoadTeamsRosterFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
+export class UpdateTeamWin implements Action {
+  readonly type = TeamActionTypes.UpdateTeamWin;
+
+  constructor(public payload: { teamId: string; delta: number }) {}
+}
+
+export class UpdateTeamWinSuccess implements Action {
+  readonly type = TeamActionTypes.UpdateTeamWinSuccess;
+
+  constructor(public payload: { team: Team }) {}
+}
+
+export class UpdateTeamWinFailure implements Action {
+  readonly type = TeamActionTypes.UpdateTeamWinFailure;
+
+  constructor(public payload: { error: string }) {}
+}
+
+export class UpdateTeamLoss implements Action {
+  readonly type = TeamActionTypes.UpdateTeamLoss;
+
+  constructor(public payload: { teamId: string; delta: number }) {}
+}
+
+export class UpdateTeamLossSuccess implements Action {
+  readonly type = TeamActionTypes.UpdateTeamLossSuccess;
+
+  constructor(public payload: { team: Team }) {}
+}
+
+export class UpdateTeamLossFailure implements Action {
+  readonly type = TeamActionTypes.UpdateTeamLossFailure;
+
+  constructor(public payload: { error: string }) {}
+}
+
+export class UpdateTeamDraw implements Action {
+  readonly type = TeamActionTypes.UpdateTeamDraw;
+
+  constructor(public payload: { teamId: string; delta: number }) {}
+}
+
+export class UpdateTeamDrawSuccess implements Action {
+  readonly type = TeamActionTypes.UpdateTeamDrawSuccess;
+
+  constructor(public payload: { team: Team }) {}
+}
+
+export class UpdateTeamDrawFailure implements Action {
+  readonly type = TeamActionTypes.UpdateTeamDrawFailure;
+
+  constructor(public payload: { error: string }) {}
+}
+
+export class UpdateTeamOvertimeWin implements Action {
+  readonly type = TeamActionTypes.UpdateTeamOvertimeWin;
+
+  constructor(public payload: { teamId: string; delta: number }) {}
+}
+
+export class UpdateTeamOvertimeWinSuccess implements Action {
+  readonly type = TeamActionTypes.UpdateTeamOvertimeWinSuccess;
+
+  constructor(public payload: { team: Team }) {}
+}
+
+export class UpdateTeamOvertimeWinFailure implements Action {
+  readonly type = TeamActionTypes.UpdateTeamOvertimeWinFailure;
+
+  constructor(public payload: { error: string }) {}
+}
+
+export class UpdateTeamOvertimeLoss implements Action {
+  readonly type = TeamActionTypes.UpdateTeamOvertimeLoss;
+
+  constructor(public payload: { teamId: string; delta: number }) {}
+}
+
+export class UpdateTeamOvertimeLossSuccess implements Action {
+  readonly type = TeamActionTypes.UpdateTeamOvertimeLossSuccess;
+
+  constructor(public payload: { team: Team }) {}
+}
+
+export class UpdateTeamOvertimeLossFailure implements Action {
+  readonly type = TeamActionTypes.UpdateTeamOvertimeLossFailure;
+
+  constructor(public payload: { error: string }) {}
+}
+
 export type TeamActionsUnion =
   | LoadTeams
   | LoadTeamsSuccess
@@ -74,4 +179,13 @@ export type TeamActionsUnion =
   | AddTeamFailure
   | LoadTeamRoster
   | LoadTeamsRosterSuccess
-  | LoadTeamsRosterFailure;
+  | LoadTeamsRosterFailure
+  | UpdateTeamWin
+  | UpdateTeamWinSuccess
+  | UpdateTeamWinFailure
+  | UpdateTeamLoss
+  | UpdateTeamLossSuccess
+  | UpdateTeamLossFailure
+  | UpdateTeamDraw
+  | UpdateTeamDrawSuccess
+  | UpdateTeamDrawFailure;
