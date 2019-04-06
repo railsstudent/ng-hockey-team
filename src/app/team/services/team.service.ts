@@ -117,22 +117,28 @@ export class TeamService {
           case UPDATE_STAT_TYPE.DRAW:
             if (team.numDraw + delta < 0) {
               team.numDraw = 0;
-            } else {
+            } else if (team.numDraw + delta > team.numOTWin + team.numOTLoss) {
               team.numDraw = team.numDraw + delta;
+            } else {
+              return throwError('Number of draws must exceed number of overtime wins and overtime losses.');
             }
             break;
           case UPDATE_STAT_TYPE.OVERTIME_WIN:
             if (team.numOTWin + delta < 0) {
               team.numOTWin = 0;
-            } else {
+            } else if (team.numOTWin + delta + team.numOTLoss <= team.numDraw) {
               team.numOTWin = team.numOTWin + delta;
+            } else {
+              return throwError('Number of overtime wins and overtime losses cannot exceed number of draws.');
             }
             break;
           case UPDATE_STAT_TYPE.OVERTIME_LOSS:
             if (team.numOTLoss + delta < 0) {
               team.numOTLoss = 0;
-            } else {
+            } else if (team.numOTLoss + delta + team.numOTWin <= team.numDraw) {
               team.numOTLoss = team.numOTLoss + delta;
+            } else {
+              return throwError('Number of overtime wins and overtime losses cannot exceed number of draws.');
             }
             break;
           default:
