@@ -98,7 +98,6 @@ export function reducer(state = initialState, action: Action): State {
     case TeamActions.TeamActionTypes.UpdateTeamWin: {
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error: null,
       };
@@ -107,7 +106,7 @@ export function reducer(state = initialState, action: Action): State {
     case TeamActions.TeamActionTypes.UpdateTeamWinSuccess: {
       const { team } = teamAction.payload;
       return {
-        ...state,
+        ...adapter.updateOne({ id: team.id, changes: team }, state),
         selectedTeam: team,
         message: null,
         error: null,
@@ -118,7 +117,6 @@ export function reducer(state = initialState, action: Action): State {
       const { error } = teamAction.payload;
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error,
       };

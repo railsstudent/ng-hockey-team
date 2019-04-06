@@ -14,6 +14,18 @@ export class TeamStatHorizontalTableComponent implements OnInit {
   @Output()
   updateWin = new EventEmitter<number>();
 
+  @Output()
+  updateLoss = new EventEmitter<number>();
+
+  @Output()
+  updateDraw = new EventEmitter<number>();
+
+  @Output()
+  updateOvertimeWin = new EventEmitter<number>();
+
+  @Output()
+  updateOvertimeLoss = new EventEmitter<number>();
+
   constructor() {}
 
   ngOnInit() {}

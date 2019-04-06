@@ -2,8 +2,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { empty, Observable, Subject } from 'rxjs';
+import { exhaustMap, map, takeUntil } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { TeamWithPoints } from '../models';
 import { HockeyState, selectOneTeam } from '../reducers';
@@ -44,9 +44,13 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       .subscribe();
 
     this.updateWin$
-      .pipe
-      // exhauseMap(delta =>)
-      ()
+      .pipe(
+        exhaustMap(delta => {
+          this.store.dispatch(new TeamActions.UpdateTeamWin({ teamId, delta }));
+          return empty();
+        }),
+        takeUntil(this.unsubscribe$),
+      )
       .subscribe();
   }
 
