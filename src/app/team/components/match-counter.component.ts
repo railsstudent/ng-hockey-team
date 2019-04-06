@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 @Component({
   selector: 'team-match-counter',
   template: `
-    <div class="counter">
+    <section class="counter">
       <a href aria-label="Decrement value" (click)="decrementValue($event)">
         <i class="fas fa-minus-circle fa-2x"></i>
       </a>
@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
       <a href aria-label="Increment value" (click)="incrementValue($event)">
         <i class="fas fa-plus-circle fa-2x"></i>
       </a>
-    </div>
+    </section>
   `,
   styleUrls: ['./match-counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

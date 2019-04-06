@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TeamWithPoints } from '../models';
 
 @Component({
@@ -7,7 +7,7 @@ import { TeamWithPoints } from '../models';
   styleUrls: ['./team-stat-horizontal-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamStatHorizontalTableComponent implements OnInit {
+export class TeamStatHorizontalTableComponent {
   @Input()
   team: TeamWithPoints;
 
@@ -25,8 +25,4 @@ export class TeamStatHorizontalTableComponent implements OnInit {
 
   @Output()
   updateOvertimeLoss = new EventEmitter<number>();
-
-  constructor() {}
-
-  ngOnInit() {}
 }

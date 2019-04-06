@@ -13,7 +13,7 @@ export class TeamEffects {
   @Effect()
   loadTeams$ = this.actions$.pipe(
     ofType(TeamActions.TeamActionTypes.LoadTeams),
-    mergeMap(() =>
+    switchMap(() =>
       this.teamService.getAll().pipe(
         map(teams => new TeamActions.LoadTeamsSuccess({ teams })),
         catchError((error: string) => {
@@ -28,7 +28,7 @@ export class TeamEffects {
   addTeam$ = this.actions$.pipe(
     ofType(TeamActions.TeamActionTypes.AddTeam),
     map((action: TeamActions.AddTeam) => action.payload),
-    concatMap(({ division, name }) =>
+    mergeMap(({ division, name }) =>
       this.teamService.addTeam(division, name).pipe(
         map(team => new TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
         catchError((error: string) => of(new TeamActions.AddTeamFailure({ error }))),
@@ -63,6 +63,54 @@ export class TeamEffects {
       this.teamService.updateWin(teamId, delta).pipe(
         map(team => new TeamActions.UpdateTeamWinSuccess({ team })),
         catchError((error: string) => of(new TeamActions.UpdateTeamWinFailure({ error }))),
+      ),
+    ),
+  );
+
+  @Effect()
+  updateLoss$ = this.actions$.pipe(
+    ofType(TeamActions.TeamActionTypes.UpdateTeamLoss),
+    map((action: TeamActions.UpdateTeamLoss) => action.payload),
+    concatMap(({ teamId, delta }) =>
+      this.teamService.updateLoss(teamId, delta).pipe(
+        map(team => new TeamActions.UpdateTeamLossSuccess({ team })),
+        catchError((error: string) => of(new TeamActions.UpdateTeamLossFailure({ error }))),
+      ),
+    ),
+  );
+
+  @Effect()
+  updateDraw$ = this.actions$.pipe(
+    ofType(TeamActions.TeamActionTypes.UpdateTeamDraw),
+    map((action: TeamActions.UpdateTeamDraw) => action.payload),
+    concatMap(({ teamId, delta }) =>
+      this.teamService.updateDraw(teamId, delta).pipe(
+        map(team => new TeamActions.UpdateTeamDrawSuccess({ team })),
+        catchError((error: string) => of(new TeamActions.UpdateTeamDrawFailure({ error }))),
+      ),
+    ),
+  );
+
+  @Effect()
+  updateOvertimeWin$ = this.actions$.pipe(
+    ofType(TeamActions.TeamActionTypes.UpdateTeamOvertimeWin),
+    map((action: TeamActions.UpdateTeamOvertimeWin) => action.payload),
+    concatMap(({ teamId, delta }) =>
+      this.teamService.updateOvertimeWin(teamId, delta).pipe(
+        map(team => new TeamActions.UpdateTeamOvertimeWinSuccess({ team })),
+        catchError((error: string) => of(new TeamActions.UpdateTeamOvertimeWinFailure({ error }))),
+      ),
+    ),
+  );
+
+  @Effect()
+  updateOvertimeLoss$ = this.actions$.pipe(
+    ofType(TeamActions.TeamActionTypes.UpdateTeamOvertimeLoss),
+    map((action: TeamActions.UpdateTeamOvertimeLoss) => action.payload),
+    concatMap(({ teamId, delta }) =>
+      this.teamService.updateOvertimeLoss(teamId, delta).pipe(
+        map(team => new TeamActions.UpdateTeamOvertimeLossSuccess({ team })),
+        catchError((error: string) => of(new TeamActions.UpdateTeamOvertimeLossFailure({ error }))),
       ),
     ),
   );
