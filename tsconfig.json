@@ -11,8 +11,6 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
     "target": "es5",
     "strict": true,
     "strictNullChecks": true,
