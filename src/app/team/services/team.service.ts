@@ -117,7 +117,7 @@ export class TeamService {
           case UPDATE_STAT_TYPE.DRAW:
             if (team.numDraw + delta < 0) {
               team.numDraw = 0;
-            } else if (team.numDraw + delta > team.numOTWin + team.numOTLoss) {
+            } else if (team.numDraw + delta >= team.numOTWin + team.numOTLoss) {
               team.numDraw = team.numDraw + delta;
             } else {
               return throwError('Number of draws must exceed number of overtime wins and overtime losses.');
