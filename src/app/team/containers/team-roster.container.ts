@@ -2,11 +2,11 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { empty, Observable, Subject } from 'rxjs';
-import { exhaustMap, map, takeUntil } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { exhaustMap, finalize, map, share, takeUntil } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { TeamWithPoints } from '../models';
-import { HockeyState, selectOneTeam } from '../reducers';
+import { HockeyState, selectOneTeam, selectTeamErrorMessage } from '../reducers';
 
 @Component({
   templateUrl: './team-roster.container.html',
@@ -15,6 +15,9 @@ import { HockeyState, selectOneTeam } from '../reducers';
 })
 export class TeamRosterContainer implements OnInit, OnDestroy {
   team$: Observable<TeamWithPoints | undefined>;
+  teamShare$: Observable<TeamWithPoints | undefined>;
+  error$: Observable<string | null>;
+
   unsubscribe$ = new Subject();
 
   isSmallSize$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
@@ -24,6 +27,8 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   updateDraw$ = new Subject<number>();
   updateOvertimeWin$ = new Subject<number>();
   updateOvertimeLoss$ = new Subject<number>();
+
+  hideError = false;
 
   constructor(
     private store: Store<HockeyState>,
@@ -35,8 +40,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   ngOnInit() {
     const teamId = this.route.snapshot.params.teamId;
     this.team$ = this.store.pipe(select(selectOneTeam));
+    this.teamShare$ = this.team$.pipe(share());
+    this.error$ = this.store.pipe(select(selectTeamErrorMessage));
 
-    this.team$
+    this.teamShare$
       .pipe(
         map(team => {
           if (!team) {
@@ -50,8 +57,9 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.updateWin$
       .pipe(
         exhaustMap(delta => {
-          this.store.dispatch(new TeamActions.UpdateTeamWin({ teamId, delta }));
-          return empty();
+          return of(this.store.dispatch(new TeamActions.UpdateTeamWin({ teamId, delta }))).pipe(
+            finalize(() => (this.hideError = false)),
+          );
         }),
         takeUntil(this.unsubscribe$),
       )
@@ -60,8 +68,9 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.updateLoss$
       .pipe(
         exhaustMap(delta => {
-          this.store.dispatch(new TeamActions.UpdateTeamLoss({ teamId, delta }));
-          return empty();
+          return of(this.store.dispatch(new TeamActions.UpdateTeamLoss({ teamId, delta }))).pipe(
+            finalize(() => (this.hideError = false)),
+          );
         }),
         takeUntil(this.unsubscribe$),
       )
@@ -70,8 +79,9 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.updateDraw$
       .pipe(
         exhaustMap(delta => {
-          this.store.dispatch(new TeamActions.UpdateTeamDraw({ teamId, delta }));
-          return empty();
+          return of(this.store.dispatch(new TeamActions.UpdateTeamDraw({ teamId, delta }))).pipe(
+            finalize(() => (this.hideError = false)),
+          );
         }),
         takeUntil(this.unsubscribe$),
       )
@@ -80,8 +90,9 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.updateOvertimeWin$
       .pipe(
         exhaustMap(delta => {
-          this.store.dispatch(new TeamActions.UpdateTeamOvertimeWin({ teamId, delta }));
-          return empty();
+          return of(this.store.dispatch(new TeamActions.UpdateTeamOvertimeWin({ teamId, delta }))).pipe(
+            finalize(() => (this.hideError = false)),
+          );
         }),
         takeUntil(this.unsubscribe$),
       )
@@ -90,8 +101,9 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.updateOvertimeLoss$
       .pipe(
         exhaustMap(delta => {
-          this.store.dispatch(new TeamActions.UpdateTeamOvertimeLoss({ teamId, delta }));
-          return empty();
+          return of(this.store.dispatch(new TeamActions.UpdateTeamOvertimeLoss({ teamId, delta }))).pipe(
+            finalize(() => (this.hideError = false)),
+          );
         }),
         takeUntil(this.unsubscribe$),
       )

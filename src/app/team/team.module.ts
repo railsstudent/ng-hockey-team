@@ -4,10 +4,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared';
 import {
+  MatchCounterComponent,
   TeamComponent,
   TeamStatHorizontalTableComponent,
   TeamStatVerticalTableComponent,
-  MatchCounterComponent,
 } from './components';
 import { ListingContainer, NewTeamContainer, TeamRosterContainer } from './containers/';
 import { TeamEffects } from './effects';

@@ -10,6 +10,21 @@
       <span class="spacer"></span>
     </header>
     <section class="roster-container">
+      <ng-container *ngIf="(error$ | async) as error">
+        <div class="alert alert-danger team-alert" role="alert" *ngIf="error && !hideError">
+          <div class="alert-items">
+            <div class="alert-item static">
+              <div class="alert-icon-wrapper">
+                <i class="fas fa-info-circle"></i>
+              </div>
+              <span class="alert-text">{{ error }}</span>
+            </div>
+          </div>
+          <button type="button" class="close" aria-label="Close" (click)="hideError = true">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </div>
+      </ng-container>
       <ng-container *ngIf="(isSmallSize$ | async); else horizontalTable">
         <team-stat-vertical-table></team-stat-vertical-table>
       </ng-container>
