@@ -26,7 +26,14 @@
         </div>
       </ng-container>
       <ng-container *ngIf="(isSmallSize$ | async); else horizontalTable">
-        <team-stat-vertical-table></team-stat-vertical-table>
+        <team-stat-vertical-table
+          [team]="team"
+          (updateWin)="updateWin$.next($event)"
+          (updateLoss)="updateLoss$.next($event)"
+          (updateDraw)="updateDraw$.next($event)"
+          (updateOvertimeWin)="updateOvertimeWin$.next($event)"
+          (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
+        ></team-stat-vertical-table>
       </ng-container>
       <!-- <div class="player-container"></div> -->
     </section>

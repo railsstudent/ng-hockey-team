@@ -1,0 +1,24 @@
+@import '../../../variables';
+
+.team-stats {
+  .clr-row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &-item {
+    padding: 0.5rem 0;
+    border: 1px solid $border-color;
+
+    display: flex;
+    align-items: center;
+  }
+
+  div {
+    p.header-cell, p.text-cell, team-match-counter {
+      width: 100%;
+      margin: 0;
+      text-align: center;
+    }
+  }
+}
