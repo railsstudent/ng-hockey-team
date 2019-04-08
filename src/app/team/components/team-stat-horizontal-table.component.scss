@@ -1,3 +1,5 @@
+@import '../../../variables';
+
 .team-stats {
   .clr-row {
     margin-left: 0;
@@ -36,11 +38,11 @@
 
     &:nth-child(odd) {
       background: #ccc;
-      border: 1px solid #9a9a9a;
+      border: 1px solid $border-color;
     }
 
     &:nth-child(even) {
-      border: 1px solid #9a9a9a;
+      border: 1px solid $border-color;
     }
   }
 }

@@ -1,0 +1,12 @@
+@import '../../../variables';
+
+.team-stats {
+  .clr-row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &-item {
+    border: 1px solid $border-color;
+  }
+}
