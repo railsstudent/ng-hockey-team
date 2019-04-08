@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TeamWithPoints } from '../models';
 
 @Component({
@@ -7,7 +7,7 @@ import { TeamWithPoints } from '../models';
   styleUrls: ['./team-stat-vertical-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamStatVerticalTableComponent implements OnInit {
+export class TeamStatVerticalTableComponent {
   @Input()
   team: TeamWithPoints;
 
@@ -25,8 +25,4 @@ export class TeamStatVerticalTableComponent implements OnInit {
 
   @Output()
   updateOvertimeLoss = new EventEmitter<number>();
-
-  constructor() {}
-
-  ngOnInit() {}
 }
