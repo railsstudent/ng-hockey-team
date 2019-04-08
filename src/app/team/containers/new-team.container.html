@@ -8,6 +8,26 @@
     </div>
     <span class="spacer"></span>
   </header>
+  <div class="alert alert-danger" role="alert" *ngIf="(error$ | async) as error">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <i class="fas fa-info-circle"></i>
+        </div>
+        <span class="alert-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="(message$ | async) as message">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <i class="fas fa-info-circle"></i>
+        </div>
+        <span class="alert-text">{{ message }}</span>
+      </div>
+    </div>
+  </div>
   <main class="form-container">
     <form clrForm [formGroup]="form" (ngSubmit)="addTeam()" #f="ngForm">
       <clr-input-container>
@@ -30,6 +50,4 @@
       <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Add</button>
     </form>
   </main>
-  <div *ngIf="(message$ | async) as message" class="success-box">{{ message }}</div>
-  <div *ngIf="(error$ | async) as error" class="error-box">{{ error }}</div>
 </article>

@@ -6,6 +6,7 @@ import { SharedModule } from '../shared';
 import {
   MatchCounterComponent,
   TeamComponent,
+  TeamOverallStandingComponent,
   TeamStatHorizontalTableComponent,
   TeamStatVerticalTableComponent,
 } from './components';
@@ -25,6 +26,7 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamStatHorizontalTableComponent,
     TeamStatVerticalTableComponent,
     MatchCounterComponent,
+    TeamOverallStandingComponent,
   ],
   imports: [
     CommonModule,
