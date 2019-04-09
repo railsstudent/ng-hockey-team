@@ -27,6 +27,12 @@
 .roster-container {
   // border: 1px solid red;
 
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: "content content content content sidebar"
+                       "player player player player sidebar"
+                       "player player player player sidebar";
+
   .team-alert {
     margin-bottom: 0.5rem;
 
@@ -83,6 +89,10 @@
         border: 1px solid #9a9a9a;
       }
     }
+  }
+
+  team-stat-vertical-table, team-stat-horizontal-table {
+    grid-area: content;
   }
 }
 
