@@ -25,7 +25,7 @@
           </button>
         </div>
       </ng-container>
-      <ng-container *ngIf="(isSmallSize$ | async); else horizontalTable">
+      <ng-container *ngIf="(isSmallScreen$ | async); else horizontalTable">
         <team-stat-vertical-table
           [team]="team"
           (updateWin)="updateWin$.next($event)"
@@ -36,7 +36,7 @@
         ></team-stat-vertical-table>
       </ng-container>
       <div>
-        sidebar shows up here
+        <team-overall-standing></team-overall-standing>
       </div>
       <!-- <div class="player-container"></div> -->
     </section>

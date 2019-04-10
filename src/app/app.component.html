@@ -12,7 +12,7 @@
     <div class="content-area">
       <router-outlet></router-outlet>
     </div>
-    <clr-vertical-nav [clrVerticalNavCollapsible]="true" [clr-nav-level]="1">
+    <clr-vertical-nav [clrVerticalNavCollapsible]="true" [clr-nav-level]="1" [(clrVerticalNavCollapsed)]="collapsed">
       <a clrVerticalNavLink [routerLink]="['/team']" routerLinkActive="active">
         <i clrVerticalNavIcon class="fas fa-building" title="team link"></i>
         Team

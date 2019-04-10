@@ -20,7 +20,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
 
   unsubscribe$ = new Subject();
 
-  isSmallSize$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
+  isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
 
   updateWin$ = new Subject<number>();
   updateLoss$ = new Subject<number>();

@@ -29,9 +29,10 @@
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-areas: "content content content content sidebar"
-                       "player player player player sidebar"
-                       "player player player player sidebar";
+  grid-template-areas:
+    'content content content content sidebar'
+    'player player player player sidebar'
+    'player player player player sidebar';
 
   .team-alert {
     margin-bottom: 0.5rem;
@@ -57,48 +58,21 @@
         }
       }
     }
-
-    &-item {
-      padding: 0.5rem;
-      flex: 0 0 calc(100% / 7);
-      max-width: calc(100% / 7);
-
-      display: flex;
-      a,
-      p.text-cell {
-        //width: calc(100% / 3);
-        border: 1px solid black;
-      }
-
-      a:nth-child(1) {
-        position: relative;
-        i {
-          position: absolute;
-          right: 0;
-        }
-        // display: flex;
-        // justify-content: flex-end;
-      }
-
-      &:nth-child(odd) {
-        background: #ccc;
-        border: 1px solid #9a9a9a;
-      }
-
-      &:nth-child(even) {
-        border: 1px solid #9a9a9a;
-      }
-    }
   }
 
-  team-stat-vertical-table, team-stat-horizontal-table {
+  team-stat-vertical-table,
+  team-stat-horizontal-table {
     grid-area: content;
   }
 }
 
-// @media screen and (min-width: 992px) {
-//   .clr-col-lg-2 {
-//     flex: 0 0 calc(100% / 7);
-//     max-width: calc(100% / 7);
-//   }
-// }
+@media screen and (max-width: 767px) {
+  .roster-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'content'
+      'player'
+      'player'
+      'sidebar';
+  }
+}
