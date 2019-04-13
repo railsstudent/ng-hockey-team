@@ -10,35 +10,37 @@
       <span class="spacer"></span>
     </header>
     <section class="roster-container">
-      <ng-container *ngIf="(error$ | async) as error">
-        <div class="alert alert-danger team-alert" role="alert" *ngIf="error && !hideError">
+      <ng-container *ngIf="{ msg: (error$ | async), hideError: (hideError$ | async) } as error">
+        <div class="alert alert-danger team-alert" role="alert" *ngIf="error.msg && !error.hideError">
           <div class="alert-items">
             <div class="alert-item static">
               <div class="alert-icon-wrapper">
                 <i class="fas fa-info-circle"></i>
               </div>
-              <span class="alert-text">{{ error }}</span>
+              <span class="alert-text">{{ error.msg }}</span>
             </div>
           </div>
-          <button type="button" class="close" aria-label="Close" (click)="hideError = true">
+          <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
             <i class="fas fa-times-circle"></i>
           </button>
         </div>
       </ng-container>
-      <ng-container *ngIf="(isSmallScreen$ | async); else horizontalTable">
-        <team-stat-vertical-table
-          [team]="team"
-          (updateWin)="updateWin$.next($event)"
-          (updateLoss)="updateLoss$.next($event)"
-          (updateDraw)="updateDraw$.next($event)"
-          (updateOvertimeWin)="updateOvertimeWin$.next($event)"
-          (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
-        ></team-stat-vertical-table>
-      </ng-container>
-      <div>
-        <team-overall-standing></team-overall-standing>
-      </div>
-      <!-- <div class="player-container"></div> -->
+      <section class="main-content">
+        <ng-container *ngIf="(isSmallScreen$ | async); else horizontalTable">
+          <team-stat-vertical-table
+            [team]="team"
+            (updateWin)="updateWin$.next($event)"
+            (updateLoss)="updateLoss$.next($event)"
+            (updateDraw)="updateDraw$.next($event)"
+            (updateOvertimeWin)="updateOvertimeWin$.next($event)"
+            (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
+          ></team-stat-vertical-table>
+        </ng-container>
+        <div>
+          <team-overall-standing></team-overall-standing>
+        </div>
+        <!-- <div class="player-container"></div> -->
+      </section>
     </section>
     <ng-template #horizontalTable>
       <team-stat-horizontal-table

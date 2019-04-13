@@ -27,12 +27,14 @@
 .roster-container {
   // border: 1px solid red;
 
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-areas:
-    'content content content content sidebar'
-    'player player player player sidebar'
-    'player player player player sidebar';
+  .main-content {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas:
+      'content content content content sidebar'
+      'player player player player sidebar'
+      'player player player player sidebar';
+  }
 
   .team-alert {
     margin-bottom: 0.5rem;
@@ -42,23 +44,23 @@
     }
   }
 
-  .team-stats {
-    .clr-row {
-      margin-left: 0;
-      margin-right: 0;
+  // .team-stats {
+  //   .clr-row {
+  //     margin-left: 0;
+  //     margin-right: 0;
 
-      div {
-        p.header-cell {
-          margin-top: 0;
-          text-align: center;
-        }
+  //     div {
+  //       p.header-cell {
+  //         margin-top: 0;
+  //         text-align: center;
+  //       }
 
-        p.text-cell {
-          margin-top: 0;
-        }
-      }
-    }
-  }
+  //       p.text-cell {
+  //         margin-top: 0;
+  //       }
+  //     }
+  //   }
+  // }
 
   team-stat-vertical-table,
   team-stat-horizontal-table {
@@ -67,7 +69,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .roster-container {
+  .roster-container .main-content {
     grid-template-columns: 1fr;
     grid-template-areas:
       'content'

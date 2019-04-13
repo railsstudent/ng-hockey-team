@@ -1,5 +1,6 @@
 import { Action, ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { Team, TeamWithPoints } from '../models';
+import { HockeyState } from './index';
 import * as fromTeam from './team.reducer';
 
 const WIN_POINTS = 3;
@@ -58,4 +59,10 @@ export const selectOneTeam = createSelector(
       return { ...team, points, gamePlayed } as TeamWithPoints;
     }
   },
+);
+
+export const selectCloseAlert = createSelector(
+  selectTeamsFeature,
+  (hockeyState: HockeyState) => hockeyState.teams,
+  (state: fromTeam.State) => state.closeAlert,
 );
