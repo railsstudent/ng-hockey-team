@@ -26,6 +26,7 @@ export enum TeamActionTypes {
   UpdateTeamOvertimeLoss = '[Team] Update Team Overtime Loss',
   UpdateTeamOvertimeLossSuccess = '[Team] Update Team Overtime Loss Success',
   UpdateTeamOvertimeLossFailure = '[Team] Update Team Overtime Loss Failure',
+  UpdateCloseAlert = '[Team] Update Close Alert',
 }
 
 export class LoadTeams implements Action {
@@ -170,6 +171,12 @@ export class UpdateTeamOvertimeLossFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
+export class UpdateCloseAlert implements Action {
+  readonly type = TeamActionTypes.UpdateCloseAlert;
+
+  constructor(public payload: { closeAlert: boolean }) {}
+}
+
 export type TeamActionsUnion =
   | LoadTeams
   | LoadTeamsSuccess
@@ -194,4 +201,5 @@ export type TeamActionsUnion =
   | UpdateTeamOvertimeWinFailure
   | UpdateTeamOvertimeLoss
   | UpdateTeamOvertimeLossSuccess
-  | UpdateTeamOvertimeLossFailure;
+  | UpdateTeamOvertimeLossFailure
+  | UpdateCloseAlert;

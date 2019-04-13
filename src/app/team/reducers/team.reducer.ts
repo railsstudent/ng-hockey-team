@@ -8,6 +8,7 @@ export interface State extends EntityState<Team> {
   selectedTeam: Team | null;
   error: string | null;
   message: string | null;
+  closeAlert: boolean;
 }
 
 export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>();
@@ -17,6 +18,7 @@ export const initialState: State = adapter.getInitialState({
   selectedTeam: null,
   error: null,
   message: null,
+  closeAlert: false,
 });
 
 export function reducer(state = initialState, action: Action): State {
@@ -24,7 +26,13 @@ export function reducer(state = initialState, action: Action): State {
 
   switch (teamAction.type) {
     case TeamActions.TeamActionTypes.LoadTeamsSuccess: {
-      return adapter.addAll(teamAction.payload.teams, state);
+      return {
+        ...adapter.addAll(teamAction.payload.teams, state),
+        selectedTeam: null,
+        error: null,
+        message: null,
+        closeAlert: false,
+      };
     }
 
     case TeamActions.TeamActionTypes.LoadTeamsFailure: {
@@ -34,6 +42,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: null,
         message: null,
         error,
+        closeAlert: false,
       };
     }
 
@@ -43,6 +52,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: null,
         message: null,
         error: null,
+        closeAlert: false,
       };
     }
 
@@ -53,6 +63,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: null,
         error: null,
         message,
+        closeAlert: false,
       };
     }
 
@@ -63,6 +74,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: null,
         message: null,
         error,
+        closeAlert: false,
       };
     }
 
@@ -72,6 +84,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: null,
         message: null,
         error: null,
+        closeAlert: false,
       };
     }
 
@@ -82,6 +95,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: team,
         message: null,
         error: null,
+        closeAlert: false,
       };
     }
 
@@ -92,6 +106,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: null,
         message: null,
         error,
+        closeAlert: false,
       };
     }
 
@@ -104,6 +119,7 @@ export function reducer(state = initialState, action: Action): State {
         ...state,
         message: null,
         error: null,
+        closeAlert: false,
       };
     }
 
@@ -122,6 +138,7 @@ export function reducer(state = initialState, action: Action): State {
         selectedTeam: team,
         message: null,
         error: null,
+        closeAlert: false,
       };
     }
 
@@ -135,8 +152,16 @@ export function reducer(state = initialState, action: Action): State {
         ...state,
         message: null,
         error,
+        closeAlert: false,
       };
     }
+
+    case TeamActions.TeamActionTypes.UpdateCloseAlert:
+      const { closeAlert } = teamAction.payload;
+      return {
+        ...state,
+        closeAlert,
+      };
 
     default: {
       return state;
