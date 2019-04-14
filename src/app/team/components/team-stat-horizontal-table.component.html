@@ -19,6 +19,12 @@
       <p class="header-cell">Overtime Loss</p>
     </div>
     <div class="team-stats-item">
+      <p class="header-cell">Goals For</p>
+    </div>
+    <div class="team-stats-item">
+      <p class="header-cell">Goals Against</p>
+    </div>
+    <div class="team-stats-item">
       <p class="header-cell">Points</p>
     </div>
   </section>
@@ -56,6 +62,18 @@
         [field]="'OVERTIME_LOSS'"
         (counter)="updateOvertimeLoss.emit($event)"
       ></team-match-counter>
+    </div>
+    <div class="team-stats-item">
+      <team-match-counter [value]="team.goalsFor" [field]="'GOALS_FOR'" (counter)="updateGoalsFor.emit($event)">
+      </team-match-counter>
+    </div>
+    <div class="team-stats-item">
+      <team-match-counter
+        [value]="team.goalsAgainst"
+        [field]="'GOALS_AGAINST'"
+        (counter)="updateGoalsAgainst.emit($event)"
+      >
+      </team-match-counter>
     </div>
     <div class="team-stats-item">
       <p class="text-cell">{{ team.points }}</p>

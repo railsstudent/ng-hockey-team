@@ -34,6 +34,8 @@
             (updateDraw)="updateDraw$.next($event)"
             (updateOvertimeWin)="updateOvertimeWin$.next($event)"
             (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
+            (updateGoalsFor)="updateGoalsFor$.next($event)"
+            (updateGoalsAgainst)="updateGoalsAgainst$.next($event)"
           ></team-stat-vertical-table>
         </ng-container>
         <div class="team-standing-tables">
@@ -90,6 +92,8 @@
         (updateDraw)="updateDraw$.next($event)"
         (updateOvertimeWin)="updateOvertimeWin$.next($event)"
         (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
+        (updateGoalsFor)="updateGoalsFor$.next($event)"
+        (updateGoalsAgainst)="updateGoalsAgainst$.next($event)"
       ></team-stat-horizontal-table>
     </ng-template>
   </ng-container>

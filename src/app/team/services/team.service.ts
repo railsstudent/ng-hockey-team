@@ -35,6 +35,8 @@ export class TeamService {
       numLoss: 0,
       numOTWin: 0,
       numOTLoss: 0,
+      goalsFor: 0,
+      goalsAgainst: 0,
     };
 
     const newTeamArray = [...teamArray, newTeam];
@@ -48,6 +50,12 @@ export class TeamService {
 
     const team = teamArray.find(t => t.id === id);
     if (team) {
+      if (!team.goalsFor) {
+        team.goalsFor = 0;
+      }
+      if (!team.goalsAgainst) {
+        team.goalsAgainst = 0;
+      }
       return of(team);
     }
     console.error(`team with ${id} does not exist.`);
@@ -84,6 +92,12 @@ export class TeamService {
 
       const team = teamArray.find(t => t.id === id);
       if (team) {
+        if (!team.goalsFor) {
+          team.goalsFor = 0;
+        }
+        if (!team.goalsAgainst) {
+          team.goalsAgainst = 0;
+        }
         switch (statType) {
           case UPDATE_STAT_TYPE.WIN:
             if (team.numWin + delta < 0) {
@@ -124,6 +138,20 @@ export class TeamService {
               team.numOTLoss = team.numOTLoss + delta;
             } else {
               return throwError('Number of overtime wins and overtime losses cannot exceed number of draws.');
+            }
+            break;
+          case UPDATE_STAT_TYPE.GOALS_FOR:
+            if (team.numWin + team.numLoss + team.numLoss > 0) {
+              team.goalsFor = (team.goalsFor || 0) + delta;
+            } else {
+              return throwError('Cannot update goals for if no game is played.');
+            }
+            break;
+          case UPDATE_STAT_TYPE.GOALS_AGAINST:
+            if (team.numWin + team.numLoss + team.numLoss > 0) {
+              team.goalsAgainst = (team.goalsAgainst || 0) + delta;
+            } else {
+              return throwError('Cannot update goals against if no game is played.');
             }
             break;
           default:

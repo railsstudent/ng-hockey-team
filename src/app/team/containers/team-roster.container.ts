@@ -37,6 +37,8 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   updateDraw$ = new Subject<UpdateTeamDelta>();
   updateOvertimeWin$ = new Subject<UpdateTeamDelta>();
   updateOvertimeLoss$ = new Subject<UpdateTeamDelta>();
+  updateGoalsFor$ = new Subject<UpdateTeamDelta>();
+  updateGoalsAgainst$ = new Subject<UpdateTeamDelta>();
 
   constructor(
     private store: Store<HockeyState>,
@@ -66,7 +68,15 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       )
       .subscribe();
 
-    merge(this.updateWin$, this.updateLoss$, this.updateDraw$, this.updateOvertimeWin$, this.updateOvertimeLoss$)
+    merge(
+      this.updateWin$,
+      this.updateLoss$,
+      this.updateDraw$,
+      this.updateOvertimeWin$,
+      this.updateOvertimeLoss$,
+      this.updateGoalsFor$,
+      this.updateGoalsAgainst$,
+    )
       .pipe(
         tap(({ delta, field }) => this.store.dispatch(new TeamActions.UpdateTeamRecord({ teamId, delta, field }))),
         takeUntil(this.unsubscribe$),

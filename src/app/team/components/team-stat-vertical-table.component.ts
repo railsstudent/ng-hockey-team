@@ -25,4 +25,10 @@ export class TeamStatVerticalTableComponent {
 
   @Output()
   updateOvertimeLoss = new EventEmitter<UpdateTeamDelta>();
+
+  @Output()
+  updateGoalsFor = new EventEmitter<UpdateTeamDelta>();
+
+  @Output()
+  updateGoalsAgainst = new EventEmitter<UpdateTeamDelta>();
 }
