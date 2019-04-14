@@ -21,3 +21,8 @@ export enum UPDATE_STAT_TYPE {
   OVERTIME_WIN,
   OVERTIME_LOSS,
 }
+
+export interface UpdateTeamDelta {
+  delta: number;
+  field: string;
+}

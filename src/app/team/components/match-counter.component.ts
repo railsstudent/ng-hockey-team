@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { UpdateTeamDelta } from '../models';
 
 @Component({
   selector: 'team-match-counter',
@@ -20,8 +21,11 @@ export class MatchCounterComponent {
   @Input()
   value: number;
 
+  @Input()
+  field: string;
+
   @Output()
-  counter = new EventEmitter<number>();
+  counter = new EventEmitter<UpdateTeamDelta>();
 
   incrementValue($event: Event) {
     if ($event) {
@@ -29,7 +33,7 @@ export class MatchCounterComponent {
       $event.stopPropagation();
     }
 
-    this.counter.emit(1);
+    this.counter.emit({ delta: 1, field: this.field });
   }
 
   decrementValue($event: Event) {
@@ -39,7 +43,7 @@ export class MatchCounterComponent {
     }
 
     if (this.value > 0) {
-      this.counter.emit(-1);
+      this.counter.emit({ delta: -1, field: this.field });
     }
   }
 }

@@ -56,61 +56,13 @@ export class TeamEffects {
   );
 
   @Effect()
-  updateWin$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.UpdateTeamWin),
-    map((action: TeamActions.UpdateTeamWin) => action.payload),
-    concatMap(({ teamId, delta }) =>
-      this.teamService.updateWin(teamId, delta).pipe(
-        map(team => new TeamActions.UpdateTeamWinSuccess({ team })),
-        catchError((error: string) => of(new TeamActions.UpdateTeamWinFailure({ error }))),
-      ),
-    ),
-  );
-
-  @Effect()
-  updateLoss$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.UpdateTeamLoss),
-    map((action: TeamActions.UpdateTeamLoss) => action.payload),
-    concatMap(({ teamId, delta }) =>
-      this.teamService.updateLoss(teamId, delta).pipe(
-        map(team => new TeamActions.UpdateTeamLossSuccess({ team })),
-        catchError((error: string) => of(new TeamActions.UpdateTeamLossFailure({ error }))),
-      ),
-    ),
-  );
-
-  @Effect()
-  updateDraw$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.UpdateTeamDraw),
-    map((action: TeamActions.UpdateTeamDraw) => action.payload),
-    concatMap(({ teamId, delta }) =>
-      this.teamService.updateDraw(teamId, delta).pipe(
-        map(team => new TeamActions.UpdateTeamDrawSuccess({ team })),
-        catchError((error: string) => of(new TeamActions.UpdateTeamDrawFailure({ error }))),
-      ),
-    ),
-  );
-
-  @Effect()
-  updateOvertimeWin$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.UpdateTeamOvertimeWin),
-    map((action: TeamActions.UpdateTeamOvertimeWin) => action.payload),
-    concatMap(({ teamId, delta }) =>
-      this.teamService.updateOvertimeWin(teamId, delta).pipe(
-        map(team => new TeamActions.UpdateTeamOvertimeWinSuccess({ team })),
-        catchError((error: string) => of(new TeamActions.UpdateTeamOvertimeWinFailure({ error }))),
-      ),
-    ),
-  );
-
-  @Effect()
-  updateOvertimeLoss$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.UpdateTeamOvertimeLoss),
-    map((action: TeamActions.UpdateTeamOvertimeLoss) => action.payload),
-    concatMap(({ teamId, delta }) =>
-      this.teamService.updateOvertimeLoss(teamId, delta).pipe(
-        map(team => new TeamActions.UpdateTeamOvertimeLossSuccess({ team })),
-        catchError((error: string) => of(new TeamActions.UpdateTeamOvertimeLossFailure({ error }))),
+  updateTeamRecord$ = this.actions$.pipe(
+    ofType(TeamActions.TeamActionTypes.UpdateTeamRecord),
+    map((action: TeamActions.UpdateTeamRecord) => action.payload),
+    concatMap(({ teamId, delta, field }) =>
+      this.teamService.updateTeamRecord(teamId, delta, field).pipe(
+        map(team => new TeamActions.UpdateTeamRecordSuccess({ team })),
+        catchError((error: string) => of(new TeamActions.UpdateTeamRecordFailure({ error }))),
       ),
     ),
   );

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeamWithPoints } from '../models';
+import { TeamWithPoints, UpdateTeamDelta } from '../models';
 
 @Component({
   selector: 'team-stat-horizontal-table',
@@ -12,17 +12,17 @@ export class TeamStatHorizontalTableComponent {
   team: TeamWithPoints;
 
   @Output()
-  updateWin = new EventEmitter<number>();
+  updateWin = new EventEmitter<UpdateTeamDelta>();
 
   @Output()
-  updateLoss = new EventEmitter<number>();
+  updateLoss = new EventEmitter<UpdateTeamDelta>();
 
   @Output()
-  updateDraw = new EventEmitter<number>();
+  updateDraw = new EventEmitter<UpdateTeamDelta>();
 
   @Output()
-  updateOvertimeWin = new EventEmitter<number>();
+  updateOvertimeWin = new EventEmitter<UpdateTeamDelta>();
 
   @Output()
-  updateOvertimeLoss = new EventEmitter<number>();
+  updateOvertimeLoss = new EventEmitter<UpdateTeamDelta>();
 }

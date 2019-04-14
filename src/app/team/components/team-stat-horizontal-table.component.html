@@ -27,19 +27,35 @@
       <p class="text-cell">{{ team.gamePlayed }}</p>
     </div>
     <div class="team-stats-item">
-      <team-match-counter [value]="team.numWin" (counter)="updateWin.emit($event)"></team-match-counter>
+      <team-match-counter [value]="team.numWin" [field]="'WIN'" (counter)="updateWin.emit($event)"></team-match-counter>
     </div>
     <div class="team-stats-item">
-      <team-match-counter [value]="team.numLoss" (counter)="updateLoss.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numLoss"
+        [field]="'LOSS'"
+        (counter)="updateLoss.emit($event)"
+      ></team-match-counter>
     </div>
     <div class="team-stats-item">
-      <team-match-counter [value]="team.numDraw" (counter)="updateDraw.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numDraw"
+        [field]="'DRAW'"
+        (counter)="updateDraw.emit($event)"
+      ></team-match-counter>
     </div>
     <div class="team-stats-item">
-      <team-match-counter [value]="team.numOTWin" (counter)="updateOvertimeWin.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numOTWin"
+        [field]="'OVERTIME_WIN'"
+        (counter)="updateOvertimeWin.emit($event)"
+      ></team-match-counter>
     </div>
     <div class="team-stats-item">
-      <team-match-counter [value]="team.numOTLoss" (counter)="updateOvertimeLoss.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numOTLoss"
+        [field]="'OVERTIME_LOSS'"
+        (counter)="updateOvertimeLoss.emit($event)"
+      ></team-match-counter>
     </div>
     <div class="team-stats-item">
       <p class="text-cell">{{ team.points }}</p>
