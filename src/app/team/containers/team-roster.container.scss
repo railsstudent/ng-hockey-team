@@ -48,15 +48,41 @@
   team-stat-horizontal-table {
     grid-area: content;
   }
+
+  team-stat-horizontal-table {
+    margin-right: 0.5rem;
+  }
+
+  .team-standing-tables {
+    grid-area: sidebar;
+
+    display: flex;
+    flex-direction: column;
+
+    team-standing-table {
+      flex: 1;
+    }
+  }
 }
 
 @media screen and (max-width: 767px) {
-  .roster-container .main-content {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'content'
-      'player'
-      'player'
-      'sidebar';
+  .roster-container {
+    .main-content {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'content'
+        'player'
+        'player'
+        'sidebar';
+    }
+
+    .team-standing-tables {
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      team-standing-table {
+        margin-right: 0.75rem;
+      }
+    }
   }
 }

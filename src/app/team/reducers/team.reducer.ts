@@ -110,11 +110,7 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.UpdateTeamWin:
-    case TeamActions.TeamActionTypes.UpdateTeamLoss:
-    case TeamActions.TeamActionTypes.UpdateTeamDraw:
-    case TeamActions.TeamActionTypes.UpdateTeamOvertimeWin:
-    case TeamActions.TeamActionTypes.UpdateTeamOvertimeLoss: {
+    case TeamActions.TeamActionTypes.UpdateTeamRecord: {
       return {
         ...state,
         message: null,
@@ -123,11 +119,7 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.UpdateTeamWinSuccess:
-    case TeamActions.TeamActionTypes.UpdateTeamLossSuccess:
-    case TeamActions.TeamActionTypes.UpdateTeamDrawSuccess:
-    case TeamActions.TeamActionTypes.UpdateTeamOvertimeWinSuccess:
-    case TeamActions.TeamActionTypes.UpdateTeamOvertimeLossSuccess: {
+    case TeamActions.TeamActionTypes.UpdateTeamRecordSuccess: {
       const { team } = teamAction.payload;
       const changes = {
         id: team.id,
@@ -142,11 +134,7 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.UpdateTeamWinFailure:
-    case TeamActions.TeamActionTypes.UpdateTeamLossFailure:
-    case TeamActions.TeamActionTypes.UpdateTeamDrawFailure:
-    case TeamActions.TeamActionTypes.UpdateTeamOvertimeWinFailure:
-    case TeamActions.TeamActionTypes.UpdateTeamOvertimeLossFailure: {
+    case TeamActions.TeamActionTypes.UpdateTeamRecordFailure: {
       const { error } = teamAction.payload;
       return {
         ...state,

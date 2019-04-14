@@ -18,13 +18,17 @@
       <p class="header-cell">Win</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-3 gray">
-      <team-match-counter [value]="team.numWin" (counter)="updateWin.emit($event)"></team-match-counter>
+      <team-match-counter [value]="team.numWin" [field]="'WIN'" (counter)="updateWin.emit($event)"></team-match-counter>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-3">
       <p class="header-cell">Loss</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-3 gray">
-      <team-match-counter [value]="team.numLoss" (counter)="updateLoss.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numLoss"
+        [field]="'LOSS'"
+        (counter)="updateLoss.emit($event)"
+      ></team-match-counter>
     </div>
   </section>
   <section class="clr-row">
@@ -32,13 +36,21 @@
       <p class="header-cell">Draw</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-3 gray">
-      <team-match-counter [value]="team.numDraw" (counter)="updateDraw.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numDraw"
+        [field]="'DRAW'"
+        (counter)="updateDraw.emit($event)"
+      ></team-match-counter>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-3">
       <p class="header-cell">Overtime Win</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-3 gray">
-      <team-match-counter [value]="team.numOTWin" (counter)="updateOvertimeWin.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numOTWin"
+        [field]="'OVERTIME_WIN'"
+        (counter)="updateOvertimeWin.emit($event)"
+      ></team-match-counter>
     </div>
   </section>
   <section class="clr-row">
@@ -46,7 +58,11 @@
       <p class="header-cell">Overtime Loss</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-3 gray">
-      <team-match-counter [value]="team.numOTLoss" (counter)="updateOvertimeLoss.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numOTLoss"
+        [field]="'OVERTIME_LOSS'"
+        (counter)="updateOvertimeLoss.emit($event)"
+      ></team-match-counter>
     </div>
   </section>
 </main>

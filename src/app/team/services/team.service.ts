@@ -54,24 +54,9 @@ export class TeamService {
     return throwError('Team does not exist.');
   }
 
-  updateWin(id: string, delta: number): Observable<Team> {
-    return this.updateStat(id, delta, UPDATE_STAT_TYPE.WIN);
-  }
-
-  updateLoss(id: string, delta: number): Observable<Team> {
-    return this.updateStat(id, delta, UPDATE_STAT_TYPE.LOSS);
-  }
-
-  updateDraw(id: string, delta: number): Observable<Team> {
-    return this.updateStat(id, delta, UPDATE_STAT_TYPE.DRAW);
-  }
-
-  updateOvertimeWin(id: string, delta: number): Observable<Team> {
-    return this.updateStat(id, delta, UPDATE_STAT_TYPE.OVERTIME_WIN);
-  }
-
-  updateOvertimeLoss(id: string, delta: number): Observable<Team> {
-    return this.updateStat(id, delta, UPDATE_STAT_TYPE.OVERTIME_LOSS);
+  updateTeamRecord(id: string, delta: number, field: string): Observable<Team> {
+    const typedStatType = field as keyof typeof UPDATE_STAT_TYPE;
+    return this.updateStat(id, delta, UPDATE_STAT_TYPE[typedStatType]);
   }
 
   private mapStatTypeToText(statType: UPDATE_STAT_TYPE) {
@@ -120,7 +105,7 @@ export class TeamService {
             } else if (team.numDraw + delta >= team.numOTWin + team.numOTLoss) {
               team.numDraw = team.numDraw + delta;
             } else {
-              return throwError('Number of draws must exceed number of overtime wins and overtime losses.');
+              return throwError('Number of draws must not less than number of overtime wins and overtime losses.');
             }
             break;
           case UPDATE_STAT_TYPE.OVERTIME_WIN:

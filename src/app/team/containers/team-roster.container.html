@@ -10,7 +10,7 @@
       <span class="spacer"></span>
     </header>
     <section class="roster-container">
-      <ng-container *ngIf="{ msg: (error$ | async), hideError: (hideError$ | async) } as error">
+      <ng-container *ngIf="{ msg: error$ | async, hideError: hideError$ | async } as error">
         <div class="alert alert-danger team-alert" role="alert" *ngIf="error.msg && !error.hideError">
           <div class="alert-items">
             <div class="alert-item static">
@@ -36,8 +36,48 @@
             (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
           ></team-stat-vertical-table>
         </ng-container>
-        <div>
-          <team-overall-standing></team-overall-standing>
+        <div class="team-standing-tables">
+          <ng-container *ngIf="(topThreeTeams$ | async) as topThreeTeams">
+            <team-standing-table
+              [title]="'Top 3 teams'"
+              [headerTemplateRef]="topThreeHeaderTemplate"
+              [teamsTemplateRef]="topThreeTeamsTemplate"
+            ></team-standing-table>
+
+            <ng-template #topThreeHeaderTemplate>
+              <th class="left">Name</th>
+              <th class="left">Division</th>
+              <th class="left">Points</th>
+            </ng-template>
+
+            <ng-template #topThreeTeamsTemplate>
+              <tr *ngFor="let team of topThreeTeams">
+                <td class="left">{{ team.name }}</td>
+                <td class="left">{{ team.division }}</td>
+                <td class="left">{{ team.points }}</td>
+              </tr>
+            </ng-template>
+          </ng-container>
+
+          <ng-container *ngIf="(divisionLeaders$ | async) as leaders">
+            <team-standing-table
+              [title]="'Division Leaders'"
+              [headerTemplateRef]="leaderHeaderTemplate"
+              [teamsTemplateRef]="leaderTemplate"
+            ></team-standing-table>
+
+            <ng-template #leaderHeaderTemplate>
+              <th class="left">Division</th>
+              <th class="left">Name (Points)</th>
+            </ng-template>
+
+            <ng-template #leaderTemplate>
+              <tr *ngFor="let team of leaders">
+                <td class="left">{{ team.division }}</td>
+                <td class="left">{{ team.name }} ({{ team.points }})</td>
+              </tr>
+            </ng-template>
+          </ng-container>
         </div>
         <!-- <div class="player-container"></div> -->
       </section>
