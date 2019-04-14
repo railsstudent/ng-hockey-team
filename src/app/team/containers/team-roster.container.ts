@@ -6,7 +6,14 @@ import { merge, Observable, Subject } from 'rxjs';
 import { map, share, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { TeamWithPoints, UpdateTeamDelta } from '../models';
-import { HockeyState, selectCloseAlert, selectOneTeam, selectTeamErrorMessage } from '../reducers';
+import {
+  HockeyState,
+  selectCloseAlert,
+  selectDivisionLeaders,
+  selectOneTeam,
+  selectTeamErrorMessage,
+  selectTopThreeTeams,
+} from '../reducers';
 
 @Component({
   templateUrl: './team-roster.container.html',
@@ -18,6 +25,8 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   teamShare$: Observable<TeamWithPoints | undefined>;
   error$: Observable<string | null>;
   hideError$: Observable<boolean>;
+  topThreeTeams$: Observable<TeamWithPoints[] | undefined>;
+  divisionLeaders$: Observable<TeamWithPoints[] | undefined>;
 
   unsubscribe$ = new Subject();
 
@@ -42,12 +51,15 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.teamShare$ = this.team$.pipe(share());
     this.error$ = this.store.pipe(select(selectTeamErrorMessage));
     this.hideError$ = this.store.pipe(select(selectCloseAlert));
+    this.topThreeTeams$ = this.store.pipe(select(selectTopThreeTeams));
+    this.divisionLeaders$ = this.store.pipe(select(selectDivisionLeaders));
 
     this.teamShare$
       .pipe(
-        map(team => {
+        tap(team => {
           if (!team) {
-            return this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
+            const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId })];
+            return actions.map(action => this.store.dispatch(action));
           }
         }),
         takeUntil(this.unsubscribe$),

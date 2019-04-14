@@ -66,3 +66,38 @@ export const selectCloseAlert = createSelector(
   (hockeyState: HockeyState) => hockeyState.teams,
   (state: fromTeam.State) => state.closeAlert,
 );
+
+export const selectTopThreeTeams = createSelector(
+  selectAllTeamPoints,
+  (teams: TeamWithPoints[]) => {
+    const betterTeams = [...teams].sort((first, second) => {
+      const diffPoints = second.points - first.points;
+      if (diffPoints === 0) {
+        return second.numWin - first.numWin;
+      }
+      return diffPoints;
+    });
+    // tslint:disable-next-line:no-magic-numbers
+    return betterTeams.slice(0, 3);
+  },
+);
+
+export const selectDivisionLeaders = createSelector(
+  selectAllTeamPoints,
+  (teams: TeamWithPoints[]) => {
+    const leaderMap = teams.reduce(
+      (acc, t) => {
+        if (!acc[t.division]) {
+          acc[t.division] = t;
+        } else if (acc[t.division].points < t.points) {
+          acc[t.division] = t;
+        }
+        return acc;
+      },
+      {} as { [key: string]: TeamWithPoints },
+    );
+    return Object.keys(leaderMap)
+      .map(k => leaderMap[k])
+      .sort((a, b) => b.points - a.points);
+  },
+);
