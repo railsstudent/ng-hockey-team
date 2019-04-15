@@ -71,11 +71,17 @@ export const selectTopThreeTeams = createSelector(
   selectAllTeamPoints,
   (teams: TeamWithPoints[]) => {
     const betterTeams = [...teams].sort((first, second) => {
-      const diffPoints = second.points - first.points;
-      if (diffPoints === 0) {
-        return second.numWin - first.numWin;
+      // const diffPoints = second.points - first.points;
+      // if (diffPoints === 0) {
+      //   return second.numWin - first.numWin;
+      // }
+      // return diffPoints;
+      if (first.points < second.points) {
+        return 1;
+      } else if (first.points > second.points) {
+        return -1;
       }
-      return diffPoints;
+      return 0;
     });
     // tslint:disable-next-line:no-magic-numbers
     return betterTeams.slice(0, 3);
@@ -99,5 +105,57 @@ export const selectDivisionLeaders = createSelector(
     return Object.keys(leaderMap)
       .map(k => leaderMap[k])
       .sort((a, b) => b.points - a.points);
+  },
+);
+
+export const selectTopOffensiveTeams = createSelector(
+  selectAllTeams,
+  (teams: Team[]) => {
+    console.log(teams);
+    const offensiveTeams = [...teams].sort((first, second) => {
+      if (first.goalsFor < second.goalsFor) {
+        return 1;
+      } else if (first.goalsFor > second.goalsFor) {
+        return -1;
+      }
+      return 0;
+    });
+    console.log('offensive teams', offensiveTeams);
+    // tslint:disable-next-line:no-magic-numbers
+    return offensiveTeams.slice(0, 3);
+  },
+);
+
+export const selectWorstOffensiveTeams = createSelector(
+  selectAllTeams,
+  (teams: Team[]) => {
+    const offensiveTeams = [...teams].sort((first, second) => {
+      if (first.goalsFor < second.goalsFor) {
+        return -1;
+      } else if (first.goalsFor > second.goalsFor) {
+        return 1;
+      }
+      return 0;
+    });
+    // tslint:disable-next-line:no-magic-numbers
+    return offensiveTeams.slice(0, 3);
+  },
+);
+
+export const selectTopDefensiveTeams = createSelector(
+  selectAllTeams,
+  (teams: Team[]) => {
+    const defensiveTeams = [...teams].sort((first, second) => second.goalsAgainst - first.goalsAgainst);
+    // tslint:disable-next-line:no-magic-numbers
+    return defensiveTeams.slice(0, 3);
+  },
+);
+
+export const selectWorstDefensiveTeams = createSelector(
+  selectAllTeams,
+  (teams: Team[]) => {
+    const defensiveTeams = [...teams].sort((first, second) => first.goalsAgainst - second.goalsAgainst);
+    // tslint:disable-next-line:no-magic-numbers
+    return defensiveTeams.slice(0, 3);
   },
 );

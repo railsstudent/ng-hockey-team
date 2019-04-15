@@ -50,12 +50,6 @@ export class TeamService {
 
     const team = teamArray.find(t => t.id === id);
     if (team) {
-      if (!team.goalsFor) {
-        team.goalsFor = 0;
-      }
-      if (!team.goalsAgainst) {
-        team.goalsAgainst = 0;
-      }
       return of(team);
     }
     console.error(`team with ${id} does not exist.`);
@@ -92,12 +86,6 @@ export class TeamService {
 
       const team = teamArray.find(t => t.id === id);
       if (team) {
-        if (!team.goalsFor) {
-          team.goalsFor = 0;
-        }
-        if (!team.goalsAgainst) {
-          team.goalsAgainst = 0;
-        }
         switch (statType) {
           case UPDATE_STAT_TYPE.WIN:
             if (team.numWin + delta < 0) {

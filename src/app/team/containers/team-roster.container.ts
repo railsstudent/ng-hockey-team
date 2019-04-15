@@ -5,14 +5,17 @@ import { select, Store } from '@ngrx/store';
 import { merge, Observable, Subject } from 'rxjs';
 import { map, share, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
-import { TeamWithPoints, UpdateTeamDelta } from '../models';
+import { Team, TeamWithPoints, UpdateTeamDelta } from '../models';
 import {
   HockeyState,
   selectCloseAlert,
   selectDivisionLeaders,
   selectOneTeam,
   selectTeamErrorMessage,
+  selectTopDefensiveTeams,
+  selectTopOffensiveTeams,
   selectTopThreeTeams,
+  selectWorstOffensiveTeams,
 } from '../reducers';
 
 @Component({
@@ -27,6 +30,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   hideError$: Observable<boolean>;
   topThreeTeams$: Observable<TeamWithPoints[] | undefined>;
   divisionLeaders$: Observable<TeamWithPoints[] | undefined>;
+  topOffensiveTeams$: Observable<Team[] | undefined>;
+  worstOffensiveTeams$: Observable<Team[] | undefined>;
+  topDefensiveTeams$: Observable<Team[] | undefined>;
+  worstDefensiveTeams$: Observable<Team[] | undefined>;
 
   unsubscribe$ = new Subject();
 
@@ -55,6 +62,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.hideError$ = this.store.pipe(select(selectCloseAlert));
     this.topThreeTeams$ = this.store.pipe(select(selectTopThreeTeams));
     this.divisionLeaders$ = this.store.pipe(select(selectDivisionLeaders));
+    this.topOffensiveTeams$ = this.store.pipe(select(selectTopOffensiveTeams));
+    this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
+    this.topDefensiveTeams$ = this.store.pipe(select(selectTopDefensiveTeams));
+    this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
 
     this.teamShare$
       .pipe(
