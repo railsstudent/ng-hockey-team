@@ -111,7 +111,6 @@ export const selectDivisionLeaders = createSelector(
 export const selectTopOffensiveTeams = createSelector(
   selectAllTeams,
   (teams: Team[]) => {
-    console.log(teams);
     const offensiveTeams = [...teams].sort((first, second) => {
       if (first.goalsFor < second.goalsFor) {
         return 1;
@@ -120,7 +119,6 @@ export const selectTopOffensiveTeams = createSelector(
       }
       return 0;
     });
-    console.log('offensive teams', offensiveTeams);
     // tslint:disable-next-line:no-magic-numbers
     return offensiveTeams.slice(0, 3);
   },
@@ -145,7 +143,15 @@ export const selectWorstOffensiveTeams = createSelector(
 export const selectTopDefensiveTeams = createSelector(
   selectAllTeams,
   (teams: Team[]) => {
-    const defensiveTeams = [...teams].sort((first, second) => second.goalsAgainst - first.goalsAgainst);
+    const defensiveTeams = [...teams].sort((first, second) => {
+      if (first.goalsAgainst < second.goalsAgainst) {
+        return -1;
+      } else if (first.goalsAgainst > second.goalsAgainst) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log('sorted top defensive teams', defensiveTeams);
     // tslint:disable-next-line:no-magic-numbers
     return defensiveTeams.slice(0, 3);
   },
@@ -154,7 +160,15 @@ export const selectTopDefensiveTeams = createSelector(
 export const selectWorstDefensiveTeams = createSelector(
   selectAllTeams,
   (teams: Team[]) => {
-    const defensiveTeams = [...teams].sort((first, second) => first.goalsAgainst - second.goalsAgainst);
+    const defensiveTeams = [...teams].sort((first, second) => {
+      if (first.goalsAgainst < second.goalsAgainst) {
+        return 1;
+      } else if (first.goalsAgainst > second.goalsAgainst) {
+        return -1;
+      }
+      return 0;
+    });
+    console.log('sorted worst defensive teams', defensiveTeams);
     // tslint:disable-next-line:no-magic-numbers
     return defensiveTeams.slice(0, 3);
   },
