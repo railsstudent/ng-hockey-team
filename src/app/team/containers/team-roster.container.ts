@@ -5,19 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { merge, Observable, Subject } from 'rxjs';
 import { map, share, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
-import { Team, TeamWithPoints, UpdateTeamDelta } from '../models';
-import {
-  HockeyState,
-  selectCloseAlert,
-  selectDivisionLeaders,
-  selectOneTeam,
-  selectTeamErrorMessage,
-  selectTopDefensiveTeams,
-  selectTopOffensiveTeams,
-  selectTopThreeTeams,
-  selectWorstDefensiveTeams,
-  selectWorstOffensiveTeams,
-} from '../reducers';
+import { TeamWithPoints, UpdateTeamDelta } from '../models';
+import { HockeyState, selectCloseAlert, selectOneTeam, selectTeamErrorMessage } from '../reducers';
 
 @Component({
   templateUrl: './team-roster.container.html',
@@ -29,12 +18,6 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   teamShare$: Observable<TeamWithPoints | undefined>;
   error$: Observable<string | null>;
   hideError$: Observable<boolean>;
-  topThreeTeams$: Observable<TeamWithPoints[] | undefined>;
-  divisionLeaders$: Observable<TeamWithPoints[] | undefined>;
-  topOffensiveTeams$: Observable<Team[] | undefined>;
-  worstOffensiveTeams$: Observable<Team[] | undefined>;
-  topDefensiveTeams$: Observable<Team[] | undefined>;
-  worstDefensiveTeams$: Observable<Team[] | undefined>;
 
   unsubscribe$ = new Subject();
 
@@ -61,12 +44,6 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.teamShare$ = this.team$.pipe(share());
     this.error$ = this.store.pipe(select(selectTeamErrorMessage));
     this.hideError$ = this.store.pipe(select(selectCloseAlert));
-    this.topThreeTeams$ = this.store.pipe(select(selectTopThreeTeams));
-    this.divisionLeaders$ = this.store.pipe(select(selectDivisionLeaders));
-    this.topOffensiveTeams$ = this.store.pipe(select(selectTopOffensiveTeams));
-    this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
-    this.topDefensiveTeams$ = this.store.pipe(select(selectTopDefensiveTeams));
-    this.worstDefensiveTeams$ = this.store.pipe(select(selectWorstDefensiveTeams));
 
     this.teamShare$
       .pipe(
