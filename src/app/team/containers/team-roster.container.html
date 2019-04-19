@@ -147,7 +147,7 @@
             </ng-template>
           </ng-container>
 
-          <ng-container *ngIf="(worstOffensiveTeams$ | async) as leaders">
+          <ng-container *ngIf="(worstDefensiveTeams$ | async) as leaders">
             <team-standing-table
               [title]="'Worst 3 Defensive Teams'"
               [headerTemplateRef]="leaderHeaderTemplate"

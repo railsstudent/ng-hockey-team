@@ -151,7 +151,6 @@ export const selectTopDefensiveTeams = createSelector(
       }
       return 0;
     });
-    console.log('sorted top defensive teams', defensiveTeams);
     // tslint:disable-next-line:no-magic-numbers
     return defensiveTeams.slice(0, 3);
   },
@@ -168,7 +167,6 @@ export const selectWorstDefensiveTeams = createSelector(
       }
       return 0;
     });
-    console.log('sorted worst defensive teams', defensiveTeams);
     // tslint:disable-next-line:no-magic-numbers
     return defensiveTeams.slice(0, 3);
   },

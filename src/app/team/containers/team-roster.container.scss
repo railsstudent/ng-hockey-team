@@ -61,6 +61,7 @@
 
     team-standing-table {
       flex: 1;
+      margin-bottom: 0.5rem;
     }
   }
 }
@@ -79,9 +80,24 @@
     .team-standing-tables {
       flex-direction: row;
       flex-wrap: wrap;
+      justify-content: space-between;
 
       team-standing-table {
-        margin-right: 0.75rem;
+        flex: 0 0 calc(50% - 1rem);
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .roster-container {
+    .team-standing-tables {
+      flex-direction: column;
+
+      team-standing-table {
+        flex: 1;
       }
     }
   }

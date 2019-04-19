@@ -24,6 +24,7 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular
 
       table.table {
         margin-top: 0.5rem;
+        height: 200px;
       }
     `,
   ],

@@ -66,7 +66,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.topOffensiveTeams$ = this.store.pipe(select(selectTopOffensiveTeams));
     this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
     this.topDefensiveTeams$ = this.store.pipe(select(selectTopDefensiveTeams));
-    this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstDefensiveTeams));
+    this.worstDefensiveTeams$ = this.store.pipe(select(selectWorstDefensiveTeams));
 
     this.teamShare$
       .pipe(
