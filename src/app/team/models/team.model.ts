@@ -13,7 +13,7 @@ export interface Team {
 
 export interface TeamWithPoints extends Team {
   points: number;
-  gamePlayed: number;
+  gamesPlayed: number;
 }
 
 export enum UPDATE_STAT_TYPE {

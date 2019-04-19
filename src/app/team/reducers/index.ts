@@ -25,8 +25,8 @@ export const selectAllTeamPoints = createSelector(
   (teams: Team[]) =>
     teams.map(team => {
       const points = team.numWin * WIN_POINTS + team.numDraw * DRAW_POINT + team.numOTWin * DRAW_POINT;
-      const gamePlayed = team.numWin + team.numDraw + team.numLoss;
-      return { ...team, points, gamePlayed } as TeamWithPoints;
+      const gamesPlayed = team.numWin + team.numDraw + team.numLoss;
+      return { ...team, points, gamesPlayed } as TeamWithPoints;
     }),
 );
 
@@ -56,7 +56,7 @@ export const selectOneTeam = createSelector(
     if (team) {
       const points = team.numWin * WIN_POINTS + team.numDraw * DRAW_POINT + team.numOTWin * DRAW_POINT;
       const gamePlayed = team.numWin + team.numDraw + team.numLoss;
-      return { ...team, points, gamePlayed } as TeamWithPoints;
+      return { ...team, points, gamesPlayed: gamePlayed } as TeamWithPoints;
     }
   },
 );

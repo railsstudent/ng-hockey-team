@@ -1,7 +1,7 @@
 <main class="team-stats">
   <section class="clr-row">
     <div class="team-stats-item">
-      <p class="header-cell">Game Played</p>
+      <p class="header-cell">Games Played</p>
     </div>
     <div class="team-stats-item">
       <p class="header-cell">Win</p>
@@ -30,7 +30,7 @@
   </section>
   <section class="clr-row">
     <div class="team-stats-item">
-      <p class="text-cell">{{ team.gamePlayed }}</p>
+      <p class="text-cell">{{ team.gamesPlayed }}</p>
     </div>
     <div class="team-stats-item">
       <team-match-counter [value]="team.numWin" [field]="'WIN'" (counter)="updateWin.emit($event)"></team-match-counter>

@@ -10,7 +10,7 @@ import {
   TeamStatHorizontalTableComponent,
   TeamStatVerticalTableComponent,
 } from './components';
-import { ListingContainer, NewTeamContainer, TeamRosterContainer } from './containers/';
+import { ListingContainer, NewTeamContainer, TeamAnalysisContainer, TeamRosterContainer } from './containers/';
 import { TeamEffects } from './effects';
 import { reducers } from './reducers';
 import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
@@ -27,6 +27,7 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamStatVerticalTableComponent,
     MatchCounterComponent,
     TeamStandingTableComponent,
+    TeamAnalysisContainer,
   ],
   imports: [
     CommonModule,
