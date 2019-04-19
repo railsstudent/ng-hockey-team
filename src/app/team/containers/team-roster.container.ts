@@ -5,14 +5,18 @@ import { select, Store } from '@ngrx/store';
 import { merge, Observable, Subject } from 'rxjs';
 import { map, share, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
-import { TeamWithPoints, UpdateTeamDelta } from '../models';
+import { Team, TeamWithPoints, UpdateTeamDelta } from '../models';
 import {
   HockeyState,
   selectCloseAlert,
   selectDivisionLeaders,
   selectOneTeam,
   selectTeamErrorMessage,
+  selectTopDefensiveTeams,
+  selectTopOffensiveTeams,
   selectTopThreeTeams,
+  selectWorstDefensiveTeams,
+  selectWorstOffensiveTeams,
 } from '../reducers';
 
 @Component({
@@ -27,6 +31,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   hideError$: Observable<boolean>;
   topThreeTeams$: Observable<TeamWithPoints[] | undefined>;
   divisionLeaders$: Observable<TeamWithPoints[] | undefined>;
+  topOffensiveTeams$: Observable<Team[] | undefined>;
+  worstOffensiveTeams$: Observable<Team[] | undefined>;
+  topDefensiveTeams$: Observable<Team[] | undefined>;
+  worstDefensiveTeams$: Observable<Team[] | undefined>;
 
   unsubscribe$ = new Subject();
 
@@ -37,6 +45,8 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   updateDraw$ = new Subject<UpdateTeamDelta>();
   updateOvertimeWin$ = new Subject<UpdateTeamDelta>();
   updateOvertimeLoss$ = new Subject<UpdateTeamDelta>();
+  updateGoalsFor$ = new Subject<UpdateTeamDelta>();
+  updateGoalsAgainst$ = new Subject<UpdateTeamDelta>();
 
   constructor(
     private store: Store<HockeyState>,
@@ -53,6 +63,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.hideError$ = this.store.pipe(select(selectCloseAlert));
     this.topThreeTeams$ = this.store.pipe(select(selectTopThreeTeams));
     this.divisionLeaders$ = this.store.pipe(select(selectDivisionLeaders));
+    this.topOffensiveTeams$ = this.store.pipe(select(selectTopOffensiveTeams));
+    this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
+    this.topDefensiveTeams$ = this.store.pipe(select(selectTopDefensiveTeams));
+    this.worstDefensiveTeams$ = this.store.pipe(select(selectWorstDefensiveTeams));
 
     this.teamShare$
       .pipe(
@@ -66,7 +80,15 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       )
       .subscribe();
 
-    merge(this.updateWin$, this.updateLoss$, this.updateDraw$, this.updateOvertimeWin$, this.updateOvertimeLoss$)
+    merge(
+      this.updateWin$,
+      this.updateLoss$,
+      this.updateDraw$,
+      this.updateOvertimeWin$,
+      this.updateOvertimeLoss$,
+      this.updateGoalsFor$,
+      this.updateGoalsAgainst$,
+    )
       .pipe(
         tap(({ delta, field }) => this.store.dispatch(new TeamActions.UpdateTeamRecord({ teamId, delta, field }))),
         takeUntil(this.unsubscribe$),

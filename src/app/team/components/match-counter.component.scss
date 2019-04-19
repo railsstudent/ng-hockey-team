@@ -1,20 +1,22 @@
 .counter {
   display: flex;
-  > * {
-    flex: 1 1 calc(100% / 3);
+  justify-content: center;
+  align-items: center;
+
+  p.text-cell {
+    margin-top: 0;
+    margin-right: 0.5rem;
+    text-align: center;
   }
 
-  a:hover {
-    text-decoration: none;
-  }
+  .value-change-wrapper {
+    a {
+      display: block;
+      line-height: 0.75rem;
+    }
 
-  a:nth-child(1) {
-    display: flex;
-    justify-content: flex-end;
+    a:hover {
+      text-decoration: none;
+    }
   }
-}
-
-p.text-cell {
-  margin-top: 0;
-  text-align: center;
 }

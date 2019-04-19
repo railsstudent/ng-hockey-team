@@ -5,13 +5,15 @@ import { UpdateTeamDelta } from '../models';
   selector: 'team-match-counter',
   template: `
     <section class="counter">
-      <a href aria-label="Decrement value" (click)="decrementValue($event)">
-        <i class="fas fa-minus-circle fa-2x"></i>
-      </a>
       <p class="text-cell">{{ value }}</p>
-      <a href aria-label="Increment value" (click)="incrementValue($event)">
-        <i class="fas fa-plus-circle fa-2x"></i>
-      </a>
+      <div class="value-change-wrapper">
+        <a href aria-label="Increment value" (click)="incrementValue($event)">
+          <i class="fas fa-angle-up"></i>
+        </a>
+        <a href aria-label="Decrement value" (click)="decrementValue($event)">
+          <i class="fas fa-angle-down"></i>
+        </a>
+      </div>
     </section>
   `,
   styleUrls: ['./match-counter.component.scss'],

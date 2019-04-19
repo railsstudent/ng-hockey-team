@@ -34,6 +34,8 @@
             (updateDraw)="updateDraw$.next($event)"
             (updateOvertimeWin)="updateOvertimeWin$.next($event)"
             (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
+            (updateGoalsFor)="updateGoalsFor$.next($event)"
+            (updateGoalsAgainst)="updateGoalsAgainst$.next($event)"
           ></team-stat-vertical-table>
         </ng-container>
         <div class="team-standing-tables">
@@ -78,6 +80,94 @@
               </tr>
             </ng-template>
           </ng-container>
+
+          <ng-container *ngIf="(topOffensiveTeams$ | async) as leaders">
+            <team-standing-table
+              [title]="'Top 3 Offensive Teams'"
+              [headerTemplateRef]="leaderHeaderTemplate"
+              [teamsTemplateRef]="leaderTemplate"
+            ></team-standing-table>
+
+            <ng-template #leaderHeaderTemplate>
+              <th class="left">Division</th>
+              <th class="left">Name</th>
+              <th class="left">Goals For</th>
+            </ng-template>
+
+            <ng-template #leaderTemplate>
+              <tr *ngFor="let team of leaders">
+                <td class="left">{{ team.division }}</td>
+                <td class="left">{{ team.name }}</td>
+                <td class="left">{{ team.goalsFor }}</td>
+              </tr>
+            </ng-template>
+          </ng-container>
+
+          <ng-container *ngIf="(worstOffensiveTeams$ | async) as leaders">
+            <team-standing-table
+              [title]="'Worst 3 Offensive Teams'"
+              [headerTemplateRef]="leaderHeaderTemplate"
+              [teamsTemplateRef]="leaderTemplate"
+            ></team-standing-table>
+
+            <ng-template #leaderHeaderTemplate>
+              <th class="left">Division</th>
+              <th class="left">Name</th>
+              <th class="left">Goals For</th>
+            </ng-template>
+
+            <ng-template #leaderTemplate>
+              <tr *ngFor="let team of leaders">
+                <td class="left">{{ team.division }}</td>
+                <td class="left">{{ team.name }}</td>
+                <td class="left">{{ team.goalsFor }}</td>
+              </tr>
+            </ng-template>
+          </ng-container>
+
+          <ng-container *ngIf="(topDefensiveTeams$ | async) as leaders">
+            <team-standing-table
+              [title]="'Top 3 Defensive Teams'"
+              [headerTemplateRef]="leaderHeaderTemplate"
+              [teamsTemplateRef]="leaderTemplate"
+            ></team-standing-table>
+
+            <ng-template #leaderHeaderTemplate>
+              <th class="left">Division</th>
+              <th class="left">Name</th>
+              <th class="left">Goals Against</th>
+            </ng-template>
+
+            <ng-template #leaderTemplate>
+              <tr *ngFor="let team of leaders">
+                <td class="left">{{ team.division }}</td>
+                <td class="left">{{ team.name }}</td>
+                <td class="left">{{ team.goalsAgainst }}</td>
+              </tr>
+            </ng-template>
+          </ng-container>
+
+          <ng-container *ngIf="(worstDefensiveTeams$ | async) as leaders">
+            <team-standing-table
+              [title]="'Worst 3 Defensive Teams'"
+              [headerTemplateRef]="leaderHeaderTemplate"
+              [teamsTemplateRef]="leaderTemplate"
+            ></team-standing-table>
+
+            <ng-template #leaderHeaderTemplate>
+              <th class="left">Division</th>
+              <th class="left">Name</th>
+              <th class="left">Goals Against</th>
+            </ng-template>
+
+            <ng-template #leaderTemplate>
+              <tr *ngFor="let team of leaders">
+                <td class="left">{{ team.division }}</td>
+                <td class="left">{{ team.name }}</td>
+                <td class="left">{{ team.goalsAgainst }}</td>
+              </tr>
+            </ng-template>
+          </ng-container>
         </div>
         <!-- <div class="player-container"></div> -->
       </section>
@@ -90,6 +180,8 @@
         (updateDraw)="updateDraw$.next($event)"
         (updateOvertimeWin)="updateOvertimeWin$.next($event)"
         (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
+        (updateGoalsFor)="updateGoalsFor$.next($event)"
+        (updateGoalsAgainst)="updateGoalsAgainst$.next($event)"
       ></team-stat-horizontal-table>
     </ng-template>
   </ng-container>

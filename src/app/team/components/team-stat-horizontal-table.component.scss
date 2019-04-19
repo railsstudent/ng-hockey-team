@@ -16,20 +16,12 @@
 
   &-item {
     padding: 0.25rem;
-    flex: 0 0 calc(100% / 7);
-    max-width: calc(100% / 7);
+    flex: 0 0 calc(100% / 9);
+    max-width: calc(100% / 9);
 
-    .counter {
-      display: flex;
-      > * {
-        flex: 1 1 calc(100% / 3);
-      }
-
-      a:nth-child(1) {
-        display: flex;
-        justify-content: flex-end;
-      }
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     p.text-cell {
       margin-top: 0;

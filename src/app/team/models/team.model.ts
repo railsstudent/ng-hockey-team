@@ -7,6 +7,8 @@ export interface Team {
   numDraw: number;
   numOTWin: number;
   numOTLoss: number;
+  goalsFor: number;
+  goalsAgainst: number;
 }
 
 export interface TeamWithPoints extends Team {
@@ -20,6 +22,8 @@ export enum UPDATE_STAT_TYPE {
   DRAW,
   OVERTIME_WIN,
   OVERTIME_LOSS,
+  GOALS_FOR,
+  GOALS_AGAINST,
 }
 
 export interface UpdateTeamDelta {
