@@ -71,11 +71,6 @@ export const selectTopThreeTeams = createSelector(
   selectAllTeamPoints,
   (teams: TeamWithPoints[]) => {
     const betterTeams = [...teams].sort((first, second) => {
-      // const diffPoints = second.points - first.points;
-      // if (diffPoints === 0) {
-      //   return second.numWin - first.numWin;
-      // }
-      // return diffPoints;
       if (first.points < second.points) {
         return 1;
       } else if (first.points > second.points) {
