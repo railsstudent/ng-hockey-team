@@ -44,7 +44,12 @@
       <p class="header-cell">Overtime Win</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
-      <team-match-counter [value]="team.numOTWin" [field]="'OVERTIME_WIN'" (counter)="updateOvertimeWin.emit($event)">
+      <team-match-counter
+        [value]="team.numOTWin"
+        [field]="'OVERTIME_WIN'"
+        (counter)="updateOvertimeWin.emit($event)"
+        [teamCounterArrowsVisible]="overtimeArrowsVisible"
+      >
       </team-match-counter>
     </div>
   </section>
@@ -57,6 +62,7 @@
         [value]="team.numOTLoss"
         [field]="'OVERTIME_LOSS'"
         (counter)="updateOvertimeLoss.emit($event)"
+        [teamCounterArrowsVisible]="overtimeArrowsVisible"
       >
       </team-match-counter>
     </div>
@@ -64,7 +70,12 @@
       <p class="header-cell">Goals For</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
-      <team-match-counter [value]="team.goalsFor" [field]="'GOALS_FOR'" (counter)="updateGoalsFor.emit($event)">
+      <team-match-counter
+        [value]="team.goalsFor"
+        [field]="'GOALS_FOR'"
+        (counter)="updateGoalsFor.emit($event)"
+        [teamCounterArrowsVisible]="goalsForVisible"
+      >
       </team-match-counter>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2">
@@ -75,6 +86,7 @@
         [value]="team.goalsAgainst"
         [field]="'GOALS_AGAINST'"
         (counter)="updateGoalsAgainst.emit($event)"
+        [teamCounterArrowsVisible]="goalsAgainstVisible"
       >
       </team-match-counter>
     </div>

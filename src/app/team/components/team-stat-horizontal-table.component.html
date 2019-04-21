@@ -66,7 +66,12 @@
       ></team-match-counter>
     </div>
     <div class="team-stats-item">
-      <team-match-counter [value]="team.goalsFor" [field]="'GOALS_FOR'" (counter)="updateGoalsFor.emit($event)">
+      <team-match-counter
+        [value]="team.goalsFor"
+        [field]="'GOALS_FOR'"
+        (counter)="updateGoalsFor.emit($event)"
+        [teamCounterArrowsVisible]="goalsForVisible"
+      >
       </team-match-counter>
     </div>
     <div class="team-stats-item">
@@ -74,6 +79,7 @@
         [value]="team.goalsAgainst"
         [field]="'GOALS_AGAINST'"
         (counter)="updateGoalsAgainst.emit($event)"
+        [teamCounterArrowsVisible]="goalsAgainstVisible"
       >
       </team-match-counter>
     </div>

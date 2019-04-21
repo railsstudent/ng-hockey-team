@@ -129,14 +129,14 @@ export class TeamService {
             }
             break;
           case UPDATE_STAT_TYPE.GOALS_FOR:
-            if (team.numWin + team.numLoss + team.numLoss > 0) {
+            if (team.numWin + team.numLoss + team.numDraw > 0) {
               team.goalsFor = (team.goalsFor || 0) + delta;
             } else {
               return throwError('Cannot update goals for if no game is played.');
             }
             break;
           case UPDATE_STAT_TYPE.GOALS_AGAINST:
-            if (team.numWin + team.numLoss + team.numLoss > 0) {
+            if (team.numWin + team.numLoss + team.numDraw > 0) {
               team.goalsAgainst = (team.goalsAgainst || 0) + delta;
             } else {
               return throwError('Cannot update goals against if no game is played.');
