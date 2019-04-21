@@ -36,6 +36,9 @@
             (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
             (updateGoalsFor)="updateGoalsFor$.next($event)"
             (updateGoalsAgainst)="updateGoalsAgainst$.next($event)"
+            [overtimeArrowsVisible]="team.numDraw > team.numOTWin + team.numOTLoss"
+            [goalsForVisible]="team.numWin + team.numLoss + team.numDraw > 0"
+            [goalsAgainstVisible]="team.numWin + team.numLoss + team.numDraw > 0"
           ></team-stat-vertical-table>
         </ng-container>
         <team-analysis></team-analysis>
@@ -52,6 +55,9 @@
         (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
         (updateGoalsFor)="updateGoalsFor$.next($event)"
         (updateGoalsAgainst)="updateGoalsAgainst$.next($event)"
+        [overtimeArrowsVisible]="team.numDraw > team.numOTWin + team.numOTLoss"
+        [goalsForVisible]="team.numWin + team.numLoss + team.numDraw > 0"
+        [goalsAgainstVisible]="team.numWin + team.numLoss + team.numDraw > 0"
       ></team-stat-horizontal-table>
     </ng-template>
   </ng-container>

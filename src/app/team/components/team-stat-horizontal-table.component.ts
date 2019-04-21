@@ -11,6 +11,15 @@ export class TeamStatHorizontalTableComponent {
   @Input()
   team: TeamWithPoints;
 
+  @Input()
+  overtimeArrowsVisible: boolean;
+
+  @Input()
+  goalsForVisible: boolean;
+
+  @Input()
+  goalsAgainstVisible: boolean;
+
   @Output()
   updateWin = new EventEmitter<UpdateTeamDelta>();
 
