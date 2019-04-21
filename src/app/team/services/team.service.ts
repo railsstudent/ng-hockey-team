@@ -88,6 +88,10 @@ export class TeamService {
       if (team) {
         switch (statType) {
           case UPDATE_STAT_TYPE.WIN:
+            if (team.numWin + team.numLoss + team.numDraw + delta <= 0 && team.goalsFor + team.goalsAgainst > 0) {
+              return throwError('At least one game is played when either goals for or goals against is non-zero.');
+            }
+
             if (team.numWin + delta < 0) {
               team.numWin = 0;
             } else {
@@ -95,6 +99,10 @@ export class TeamService {
             }
             break;
           case UPDATE_STAT_TYPE.LOSS:
+            if (team.numWin + team.numLoss + team.numDraw + delta <= 0 && team.goalsFor + team.goalsAgainst > 0) {
+              return throwError('At least one game is played when either goals for or goals against is non-zero.');
+            }
+
             if (team.numLoss + delta < 0) {
               team.numLoss = 0;
             } else {
@@ -102,6 +110,10 @@ export class TeamService {
             }
             break;
           case UPDATE_STAT_TYPE.DRAW:
+            if (team.numWin + team.numLoss + team.numDraw + delta <= 0 && team.goalsFor + team.goalsAgainst > 0) {
+              return throwError('At least one game is played when either goals for or goals against is non-zero.');
+            }
+
             if (team.numDraw + delta < 0) {
               team.numDraw = 0;
             } else if (team.numDraw + delta >= team.numOTWin + team.numOTLoss) {
@@ -129,14 +141,14 @@ export class TeamService {
             }
             break;
           case UPDATE_STAT_TYPE.GOALS_FOR:
-            if (team.numWin + team.numLoss + team.numLoss > 0) {
+            if (team.numWin + team.numLoss + team.numDraw > 0) {
               team.goalsFor = (team.goalsFor || 0) + delta;
             } else {
               return throwError('Cannot update goals for if no game is played.');
             }
             break;
           case UPDATE_STAT_TYPE.GOALS_AGAINST:
-            if (team.numWin + team.numLoss + team.numLoss > 0) {
+            if (team.numWin + team.numLoss + team.numDraw > 0) {
               team.goalsAgainst = (team.goalsAgainst || 0) + delta;
             } else {
               return throwError('Cannot update goals against if no game is played.');

@@ -7,10 +7,10 @@ import { UpdateTeamDelta } from '../models';
     <section class="counter">
       <p class="text-cell">{{ value }}</p>
       <div class="value-change-wrapper">
-        <a href aria-label="Increment value" (click)="incrementValue($event)">
+        <a href aria-label="Increment value" (click)="incrementValue($event)" class="up-arrow">
           <i class="fas fa-angle-up"></i>
         </a>
-        <a href aria-label="Decrement value" (click)="decrementValue($event)">
+        <a href aria-label="Decrement value" (click)="decrementValue($event)" class="down-arrow" *ngIf="value > 0">
           <i class="fas fa-angle-down"></i>
         </a>
       </div>
