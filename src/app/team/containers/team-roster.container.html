@@ -52,6 +52,7 @@
         (updateOvertimeLoss)="updateOvertimeLoss$.next($event)"
         (updateGoalsFor)="updateGoalsFor$.next($event)"
         (updateGoalsAgainst)="updateGoalsAgainst$.next($event)"
+        [overtimeArrowsVisible]="team.numDraw > team.numOTWin + team.numOTLoss"
       ></team-stat-horizontal-table>
     </ng-template>
   </ng-container>

@@ -54,6 +54,7 @@
         [value]="team.numOTWin"
         [field]="'OVERTIME_WIN'"
         (counter)="updateOvertimeWin.emit($event)"
+        [teamCounterArrowsVisible]="overtimeArrowsVisible"
       ></team-match-counter>
     </div>
     <div class="team-stats-item">
@@ -61,6 +62,7 @@
         [value]="team.numOTLoss"
         [field]="'OVERTIME_LOSS'"
         (counter)="updateOvertimeLoss.emit($event)"
+        [teamCounterArrowsVisible]="overtimeArrowsVisible"
       ></team-match-counter>
     </div>
     <div class="team-stats-item">
