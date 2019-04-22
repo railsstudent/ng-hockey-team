@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { TeamActions } from '../actions';
-import { Team } from '../models/team.model';
+import { Team, TeamWithPoints } from '../models';
 
 export interface State extends EntityState<Team> {
   // additional entities state properties
@@ -156,4 +156,32 @@ export function reducer(state = initialState, action: Action): State {
   }
 }
 
+const WIN_POINTS = 3;
+const DRAW_POINT = 1;
+
 export const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
+
+export const getMessage = (state: State) => state.message;
+export const getError = (state: State) => state.error;
+export const getCloseAlert = (state: State) => state.closeAlert;
+
+export const calculateTeamPoints = (team: Team): TeamWithPoints => {
+  const points = team.numWin * WIN_POINTS + team.numDraw * DRAW_POINT + team.numOTWin * DRAW_POINT;
+  const gamesPlayed = team.numWin + team.numDraw + team.numLoss;
+  return { ...team, points, gamesPlayed };
+};
+
+export const getSelectedTeam = (state: State) => {
+  if (state.selectedTeam) {
+    return calculateTeamPoints(state.selectedTeam);
+  }
+};
+
+export const sortedOffensiveTeams = (teams: Team[]) =>
+  [...teams].sort((first, second) => second.goalsFor - first.goalsFor);
+
+export const sortedDefensiveTeams = (teams: Team[]) =>
+  [...teams].sort((first, second) => first.goalsAgainst - second.goalsAgainst);
+
+export const sortTeamsByPoints = (teams: TeamWithPoints[]) =>
+  [...teams].sort((first, second) => second.points - first.points);

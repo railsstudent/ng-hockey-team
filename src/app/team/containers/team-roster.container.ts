@@ -6,7 +6,8 @@ import { merge, Observable, Subject } from 'rxjs';
 import { filter, map, share, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { TeamWithPoints, UpdateTeamDelta } from '../models';
-import { HockeyState, selectCloseAlert, selectOneTeam, selectTeamErrorMessage } from '../reducers';
+import { LeagueState } from '../reducers';
+import { getCloseAlert, getSelectedTeam, getTeamErrorMessage } from '../selectors';
 
 @Component({
   templateUrl: './team-roster.container.html',
@@ -32,7 +33,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
 
   constructor(
-    private store: Store<HockeyState>,
+    private store: Store<LeagueState>,
     private router: Router,
     private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
@@ -43,10 +44,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       this.teamId = params.get('teamId') || '';
     });
 
-    this.team$ = this.store.pipe(select(selectOneTeam));
+    this.team$ = this.store.pipe(select(getSelectedTeam));
     this.teamShare$ = this.team$.pipe(share());
-    this.error$ = this.store.pipe(select(selectTeamErrorMessage));
-    this.hideError$ = this.store.pipe(select(selectCloseAlert));
+    this.error$ = this.store.pipe(select(getTeamErrorMessage));
+    this.hideError$ = this.store.pipe(select(getCloseAlert));
 
     this.teamShare$
       .pipe(

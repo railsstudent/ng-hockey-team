@@ -4,7 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TeamActions } from '../actions';
 import { TeamWithPoints } from '../models';
-import { HockeyState, selectAllTeamPoints } from '../reducers';
+import { LeagueState } from '../reducers';
+import { getAllTeamPoints } from '../selectors';
 
 @Component({
   templateUrl: './list-team.container.html',
@@ -14,11 +15,10 @@ import { HockeyState, selectAllTeamPoints } from '../reducers';
 export class ListingContainer implements OnInit {
   teams$: Observable<TeamWithPoints[]>;
 
-  constructor(private store: Store<HockeyState>, private router: Router, private route: ActivatedRoute) {}
+  constructor(private store: Store<LeagueState>, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.teams$ = this.store.pipe(select(selectAllTeamPoints));
-
+    this.teams$ = this.store.pipe(select(getAllTeamPoints));
     this.store.dispatch(new TeamActions.LoadTeams());
   }
 
