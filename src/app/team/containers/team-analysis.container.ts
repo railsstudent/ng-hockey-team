@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { TeamActions } from '../actions';
 import { Team, TeamWithPoints } from '../models';
 import {
-  selectDivisionLeaders,
-  selectTopDefensiveTeams,
-  selectTopOffensiveTeams,
-  selectTopThreeTeams,
-  selectWorstDefensiveTeams,
-  selectWorstOffensiveTeams,
-} from '../reducers';
+  getDivisionLeaders,
+  getTopDefensiveTeams,
+  getTopOffensiveTeams,
+  getTopThreeTeams,
+  getWorstDefensiveTeams,
+  getWorstOffensiveTeams,
+} from '../selectors';
 
 @Component({
   selector: 'team-analysis',
@@ -29,12 +29,12 @@ export class TeamAnalysisContainer implements OnInit {
   constructor(private store: Store<any>) {}
 
   ngOnInit() {
-    this.topThreeTeams$ = this.store.pipe(select(selectTopThreeTeams));
-    this.divisionLeaders$ = this.store.pipe(select(selectDivisionLeaders));
-    this.topOffensiveTeams$ = this.store.pipe(select(selectTopOffensiveTeams));
-    this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
-    this.topDefensiveTeams$ = this.store.pipe(select(selectTopDefensiveTeams));
-    this.worstDefensiveTeams$ = this.store.pipe(select(selectWorstDefensiveTeams));
+    this.topThreeTeams$ = this.store.pipe(select(getTopThreeTeams));
+    this.divisionLeaders$ = this.store.pipe(select(getDivisionLeaders));
+    this.topOffensiveTeams$ = this.store.pipe(select(getTopOffensiveTeams));
+    this.worstOffensiveTeams$ = this.store.pipe(select(getWorstOffensiveTeams));
+    this.topDefensiveTeams$ = this.store.pipe(select(getTopDefensiveTeams));
+    this.worstDefensiveTeams$ = this.store.pipe(select(getWorstDefensiveTeams));
   }
 
   gotoTeam($event: Event, teamId: string) {

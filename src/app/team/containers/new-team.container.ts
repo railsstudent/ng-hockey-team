@@ -5,7 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
-import { HockeyState, selectTeamErrorMessage, selectTeamMessage } from '../reducers';
+import { LeagueState } from '../reducers';
+import { getTeamErrorMessage, getTeamMessage } from '../selectors';
 
 @Component({
   templateUrl: './new-team.container.html',
@@ -21,7 +22,7 @@ export class NewTeamContainer implements OnInit {
   error$: Observable<string | null>;
 
   constructor(
-    private store: Store<HockeyState>,
+    private store: Store<LeagueState>,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -34,7 +35,7 @@ export class NewTeamContainer implements OnInit {
     });
 
     this.message$ = this.store.pipe(
-      select(selectTeamMessage),
+      select(getTeamMessage),
       tap(msg => {
         if (msg) {
           this.formDirective.resetForm();
@@ -43,7 +44,7 @@ export class NewTeamContainer implements OnInit {
       }),
     );
 
-    this.error$ = this.store.pipe(select(selectTeamErrorMessage));
+    this.error$ = this.store.pipe(select(getTeamErrorMessage));
   }
 
   returnToMenu() {
