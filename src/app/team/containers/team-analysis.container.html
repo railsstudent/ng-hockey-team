@@ -14,7 +14,9 @@
 
     <ng-template #topThreeTeamsTemplate>
       <tr *ngFor="let team of topThreeTeams">
-        <td class="left">{{ team.name }}</td>
+        <td class="left">
+          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+        </td>
         <td class="left">{{ team.division }}</td>
         <td class="left">{{ team.points }}</td>
       </tr>
@@ -38,7 +40,7 @@
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
         <td class="left">{{ team.gamesPlayed }}</td>
-        <td class="left">{{ team.name }} ({{ team.points }})</td>
+        <td class="left"><a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a> ({{ team.points }})</td>
       </tr>
     </ng-template>
   </ng-container>
@@ -59,7 +61,9 @@
     <ng-template #leaderTemplate>
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
-        <td class="left">{{ team.name }}</td>
+        <td class="left">
+          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+        </td>
         <td class="left">{{ team.goalsFor }}</td>
       </tr>
     </ng-template>
@@ -81,7 +85,9 @@
     <ng-template #leaderTemplate>
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
-        <td class="left">{{ team.name }}</td>
+        <td class="left">
+          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+        </td>
         <td class="left">{{ team.goalsFor }}</td>
       </tr>
     </ng-template>
@@ -103,7 +109,9 @@
     <ng-template #leaderTemplate>
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
-        <td class="left">{{ team.name }}</td>
+        <td class="left">
+          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+        </td>
         <td class="left">{{ team.goalsAgainst }}</td>
       </tr>
     </ng-template>
@@ -125,7 +133,9 @@
     <ng-template #leaderTemplate>
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
-        <td class="left">{{ team.name }}</td>
+        <td class="left">
+          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+        </td>
         <td class="left">{{ team.goalsAgainst }}</td>
       </tr>
     </ng-template>

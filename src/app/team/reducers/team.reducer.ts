@@ -81,7 +81,6 @@ export function reducer(state = initialState, action: Action): State {
     case TeamActions.TeamActionTypes.LoadTeamRoster: {
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error: null,
         closeAlert: false,
