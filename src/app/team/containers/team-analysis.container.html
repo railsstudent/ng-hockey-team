@@ -14,7 +14,7 @@
 
     <ng-template #topThreeTeamsTemplate>
       <tr *ngFor="let team of topThreeTeams">
-        <td class="left">{{ team.name }}</td>
+        <td class="left"><a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a></td>
         <td class="left">{{ team.division }}</td>
         <td class="left">{{ team.points }}</td>
       </tr>

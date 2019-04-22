@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { TeamActions } from '../actions';
 import { Team, TeamWithPoints } from '../models';
 import {
   selectDivisionLeaders,
@@ -34,5 +35,13 @@ export class TeamAnalysisContainer implements OnInit {
     this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
     this.topDefensiveTeams$ = this.store.pipe(select(selectTopDefensiveTeams));
     this.worstDefensiveTeams$ = this.store.pipe(select(selectWorstDefensiveTeams));
+  }
+
+  gotoTeam($event: Event, teamId: string) {
+    if ($event) {
+      $event.stopPropagation();
+      $event.preventDefault();
+    }
+    this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
   }
 }
