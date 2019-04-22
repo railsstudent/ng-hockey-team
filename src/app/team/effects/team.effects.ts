@@ -16,10 +16,7 @@ export class TeamEffects {
     switchMap(() =>
       this.teamService.getAll().pipe(
         map(teams => new TeamActions.LoadTeamsSuccess({ teams })),
-        catchError((error: string) => {
-          console.log(error);
-          return of(new TeamActions.LoadTeamsFailure({ error }));
-        }),
+        catchError((error: string) => of(new TeamActions.LoadTeamsFailure({ error }))),
       ),
     ),
   );

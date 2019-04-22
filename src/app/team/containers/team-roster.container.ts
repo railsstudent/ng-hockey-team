@@ -1,9 +1,9 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { merge, Observable, Subject } from 'rxjs';
-import { map, share, takeUntil, tap } from 'rxjs/operators';
+import { filter, map, share, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { TeamWithPoints, UpdateTeamDelta } from '../models';
 import { HockeyState, selectCloseAlert, selectOneTeam, selectTeamErrorMessage } from '../reducers';
@@ -20,9 +20,6 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   hideError$: Observable<boolean>;
 
   unsubscribe$ = new Subject();
-
-  isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
-
   updateWin$ = new Subject<UpdateTeamDelta>();
   updateLoss$ = new Subject<UpdateTeamDelta>();
   updateDraw$ = new Subject<UpdateTeamDelta>();
@@ -30,6 +27,9 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   updateOvertimeLoss$ = new Subject<UpdateTeamDelta>();
   updateGoalsFor$ = new Subject<UpdateTeamDelta>();
   updateGoalsAgainst$ = new Subject<UpdateTeamDelta>();
+
+  teamId: string;
+  isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
 
   constructor(
     private store: Store<HockeyState>,
@@ -39,7 +39,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const teamId = this.route.snapshot.params.teamId;
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.teamId = params.get('teamId') || '';
+    });
+
     this.team$ = this.store.pipe(select(selectOneTeam));
     this.teamShare$ = this.team$.pipe(share());
     this.error$ = this.store.pipe(select(selectTeamErrorMessage));
@@ -47,9 +50,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
 
     this.teamShare$
       .pipe(
+        filter(() => !!this.teamId),
         tap(team => {
           if (!team) {
-            const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId })];
+            const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId: this.teamId })];
             return actions.map(action => this.store.dispatch(action));
           }
         }),
@@ -67,7 +71,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       this.updateGoalsAgainst$,
     )
       .pipe(
-        tap(({ delta, field }) => this.store.dispatch(new TeamActions.UpdateTeamRecord({ teamId, delta, field }))),
+        filter(() => !!this.teamId),
+        tap(({ delta, field }) =>
+          this.store.dispatch(new TeamActions.UpdateTeamRecord({ teamId: this.teamId, delta, field })),
+        ),
         takeUntil(this.unsubscribe$),
       )
       .subscribe();

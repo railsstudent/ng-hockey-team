@@ -26,7 +26,6 @@ export class TeamCounterArrowsVisibleDirective implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes TeamCounterArrowsVisibleDirective', changes);
     const {
       teamCounterArrowsVisible: { currentValue },
     } = changes;
