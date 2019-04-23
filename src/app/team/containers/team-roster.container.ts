@@ -2,10 +2,10 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { merge, Observable, Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { filter, map, share, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
-import { TeamWithPoints, UpdateTeamDelta } from '../models';
+import { UpdateTeamDelta } from '../models';
 import { LeagueState } from '../reducers';
 import { getCloseAlert, getSelectedTeam, getTeamErrorMessage } from '../selectors';
 
@@ -15,11 +15,6 @@ import { getCloseAlert, getSelectedTeam, getTeamErrorMessage } from '../selector
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamRosterContainer implements OnInit, OnDestroy {
-  team$: Observable<TeamWithPoints | undefined>;
-  teamShare$: Observable<TeamWithPoints | undefined>;
-  error$: Observable<string | null>;
-  hideError$: Observable<boolean>;
-
   unsubscribe$ = new Subject();
   updateWin$ = new Subject<UpdateTeamDelta>();
   updateLoss$ = new Subject<UpdateTeamDelta>();
@@ -31,6 +26,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
 
   teamId: string;
   isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
+  team$ = this.store.pipe(select(getSelectedTeam));
+  teamShare$ = this.team$.pipe(share());
+  error$ = this.store.pipe(select(getTeamErrorMessage));
+  hideError$ = this.store.pipe(select(getCloseAlert));
 
   constructor(
     private store: Store<LeagueState>,
@@ -43,11 +42,6 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.teamId = params.get('teamId') || '';
     });
-
-    this.team$ = this.store.pipe(select(getSelectedTeam));
-    this.teamShare$ = this.team$.pipe(share());
-    this.error$ = this.store.pipe(select(getTeamErrorMessage));
-    this.hideError$ = this.store.pipe(select(getCloseAlert));
 
     this.teamShare$
       .pipe(

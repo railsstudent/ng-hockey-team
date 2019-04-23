@@ -19,7 +19,8 @@ export class NewTeamContainer implements OnInit {
 
   form: FormGroup;
   message$: Observable<string | null>;
-  error$: Observable<string | null>;
+
+  error$ = this.store.pipe(select(getTeamErrorMessage));
 
   constructor(
     private store: Store<LeagueState>,
@@ -43,8 +44,6 @@ export class NewTeamContainer implements OnInit {
         }
       }),
     );
-
-    this.error$ = this.store.pipe(select(getTeamErrorMessage));
   }
 
   returnToMenu() {
