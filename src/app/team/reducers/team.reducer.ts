@@ -5,7 +5,6 @@ import { Team, TeamWithPoints } from '../models';
 
 export interface State extends EntityState<Team> {
   // additional entities state properties
-  selectedTeam: Team | null;
   error: string | null;
   message: string | null;
   closeAlert: boolean;
@@ -15,7 +14,6 @@ export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>();
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
-  selectedTeam: null,
   error: null,
   message: null,
   closeAlert: false,
@@ -28,7 +26,6 @@ export function reducer(state = initialState, action: Action): State {
     case TeamActions.TeamActionTypes.LoadTeamsSuccess: {
       return {
         ...adapter.addAll(teamAction.payload.teams, state),
-        selectedTeam: null,
         error: null,
         message: null,
         closeAlert: false,
@@ -39,7 +36,6 @@ export function reducer(state = initialState, action: Action): State {
       const { error = null } = teamAction.payload;
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error,
         closeAlert: false,
@@ -49,7 +45,6 @@ export function reducer(state = initialState, action: Action): State {
     case TeamActions.TeamActionTypes.AddTeam: {
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error: null,
         closeAlert: false,
@@ -60,7 +55,6 @@ export function reducer(state = initialState, action: Action): State {
       const { team, message } = teamAction.payload;
       return {
         ...adapter.addOne(team, state),
-        selectedTeam: null,
         error: null,
         message,
         closeAlert: false,
@@ -71,7 +65,6 @@ export function reducer(state = initialState, action: Action): State {
       const { error } = teamAction.payload;
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error,
         closeAlert: false,
@@ -91,7 +84,6 @@ export function reducer(state = initialState, action: Action): State {
       const { team } = teamAction.payload;
       return {
         ...state,
-        selectedTeam: team,
         message: null,
         error: null,
         closeAlert: false,
@@ -102,7 +94,6 @@ export function reducer(state = initialState, action: Action): State {
       const { error } = teamAction.payload;
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error,
         closeAlert: false,
@@ -126,7 +117,6 @@ export function reducer(state = initialState, action: Action): State {
       };
       return {
         ...adapter.updateOne(changes, state),
-        selectedTeam: team,
         message: null,
         error: null,
         closeAlert: false,
@@ -169,12 +159,6 @@ export const calculateTeamPoints = (team: Team): TeamWithPoints => {
   const points = team.numWin * WIN_POINTS + team.numDraw * DRAW_POINT + team.numOTWin * DRAW_POINT;
   const gamesPlayed = team.numWin + team.numDraw + team.numLoss;
   return { ...team, points, gamesPlayed };
-};
-
-export const getSelectedTeam = (state: State) => {
-  if (state.selectedTeam) {
-    return calculateTeamPoints(state.selectedTeam);
-  }
 };
 
 export const sortedOffensiveTeams = (teams: Team[]) =>
