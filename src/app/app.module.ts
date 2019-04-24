@@ -8,9 +8,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CustomSerializer } from './custom-route-serializer';
-import { metaReducers, reducers } from './reducers';
 import { SharedModule } from './shared';
+import { CustomSerializer, metaReducers, reducers } from './store';
 
 @NgModule({
   declarations: [AppComponent],

@@ -2,11 +2,11 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { merge, Observable, Subject } from 'rxjs';
-import { filter, map, share, takeUntil, tap } from 'rxjs/operators';
-import { TeamActions } from '../actions';
-import { TeamWithPoints, UpdateTeamDelta } from '../models';
-import { HockeyState, selectCloseAlert, selectOneTeam, selectTeamErrorMessage } from '../reducers';
+import { merge, Subject } from 'rxjs';
+import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { UpdateTeamDelta } from '../models';
+import { getCloseAlert, getSelectedTeam, getTeamErrorMessage } from '../store';
+import { LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './team-roster.container.html',
@@ -14,11 +14,6 @@ import { HockeyState, selectCloseAlert, selectOneTeam, selectTeamErrorMessage } 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamRosterContainer implements OnInit, OnDestroy {
-  team$: Observable<TeamWithPoints | undefined>;
-  teamShare$: Observable<TeamWithPoints | undefined>;
-  error$: Observable<string | null>;
-  hideError$: Observable<boolean>;
-
   unsubscribe$ = new Subject();
   updateWin$ = new Subject<UpdateTeamDelta>();
   updateLoss$ = new Subject<UpdateTeamDelta>();
@@ -30,9 +25,12 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
 
   teamId: string;
   isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
+  team$ = this.store.pipe(select(getSelectedTeam));
+  error$ = this.store.pipe(select(getTeamErrorMessage));
+  hideError$ = this.store.pipe(select(getCloseAlert));
 
   constructor(
-    private store: Store<HockeyState>,
+    private store: Store<LeagueState>,
     private router: Router,
     private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
@@ -43,23 +41,18 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       this.teamId = params.get('teamId') || '';
     });
 
-    this.team$ = this.store.pipe(select(selectOneTeam));
-    this.teamShare$ = this.team$.pipe(share());
-    this.error$ = this.store.pipe(select(selectTeamErrorMessage));
-    this.hideError$ = this.store.pipe(select(selectCloseAlert));
-
-    this.teamShare$
-      .pipe(
-        filter(() => !!this.teamId),
-        tap(team => {
-          if (!team) {
-            const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId: this.teamId })];
-            return actions.map(action => this.store.dispatch(action));
-          }
-        }),
-        takeUntil(this.unsubscribe$),
-      )
-      .subscribe();
+    // this.teamShare$
+    //   .pipe(
+    //     filter(() => !!this.teamId),
+    //     tap(team => {
+    //       if (!team) {
+    //         const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId: this.teamId })];
+    //         return actions.map(action => this.store.dispatch(action));
+    //       }
+    //     }),
+    //     takeUntil(this.unsubscribe$),
+    //   )
+    //   .subscribe();
 
     merge(
       this.updateWin$,
@@ -81,7 +74,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.router.navigate(['../../list'], { relativeTo: this.route });
+    this.router.navigate(['/team/list']);
   }
 
   closeAlert() {

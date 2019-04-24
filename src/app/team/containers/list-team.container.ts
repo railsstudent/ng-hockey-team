@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { TeamActions } from '../actions';
 import { TeamWithPoints } from '../models';
-import { HockeyState, selectAllTeamPoints } from '../reducers';
+import { getAllTeamPoints, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './list-team.container.html',
@@ -12,13 +10,11 @@ import { HockeyState, selectAllTeamPoints } from '../reducers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListingContainer implements OnInit {
-  teams$: Observable<TeamWithPoints[]>;
+  teams$ = this.store.pipe(select(getAllTeamPoints));
 
-  constructor(private store: Store<HockeyState>, private router: Router, private route: ActivatedRoute) {}
+  constructor(private store: Store<LeagueState>, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.teams$ = this.store.pipe(select(selectAllTeamPoints));
-
     this.store.dispatch(new TeamActions.LoadTeams());
   }
 

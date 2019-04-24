@@ -1,37 +1,47 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { Team, TeamWithPoints } from '../../models';
 import { TeamActions } from '../actions';
-import { Team } from '../models/team.model';
 
 export interface State extends EntityState<Team> {
   // additional entities state properties
-  selectedTeam: Team | null;
   error: string | null;
   message: string | null;
   closeAlert: boolean;
+  loaded: boolean;
+  loading: boolean;
 }
 
 export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>();
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
-  selectedTeam: null,
   error: null,
   message: null,
   closeAlert: false,
+  loaded: false,
+  loading: false,
 });
 
 export function reducer(state = initialState, action: Action): State {
   const teamAction = action as TeamActions.TeamActionsUnion;
 
   switch (teamAction.type) {
+    case TeamActions.TeamActionTypes.LoadTeams: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
     case TeamActions.TeamActionTypes.LoadTeamsSuccess: {
       return {
         ...adapter.addAll(teamAction.payload.teams, state),
-        selectedTeam: null,
         error: null,
         message: null,
         closeAlert: false,
+        loaded: true,
+        loading: false,
       };
     }
 
@@ -39,17 +49,17 @@ export function reducer(state = initialState, action: Action): State {
       const { error = null } = teamAction.payload;
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error,
         closeAlert: false,
+        loading: false,
+        loaded: false,
       };
     }
 
     case TeamActions.TeamActionTypes.AddTeam: {
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error: null,
         closeAlert: false,
@@ -60,7 +70,6 @@ export function reducer(state = initialState, action: Action): State {
       const { team, message } = teamAction.payload;
       return {
         ...adapter.addOne(team, state),
-        selectedTeam: null,
         error: null,
         message,
         closeAlert: false,
@@ -71,7 +80,6 @@ export function reducer(state = initialState, action: Action): State {
       const { error } = teamAction.payload;
       return {
         ...state,
-        selectedTeam: null,
         message: null,
         error,
         closeAlert: false,
@@ -83,28 +91,6 @@ export function reducer(state = initialState, action: Action): State {
         ...state,
         message: null,
         error: null,
-        closeAlert: false,
-      };
-    }
-
-    case TeamActions.TeamActionTypes.LoadTeamRosterSuccess: {
-      const { team } = teamAction.payload;
-      return {
-        ...state,
-        selectedTeam: team,
-        message: null,
-        error: null,
-        closeAlert: false,
-      };
-    }
-
-    case TeamActions.TeamActionTypes.LoadTeamRosterFailure: {
-      const { error } = teamAction.payload;
-      return {
-        ...state,
-        selectedTeam: null,
-        message: null,
-        error,
         closeAlert: false,
       };
     }
@@ -126,7 +112,6 @@ export function reducer(state = initialState, action: Action): State {
       };
       return {
         ...adapter.updateOne(changes, state),
-        selectedTeam: team,
         message: null,
         error: null,
         closeAlert: false,
@@ -156,4 +141,27 @@ export function reducer(state = initialState, action: Action): State {
   }
 }
 
+const WIN_POINTS = 3;
+const DRAW_POINT = 1;
+
 export const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
+
+export const getMessage = (state: State) => state.message;
+export const getError = (state: State) => state.error;
+export const getCloseAlert = (state: State) => state.closeAlert;
+export const getLoaded = (state: State) => state.loaded;
+
+export const calculateTeamPoints = (team: Team): TeamWithPoints => {
+  const points = team.numWin * WIN_POINTS + team.numDraw * DRAW_POINT + team.numOTWin * DRAW_POINT;
+  const gamesPlayed = team.numWin + team.numDraw + team.numLoss;
+  return { ...team, points, gamesPlayed };
+};
+
+export const sortedOffensiveTeams = (teams: Team[]) =>
+  [...teams].sort((first, second) => second.goalsFor - first.goalsFor);
+
+export const sortedDefensiveTeams = (teams: Team[]) =>
+  [...teams].sort((first, second) => first.goalsAgainst - second.goalsAgainst);
+
+export const sortTeamsByPoints = (teams: TeamWithPoints[]) =>
+  [...teams].sort((first, second) => second.points - first.points);

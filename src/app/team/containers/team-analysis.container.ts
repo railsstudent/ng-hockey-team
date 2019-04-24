@@ -1,16 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { TeamActions } from '../actions';
-import { Team, TeamWithPoints } from '../models';
 import {
-  selectDivisionLeaders,
-  selectTopDefensiveTeams,
-  selectTopOffensiveTeams,
-  selectTopThreeTeams,
-  selectWorstDefensiveTeams,
-  selectWorstOffensiveTeams,
-} from '../reducers';
+  getDivisionLeaders,
+  getTopDefensiveTeams,
+  getTopOffensiveTeams,
+  getTopThreeTeams,
+  getWorstDefensiveTeams,
+  getWorstOffensiveTeams,
+  TeamActions,
+} from '../store';
 
 @Component({
   selector: 'team-analysis',
@@ -18,24 +16,15 @@ import {
   styleUrls: ['./team-analysis.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamAnalysisContainer implements OnInit {
-  topThreeTeams$: Observable<TeamWithPoints[] | undefined>;
-  divisionLeaders$: Observable<TeamWithPoints[] | undefined>;
-  topOffensiveTeams$: Observable<Team[] | undefined>;
-  worstOffensiveTeams$: Observable<Team[] | undefined>;
-  topDefensiveTeams$: Observable<Team[] | undefined>;
-  worstDefensiveTeams$: Observable<Team[] | undefined>;
+export class TeamAnalysisContainer {
+  topThreeTeams$ = this.store.pipe(select(getTopThreeTeams));
+  divisionLeaders$ = this.store.pipe(select(getDivisionLeaders));
+  topOffensiveTeams$ = this.store.pipe(select(getTopOffensiveTeams));
+  worstOffensiveTeams$ = this.store.pipe(select(getWorstOffensiveTeams));
+  topDefensiveTeams$ = this.store.pipe(select(getTopDefensiveTeams));
+  worstDefensiveTeams$ = this.store.pipe(select(getWorstDefensiveTeams));
 
   constructor(private store: Store<any>) {}
-
-  ngOnInit() {
-    this.topThreeTeams$ = this.store.pipe(select(selectTopThreeTeams));
-    this.divisionLeaders$ = this.store.pipe(select(selectDivisionLeaders));
-    this.topOffensiveTeams$ = this.store.pipe(select(selectTopOffensiveTeams));
-    this.worstOffensiveTeams$ = this.store.pipe(select(selectWorstOffensiveTeams));
-    this.topDefensiveTeams$ = this.store.pipe(select(selectTopDefensiveTeams));
-    this.worstDefensiveTeams$ = this.store.pipe(select(selectWorstDefensiveTeams));
-  }
 
   gotoTeam($event: Event, teamId: string) {
     if ($event) {
