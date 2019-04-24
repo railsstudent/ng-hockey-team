@@ -4,9 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TeamActions } from '../actions';
-import { LeagueState } from '../reducers';
-import { getTeamErrorMessage, getTeamMessage } from '../selectors';
+import { getTeamErrorMessage, getTeamMessage, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './new-team.container.html',

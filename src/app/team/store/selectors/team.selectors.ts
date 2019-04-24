@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { TeamWithPoints } from '../models';
+import { TeamWithPoints } from '../../models';
 import * as fromFeature from '../reducers';
 import * as fromTeam from '../reducers/team.reducer';
 

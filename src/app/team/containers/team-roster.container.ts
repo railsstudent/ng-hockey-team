@@ -4,10 +4,9 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
-import { TeamActions } from '../actions';
 import { UpdateTeamDelta } from '../models';
-import { LeagueState } from '../reducers';
-import { getCloseAlert, getSelectedTeam, getTeamErrorMessage } from '../selectors';
+import { getCloseAlert, getSelectedTeam, getTeamErrorMessage } from '../store';
+import { LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './team-roster.container.html',

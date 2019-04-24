@@ -12,9 +12,8 @@ import {
 } from './components';
 import { ListingContainer, NewTeamContainer, TeamAnalysisContainer, TeamRosterContainer } from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
-import { TeamEffects } from './effects';
 import { TeamGuard } from './guards';
-import { reducers } from './reducers';
+import { reducers, TeamEffects } from './store';
 import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
 import { TeamRoutingModule } from './team-routing.module';
 

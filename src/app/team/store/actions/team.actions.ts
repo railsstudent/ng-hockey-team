@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Team } from '../models/team.model';
+import { Team } from '../../models';
 
 export enum TeamActionTypes {
   LoadTeams = '[Team] Load Teams',

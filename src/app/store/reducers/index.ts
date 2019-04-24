@@ -8,7 +8,7 @@ import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector,
  * ensure that none of the reducers accidentally mutates the state.
  */
 import { storeFreeze } from 'ngrx-store-freeze';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;

@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { TeamActions } from '../actions';
 import { TeamWithPoints } from '../models';
-import { LeagueState } from '../reducers';
-import { getAllTeamPoints } from '../selectors';
+import { getAllTeamPoints, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './list-team.container.html',

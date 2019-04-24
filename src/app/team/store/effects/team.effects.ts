@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { TeamService } from '../../services';
 import { TeamActions } from '../actions';
-import { TeamService } from '../services';
 
 @Injectable()
 export class TeamEffects {

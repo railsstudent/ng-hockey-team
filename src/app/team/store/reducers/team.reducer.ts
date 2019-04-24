@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { Team, TeamWithPoints } from '../../models';
 import { TeamActions } from '../actions';
-import { Team, TeamWithPoints } from '../models';
 
 export interface State extends EntityState<Team> {
   // additional entities state properties

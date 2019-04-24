@@ -1,6 +1,6 @@
 import * as fromRouter from '@ngrx/router-store';
 import { Action, ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import * as fromRoot from '../../reducers';
+import * as fromRoot from '../../../store';
 import * as fromTeam from './team.reducer';
 
 export interface LeagueState extends fromRoot.AppState {

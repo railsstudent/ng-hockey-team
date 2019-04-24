@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { TeamActions } from '../actions';
 import {
   getDivisionLeaders,
   getTopDefensiveTeams,
@@ -8,7 +7,8 @@ import {
   getTopThreeTeams,
   getWorstDefensiveTeams,
   getWorstOffensiveTeams,
-} from '../selectors';
+  TeamActions,
+} from '../store';
 
 @Component({
   selector: 'team-analysis',
