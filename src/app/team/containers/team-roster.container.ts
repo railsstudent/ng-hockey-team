@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
-import { filter, map, share, takeUntil, tap } from 'rxjs/operators';
+import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { TeamActions } from '../actions';
 import { UpdateTeamDelta } from '../models';
 import { LeagueState } from '../reducers';
@@ -27,7 +27,6 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   teamId: string;
   isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
   team$ = this.store.pipe(select(getSelectedTeam));
-  teamShare$ = this.team$.pipe(share());
   error$ = this.store.pipe(select(getTeamErrorMessage));
   hideError$ = this.store.pipe(select(getCloseAlert));
 
@@ -43,18 +42,18 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       this.teamId = params.get('teamId') || '';
     });
 
-    this.teamShare$
-      .pipe(
-        filter(() => !!this.teamId),
-        tap(team => {
-          if (!team) {
-            const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId: this.teamId })];
-            return actions.map(action => this.store.dispatch(action));
-          }
-        }),
-        takeUntil(this.unsubscribe$),
-      )
-      .subscribe();
+    // this.teamShare$
+    //   .pipe(
+    //     filter(() => !!this.teamId),
+    //     tap(team => {
+    //       if (!team) {
+    //         const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId: this.teamId })];
+    //         return actions.map(action => this.store.dispatch(action));
+    //       }
+    //     }),
+    //     takeUntil(this.unsubscribe$),
+    //   )
+    //   .subscribe();
 
     merge(
       this.updateWin$,
@@ -76,7 +75,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.router.navigate(['../../list'], { relativeTo: this.route });
+    this.router.navigate(['/team/list']);
   }
 
   closeAlert() {

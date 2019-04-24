@@ -9,8 +9,6 @@ export enum TeamActionTypes {
   AddTeamSuccess = '[Team] Add Team Success',
   AddTeamFailure = '[Team] Add Team Failure',
   LoadTeamRoster = '[Team] Load Team Roster',
-  LoadTeamRosterSuccess = '[Team] Load Team Roster Success',
-  LoadTeamRosterFailure = '[Team] Load Team Roster Failure',
   UpdateCloseAlert = '[Team] Update Close Alert',
   UpdateTeamRecord = '[Team] Update Team Record',
   UpdateTeamRecordSuccess = '[Team] Update Team Record Success',
@@ -57,18 +55,6 @@ export class LoadTeamRoster implements Action {
   constructor(public payload: { teamId: string }) {}
 }
 
-export class LoadTeamsRosterSuccess implements Action {
-  readonly type = TeamActionTypes.LoadTeamRosterSuccess;
-
-  constructor(public payload: { team: Team }) {}
-}
-
-export class LoadTeamsRosterFailure implements Action {
-  readonly type = TeamActionTypes.LoadTeamRosterFailure;
-
-  constructor(public payload: { error: string }) {}
-}
-
 export class UpdateTeamRecord implements Action {
   readonly type = TeamActionTypes.UpdateTeamRecord;
 
@@ -101,8 +87,6 @@ export type TeamActionsUnion =
   | AddTeamSuccess
   | AddTeamFailure
   | LoadTeamRoster
-  | LoadTeamsRosterSuccess
-  | LoadTeamsRosterFailure
   | UpdateCloseAlert
   | UpdateTeamRecord
   | UpdateTeamRecordSuccess

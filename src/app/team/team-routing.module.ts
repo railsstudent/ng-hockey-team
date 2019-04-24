@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListingContainer, NewTeamContainer, TeamRosterContainer } from './containers';
+import { TeamGuard } from './guards';
 import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {
     path: 'roster/:teamId',
     component: TeamRosterContainer,
+    canActivate: [TeamGuard],
   },
 ];
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -22,12 +22,7 @@ export class NewTeamContainer implements OnInit {
 
   error$ = this.store.pipe(select(getTeamErrorMessage));
 
-  constructor(
-    private store: Store<LeagueState>,
-    private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-  ) {}
+  constructor(private store: Store<LeagueState>, private router: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -47,7 +42,7 @@ export class NewTeamContainer implements OnInit {
   }
 
   returnToMenu() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/team']);
   }
 
   addTeam() {

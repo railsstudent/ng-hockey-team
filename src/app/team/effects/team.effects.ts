@@ -33,23 +33,11 @@ export class TeamEffects {
     ),
   );
 
-  @Effect()
+  @Effect({ dispatch: false })
   loadTeamRoster$ = this.actions$.pipe(
     ofType(TeamActions.TeamActionTypes.LoadTeamRoster),
     map((action: TeamActions.LoadTeamRoster) => action.payload),
-    switchMap(({ teamId }) =>
-      this.teamService.getTeam(teamId).pipe(
-        map(team => new TeamActions.LoadTeamsRosterSuccess({ team })),
-        catchError((error: string) => of(new TeamActions.LoadTeamsRosterFailure({ error }))),
-      ),
-    ),
-  );
-
-  @Effect({ dispatch: false })
-  loadTeamRosterSuccess$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.LoadTeamRosterSuccess),
-    map((action: TeamActions.LoadTeamsRosterSuccess) => action.payload),
-    tap(({ team }) => this.router.navigate(['/team/roster', team.id])),
+    tap(({ teamId }) => this.router.navigate(['/team/roster', teamId])),
   );
 
   @Effect()

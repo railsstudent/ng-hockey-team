@@ -17,13 +17,11 @@ export const getAllTeamPoints = createSelector(
 
 export const getTeamMessage = createSelector(
   fromFeature.getTeamsFeature,
-  hockeyState => hockeyState.teams,
   fromTeam.getMessage,
 );
 
 export const getTeamErrorMessage = createSelector(
   fromFeature.getTeamsFeature,
-  hockeyState => hockeyState.teams,
   fromTeam.getError,
 );
 
@@ -50,8 +48,12 @@ export const getSelectedTeam = createSelector(
 
 export const getCloseAlert = createSelector(
   fromFeature.getTeamsFeature,
-  hockeyState => hockeyState.teams,
   fromTeam.getCloseAlert,
+);
+
+export const getTeamsLoaded = createSelector(
+  fromFeature.getTeamsFeature,
+  fromTeam.getLoaded,
 );
 
 export const getTopThreeTeams = createSelector(
