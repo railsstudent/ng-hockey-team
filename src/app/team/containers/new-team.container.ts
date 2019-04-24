@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TeamActions } from '../actions';
-import { LeagueState } from '../reducers';
-import { getTeamErrorMessage, getTeamMessage } from '../selectors';
+import { getTeamErrorMessage, getTeamMessage, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './new-team.container.html',
@@ -19,14 +17,10 @@ export class NewTeamContainer implements OnInit {
 
   form: FormGroup;
   message$: Observable<string | null>;
-  error$: Observable<string | null>;
 
-  constructor(
-    private store: Store<LeagueState>,
-    private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-  ) {}
+  error$ = this.store.pipe(select(getTeamErrorMessage));
+
+  constructor(private store: Store<LeagueState>, private router: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -43,12 +37,10 @@ export class NewTeamContainer implements OnInit {
         }
       }),
     );
-
-    this.error$ = this.store.pipe(select(getTeamErrorMessage));
   }
 
   returnToMenu() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/team']);
   }
 
   addTeam() {

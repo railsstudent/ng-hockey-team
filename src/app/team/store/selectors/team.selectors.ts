@@ -1,7 +1,9 @@
 import { createSelector } from '@ngrx/store';
-import { Team, TeamWithPoints } from '../models';
+import { TeamWithPoints } from '../../models';
 import * as fromFeature from '../reducers';
 import * as fromTeam from '../reducers/team.reducer';
+
+const THREE = 3;
 
 export const getAllTeams = createSelector(
   fromFeature.getTeamsFeature,
@@ -10,46 +12,58 @@ export const getAllTeams = createSelector(
 
 export const getAllTeamPoints = createSelector(
   getAllTeams,
-  (teams: Team[]) =>
-    teams.map(team => {
-      return fromTeam.calculateTeamPoints(team);
-    }),
+  teams => teams.map(fromTeam.calculateTeamPoints),
 );
 
 export const getTeamMessage = createSelector(
   fromFeature.getTeamsFeature,
-  hockeyState => hockeyState.teams,
   fromTeam.getMessage,
 );
 
 export const getTeamErrorMessage = createSelector(
   fromFeature.getTeamsFeature,
-  hockeyState => hockeyState.teams,
   fromTeam.getError,
 );
 
-export const getSelectedTeam = createSelector(
+export const getTeamEntities = createSelector(
   fromFeature.getTeamsFeature,
-  hockeyState => hockeyState.teams,
-  fromTeam.getSelectedTeam,
+  state => state.entities,
+);
+
+export const getRouterInfo = createSelector(
+  fromFeature.getRouterFeature,
+  state => state.state,
+);
+
+export const getSelectedTeamByParam = createSelector(
+  getTeamEntities,
+  getRouterInfo,
+  (entities, router) => router.params && router.params.teamId && entities[router.params.teamId],
+);
+
+export const getSelectedTeam = createSelector(
+  getSelectedTeamByParam,
+  fromTeam.calculateTeamPoints,
 );
 
 export const getCloseAlert = createSelector(
   fromFeature.getTeamsFeature,
-  (hockeyState: fromFeature.LeagueState) => hockeyState.teams,
   fromTeam.getCloseAlert,
+);
+
+export const getTeamsLoaded = createSelector(
+  fromFeature.getTeamsFeature,
+  fromTeam.getLoaded,
 );
 
 export const getTopThreeTeams = createSelector(
   getAllTeamPoints,
-  (teams: TeamWithPoints[]) =>
-    // tslint:disable-next-line:no-magic-numbers
-    fromTeam.sortTeamsByPoints(teams).slice(0, 3),
+  teams => fromTeam.sortTeamsByPoints(teams).slice(0, THREE),
 );
 
 export const getDivisionLeaders = createSelector(
   getAllTeamPoints,
-  (teams: TeamWithPoints[]) => {
+  teams => {
     const leaderMap = teams.reduce(
       (acc, t) => {
         if (!acc[t.division]) {
@@ -69,28 +83,20 @@ export const getDivisionLeaders = createSelector(
 
 export const getTopOffensiveTeams = createSelector(
   getAllTeams,
-  (teams: Team[]) =>
-    // tslint:disable-next-line:no-magic-numbers
-    fromTeam.sortedOffensiveTeams(teams).slice(0, 3),
+  teams => fromTeam.sortedOffensiveTeams(teams).slice(0, THREE),
 );
 
 export const getWorstOffensiveTeams = createSelector(
   getAllTeams,
-  (teams: Team[]) =>
-    // tslint:disable-next-line:no-magic-numbers
-    fromTeam.sortedOffensiveTeams(teams).slice(-3),
+  teams => fromTeam.sortedOffensiveTeams(teams).slice(-THREE),
 );
 
 export const getTopDefensiveTeams = createSelector(
   getAllTeams,
-  (teams: Team[]) =>
-    // tslint:disable-next-line:no-magic-numbers
-    fromTeam.sortedDefensiveTeams(teams).slice(0, 3),
+  teams => fromTeam.sortedDefensiveTeams(teams).slice(0, THREE),
 );
 
 export const getWorstDefensiveTeams = createSelector(
   getAllTeams,
-  (teams: Team[]) =>
-    // tslint:disable-next-line:no-magic-numbers
-    fromTeam.sortedDefensiveTeams(teams).slice(-3),
+  teams => fromTeam.sortedDefensiveTeams(teams).slice(-THREE),
 );
