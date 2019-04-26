@@ -152,8 +152,10 @@ export const getCloseAlert = (state: State) => state.closeAlert;
 export const getLoaded = (state: State) => state.loaded;
 
 export const calculateTeamPoints = (team: Team): TeamWithPoints => {
-  const points = team.numWin * WIN_POINTS + team.numDraw * DRAW_POINT + team.numOTWin * DRAW_POINT;
-  const gamesPlayed = team.numWin + team.numDraw + team.numLoss;
+  console.log('calculateTeamPoints team', team);
+  const { numWin = 0, numDraw = 0, numOTWin = 0, numLoss = 0 } = team || {};
+  const points = numWin * WIN_POINTS + numDraw * DRAW_POINT + numOTWin * DRAW_POINT;
+  const gamesPlayed = numWin + numDraw + numLoss;
   return { ...team, points, gamesPlayed };
 };
 
