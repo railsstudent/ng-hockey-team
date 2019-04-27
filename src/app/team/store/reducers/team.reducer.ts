@@ -152,7 +152,6 @@ export const getCloseAlert = (state: State) => state.closeAlert;
 export const getLoaded = (state: State) => state.loaded;
 
 export const calculateTeamPoints = (team: Team): TeamWithPoints => {
-  console.log('calculateTeamPoints team', team);
   const { numWin = 0, numDraw = 0, numOTWin = 0, numLoss = 0 } = team || {};
   const points = numWin * WIN_POINTS + numDraw * DRAW_POINT + numOTWin * DRAW_POINT;
   const gamesPlayed = numWin + numDraw + numLoss;
@@ -167,3 +166,18 @@ export const sortedDefensiveTeams = (teams: Team[]) =>
 
 export const sortTeamsByPoints = (teams: TeamWithPoints[]) =>
   [...teams].sort((first, second) => second.points - first.points);
+
+export const divisionStanding = (teams: TeamWithPoints[]) => {
+  const sortedTeamsDesc = [...teams].sort((first, second) => second.points - first.points);
+  return sortedTeamsDesc.reduce(
+    (acc, t) => {
+      if (!acc[t.division]) {
+        acc[t.division] = [t];
+      } else {
+        acc[t.division] = acc[t.division].concat(t);
+      }
+      return acc;
+    },
+    {} as { [key: string]: TeamWithPoints[] },
+  );
+};
