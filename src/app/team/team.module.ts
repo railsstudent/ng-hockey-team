@@ -10,7 +10,13 @@ import {
   TeamStatHorizontalTableComponent,
   TeamStatVerticalTableComponent,
 } from './components';
-import { ListingContainer, NewTeamContainer, TeamAnalysisContainer, TeamRosterContainer } from './containers/';
+import {
+  DivisionStandingContainer,
+  ListingContainer,
+  NewTeamContainer,
+  TeamAnalysisContainer,
+  TeamRosterContainer,
+} from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
 import { reducers, TeamEffects } from './store';
@@ -30,6 +36,7 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamStandingTableComponent,
     TeamAnalysisContainer,
     TeamCounterArrowsVisibleDirective,
+    DivisionStandingContainer,
   ],
   imports: [
     CommonModule,

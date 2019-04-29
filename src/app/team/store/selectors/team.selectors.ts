@@ -12,7 +12,7 @@ export const getAllTeams = createSelector(
 
 export const getAllTeamPoints = createSelector(
   getAllTeams,
-  teams => teams.map(fromTeam.calculateTeamPoints),
+  teams => teams.filter(t => !!t).map(fromTeam.calculateTeamPoints),
 );
 
 export const getTeamMessage = createSelector(
@@ -61,23 +61,19 @@ export const getTopThreeTeams = createSelector(
   teams => fromTeam.sortTeamsByPoints(teams).slice(0, THREE),
 );
 
-export const getDivisionLeaders = createSelector(
+export const getDivisionStanding = createSelector(
   getAllTeamPoints,
-  teams => {
-    const leaderMap = teams.reduce(
-      (acc, t) => {
-        if (!acc[t.division]) {
-          acc[t.division] = t;
-        } else if (acc[t.division].points < t.points) {
-          acc[t.division] = t;
-        }
-        return acc;
-      },
-      {} as { [key: string]: TeamWithPoints },
+  fromTeam.divisionStanding,
+);
+
+export const getDivisionLeaders = createSelector(
+  getDivisionStanding,
+  divisionStandingMap => {
+    const divisionLeaders = Object.keys(divisionStandingMap).reduce(
+      (acc, division) => acc.concat(divisionStandingMap[division][0]),
+      [] as TeamWithPoints[],
     );
-    return Object.keys(leaderMap)
-      .map(k => leaderMap[k])
-      .sort((a, b) => b.points - a.points);
+    return divisionLeaders.sort((a, b) => b.points - a.points);
   },
 );
 

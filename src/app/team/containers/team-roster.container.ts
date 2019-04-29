@@ -5,8 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { UpdateTeamDelta } from '../models';
-import { getCloseAlert, getSelectedTeam, getTeamErrorMessage } from '../store';
-import { LeagueState, TeamActions } from '../store';
+import { getCloseAlert, getSelectedTeam, getTeamErrorMessage, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './team-roster.container.html',
@@ -40,19 +39,6 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.teamId = params.get('teamId') || '';
     });
-
-    // this.teamShare$
-    //   .pipe(
-    //     filter(() => !!this.teamId),
-    //     tap(team => {
-    //       if (!team) {
-    //         const actions = [new TeamActions.LoadTeams(), new TeamActions.LoadTeamRoster({ teamId: this.teamId })];
-    //         return actions.map(action => this.store.dispatch(action));
-    //       }
-    //     }),
-    //     takeUntil(this.unsubscribe$),
-    //   )
-    //   .subscribe();
 
     merge(
       this.updateWin$,

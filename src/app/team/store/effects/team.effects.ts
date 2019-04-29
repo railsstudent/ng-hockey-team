@@ -24,13 +24,14 @@ export class TeamEffects {
   @Effect()
   addTeam$ = this.actions$.pipe(
     ofType(TeamActions.TeamActionTypes.AddTeam),
-    map((action: TeamActions.AddTeam) => action.payload),
-    mergeMap(({ division, name }) =>
-      this.teamService.addTeam(division, name).pipe(
+    map((action: TeamActions.AddTeam) => ({ action, payload: action.payload })),
+    mergeMap(({ action, payload: { division, name } }) => {
+      console.log({ division, name });
+      return this.teamService.addTeam(division, name).pipe(
         map(team => new TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
-        catchError((error: string) => of(new TeamActions.AddTeamFailure({ error }))),
-      ),
-    ),
+        catchError((error: string) => of(new TeamActions.ErrorOccurred({ action, error }))),
+      );
+    }),
   );
 
   @Effect({ dispatch: false })
