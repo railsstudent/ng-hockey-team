@@ -8,16 +8,18 @@
     Team Menu
   </div>
   <div class="card-block">
-    <button class="btn btn-outline" (click)="navigate('new')" aria-label="Add new team">
+    <button class="btn btn-outline" aria-label="Add new team" [routerLink]="['/team/new']">
       Add Team <i class="fas fa-plus"></i>
     </button>
   </div>
   <div class="card-block">
-    <button class="btn btn-outline" (click)="navigate('list')" aria-label="List teams">
+    <button class="btn btn-outline" aria-label="List teams" [routerLink]="['/team/list']">
       List Teams <i class="fas fa-list-ul"></i>
     </button>
   </div>
   <div class="card-block">
-    <button class="btn btn-outline" aria-label="Team standing">Standing <i class="fas fa-table"></i></button>
+    <button class="btn btn-outline" aria-label="Team standing" [routerLink]="['/team/division']">
+      Standing <i class="fas fa-table"></i>
+    </button>
   </div>
 </ng-template>

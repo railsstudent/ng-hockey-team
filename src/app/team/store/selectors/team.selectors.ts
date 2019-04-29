@@ -61,7 +61,7 @@ export const getTopThreeTeams = createSelector(
   teams => fromTeam.sortTeamsByPoints(teams).slice(0, THREE),
 );
 
-const getDivisionStanding = createSelector(
+export const getDivisionStanding = createSelector(
   getAllTeamPoints,
   fromTeam.divisionStanding,
 );
