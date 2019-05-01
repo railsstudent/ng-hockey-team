@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { LeagueState } from '../store';
+import { select, Store } from '@ngrx/store';
+import { getDivisionStanding, LeagueState } from '../store';
 
 @Component({
   selector: 'app-division-standing',
@@ -9,7 +9,10 @@ import { LeagueState } from '../store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DivisionStandingContainer implements OnInit {
+  divisionStanding$ = this.store.pipe(select(getDivisionStanding));
   constructor(private store: Store<LeagueState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.divisionStanding$.subscribe(v => console.log(v));
+  }
 }

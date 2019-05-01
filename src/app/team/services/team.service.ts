@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { v4 as uuid } from 'uuid';
+import { BAD_WORDS } from '../../shared';
 import { Team, UPDATE_STAT_TYPE } from '../models';
 
 @Injectable()
 export class TeamService {
+  constructor(@Inject(BAD_WORDS) private badWords: string[]) {}
+
   getAll(): Observable<Team[]> {
     const teamStr = localStorage.getItem('teams');
     const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
@@ -12,8 +15,10 @@ export class TeamService {
   }
 
   addTeam(division: string, name: string): Observable<Team> {
-    if (name.toLowerCase() === 'bad ass') {
-      return throwError('Bad Ass is not an appropriate team name');
+    const lname = name.toLowerCase();
+    const isContain = this.badWords.some(badWord => lname.indexOf(badWord) >= 0);
+    if (isContain) {
+      return throwError(`${lname} is not an appropriate team name`);
     }
 
     const teamStr = localStorage.getItem('teams');
