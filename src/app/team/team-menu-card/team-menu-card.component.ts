@@ -1,7 +1,7 @@
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PortalService } from 'src/app/services/portal.service';
+import { PortalService } from '../../core';
 
 @Component({
   selector: 'team-menu-card',

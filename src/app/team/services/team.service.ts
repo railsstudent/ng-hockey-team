@@ -3,9 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { Team, UPDATE_STAT_TYPE } from '../models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TeamService {
   getAll(): Observable<Team[]> {
     const teamStr = localStorage.getItem('teams');
