@@ -19,6 +19,7 @@ import {
 } from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
+import { TeamService } from './services';
 import { reducers, TeamEffects } from './store';
 import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
 import { TeamRoutingModule } from './team-routing.module';
@@ -45,6 +46,6 @@ import { TeamRoutingModule } from './team-routing.module';
     EffectsModule.forFeature([TeamEffects]),
     SharedModule,
   ],
-  providers: [TeamGuard],
+  providers: [TeamGuard, TeamService],
 })
 export class TeamModule {}

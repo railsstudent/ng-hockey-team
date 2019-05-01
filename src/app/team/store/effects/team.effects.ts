@@ -29,7 +29,7 @@ export class TeamEffects {
       console.log({ division, name });
       return this.teamService.addTeam(division, name).pipe(
         map(team => new TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
-        catchError((error: string) => of(new TeamActions.ErrorOccurred({ action, error }))),
+        catchError((error: string) => of(new TeamActions.AddTeamFailure({ error }))),
       );
     }),
   );
