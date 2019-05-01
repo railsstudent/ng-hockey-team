@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   repo: 'https://github.com/railsstudent/ng-hockey-team',
   badWords: ['ass', 'shit', 'fuck', 'mother fucker', 'bitch'],
+  divisionOrder: ['East', 'South', 'West', 'North'],
 };
 
 /*

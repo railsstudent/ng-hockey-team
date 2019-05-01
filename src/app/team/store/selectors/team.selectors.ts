@@ -69,11 +69,13 @@ export const getDivisionStanding = createSelector(
 export const getDivisionLeaders = createSelector(
   getDivisionStanding,
   divisionStandingMap => {
-    const divisionLeaders = Object.keys(divisionStandingMap).reduce(
-      (acc, division) => acc.concat(divisionStandingMap[division][0]),
-      [] as TeamWithPoints[],
+    return Object.keys(divisionStandingMap).reduce(
+      (acc, division) => {
+        acc[division] = divisionStandingMap[division][0];
+        return acc;
+      },
+      {} as { [key: string]: TeamWithPoints },
     );
-    return divisionLeaders.sort((a, b) => b.points - a.points);
   },
 );
 
