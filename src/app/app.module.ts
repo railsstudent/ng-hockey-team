@@ -8,6 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ConfigModule } from './config.module';
 import { CoreModule } from './core';
 import { SharedModule } from './shared';
 import { CustomSerializer, metaReducers, reducers } from './store';
@@ -26,6 +27,7 @@ import { CustomSerializer, metaReducers, reducers } from './store';
       serializer: CustomSerializer,
     }),
     SharedModule,
+    ConfigModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
