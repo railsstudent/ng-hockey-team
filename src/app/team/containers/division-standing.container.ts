@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { DIVISION_ORDER } from 'src/app/shared';
 import { getDivisionStanding, LeagueState } from '../store';
 
 @Component({
@@ -8,11 +9,8 @@ import { getDivisionStanding, LeagueState } from '../store';
   styleUrls: ['./division-standing.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DivisionStandingContainer implements OnInit {
+export class DivisionStandingContainer {
   divisionStanding$ = this.store.pipe(select(getDivisionStanding));
-  constructor(private store: Store<LeagueState>) {}
 
-  ngOnInit() {
-    this.divisionStanding$.subscribe(v => console.log(v));
-  }
+  constructor(private store: Store<LeagueState>, @Inject(DIVISION_ORDER) public orderOfDivision: string[]) {}
 }
