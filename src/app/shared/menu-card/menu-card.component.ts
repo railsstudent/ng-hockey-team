@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { PortalService } from 'src/app/services/portal.service';
+import { PortalService } from '../../core';
 
 @Component({
   selector: 'app-menu-card',

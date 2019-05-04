@@ -13,7 +13,7 @@ export class TeamGuard implements CanActivate {
 
   // tslint:disable-next-line:variable-name
   canActivate(next: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
-    if (next.url && next.url.length && next.url[0].path === 'roster') {
+    if (next.url && next.url.length && ['roster', 'division'].includes(next.url[0].path)) {
       if (!this.loaded) {
         this.store.dispatch(new TeamActions.LoadTeams());
       }
