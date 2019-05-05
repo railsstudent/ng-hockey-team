@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable, of, Subject } from 'rxjs';
-import { exhaustMap, takeUntil, tap } from 'rxjs/operators';
-import { ProgressService } from 'src/app/shared/progress.service';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
+import { ProgressService } from '../../shared/progress.service';
 import { getTeamErrorMessage, getTeamLoading, getTeamMessage, LeagueState, TeamActions } from '../store';
 
 @Component({
@@ -56,7 +56,7 @@ export class NewTeamContainer implements OnInit, OnDestroy {
 
     this.addTeam$
       .pipe(
-        exhaustMap(() => of(this.store.dispatch(new TeamActions.AddTeam(this.form.value)))),
+        tap(() => this.store.dispatch(new TeamActions.AddTeam(this.form.value))),
         takeUntil(this.unsubscribe$),
       )
       .subscribe();

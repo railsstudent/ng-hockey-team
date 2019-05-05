@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, delay, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, concatMap, delay, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 import { TeamService } from '../../services';
 import { TeamActions } from '../actions';
 
-const DELAY = 1000;
+const DELAY = 2000;
 
 @Injectable()
 export class TeamEffects {
@@ -28,7 +28,7 @@ export class TeamEffects {
   addTeam$ = this.actions$.pipe(
     ofType(TeamActions.TeamActionTypes.AddTeam),
     map((action: TeamActions.AddTeam) => action.payload),
-    mergeMap(({ division, name }) => {
+    exhaustMap(({ division, name }) => {
       const team$ = this.teamService.addTeam(division, name).pipe(delay(DELAY));
       return team$.pipe(
         map(team => new TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
