@@ -1,17 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { getTeamErrorMessage, getTeamMessage, LeagueState, TeamActions } from '../store';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
+import { ProgressService } from '../../shared/progress.service';
+import { getTeamErrorMessage, getTeamLoading, getTeamMessage, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './new-team.container.html',
   styleUrls: ['./new-team.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewTeamContainer implements OnInit {
+export class NewTeamContainer implements OnInit, OnDestroy {
   @ViewChild('f')
   formDirective: NgForm;
 
@@ -19,8 +20,16 @@ export class NewTeamContainer implements OnInit {
   message$: Observable<string | null>;
 
   error$ = this.store.pipe(select(getTeamErrorMessage));
+  loading$ = this.store.pipe(select(getTeamLoading));
+  addTeam$ = new Subject();
+  unsubscribe$ = new Subject();
 
-  constructor(private store: Store<LeagueState>, private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private store: Store<LeagueState>,
+    private router: Router,
+    private fb: FormBuilder,
+    private progress: ProgressService,
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -37,13 +46,28 @@ export class NewTeamContainer implements OnInit {
         }
       }),
     );
+
+    this.loading$
+      .pipe(
+        tap(value => (value ? this.progress.show() : this.progress.hide())),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.addTeam$
+      .pipe(
+        tap(() => this.store.dispatch(new TeamActions.AddTeam(this.form.value))),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
   }
 
   returnToMenu() {
     this.router.navigate(['/team']);
   }
 
-  addTeam() {
-    this.store.dispatch(new TeamActions.AddTeam(this.form.value));
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

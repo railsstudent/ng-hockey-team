@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DIVISION_ORDER } from '../../shared';
+import { TeamWithPoints } from '../models';
 import {
   getDivisionLeaders,
   getTopDefensiveTeams,
@@ -16,21 +20,24 @@ import {
   styleUrls: ['./team-analysis.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamAnalysisContainer {
+export class TeamAnalysisContainer implements OnInit {
   topThreeTeams$ = this.store.pipe(select(getTopThreeTeams));
-  divisionLeaders$ = this.store.pipe(select(getDivisionLeaders));
+  unorderedDivisionLeaders$ = this.store.pipe(select(getDivisionLeaders));
   topOffensiveTeams$ = this.store.pipe(select(getTopOffensiveTeams));
   worstOffensiveTeams$ = this.store.pipe(select(getWorstOffensiveTeams));
   topDefensiveTeams$ = this.store.pipe(select(getTopDefensiveTeams));
   worstDefensiveTeams$ = this.store.pipe(select(getWorstDefensiveTeams));
+  divisionLeaders$: Observable<TeamWithPoints[]>;
 
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>, @Inject(DIVISION_ORDER) private orderOfDivisions: string[]) {}
 
-  gotoTeam($event: Event, teamId: string) {
-    if ($event) {
-      $event.stopPropagation();
-      $event.preventDefault();
-    }
+  ngOnInit() {
+    this.divisionLeaders$ = this.unorderedDivisionLeaders$.pipe(
+      map((teams: { [key: string]: TeamWithPoints }) => this.orderOfDivisions.map(division => teams[division])),
+    );
+  }
+
+  gotoTeam(teamId: string) {
     this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
   }
 }

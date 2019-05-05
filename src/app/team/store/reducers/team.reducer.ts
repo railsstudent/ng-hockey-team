@@ -63,6 +63,7 @@ export function reducer(state = initialState, action: Action): State {
         message: null,
         error: null,
         closeAlert: false,
+        loading: true,
       };
     }
 
@@ -73,6 +74,7 @@ export function reducer(state = initialState, action: Action): State {
         error: null,
         message,
         closeAlert: false,
+        loading: false,
       };
     }
 
@@ -83,6 +85,7 @@ export function reducer(state = initialState, action: Action): State {
         message: null,
         error,
         closeAlert: false,
+        loading: false,
       };
     }
 
@@ -101,6 +104,7 @@ export function reducer(state = initialState, action: Action): State {
         message: null,
         error: null,
         closeAlert: false,
+        loading: true,
       };
     }
 
@@ -115,6 +119,7 @@ export function reducer(state = initialState, action: Action): State {
         message: null,
         error: null,
         closeAlert: false,
+        loading: false,
       };
     }
 
@@ -125,6 +130,7 @@ export function reducer(state = initialState, action: Action): State {
         message: null,
         error,
         closeAlert: false,
+        loading: false,
       };
     }
 
@@ -150,6 +156,7 @@ export const getMessage = (state: State) => state.message;
 export const getError = (state: State) => state.error;
 export const getCloseAlert = (state: State) => state.closeAlert;
 export const getLoaded = (state: State) => state.loaded;
+export const getLoading = (state: State) => state.loading;
 
 export const calculateTeamPoints = (team: Team): TeamWithPoints => {
   const { numWin = 0, numDraw = 0, numOTWin = 0, numLoss = 0 } = team || {};

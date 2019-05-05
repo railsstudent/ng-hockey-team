@@ -1,3 +1,30 @@
-<p>
-  division-standing works!
-</p>
+<div class="division-tables">
+  <ng-container *ngFor="let division of orderOfDivision">
+    {{ division }}
+  </ng-container>
+  <!--
+  <ng-container *ngIf="(topThreeTeams$ | async) as topThreeTeams">
+    <team-standing-table
+      [title]="'Top 3 teams'"
+      [headerTemplateRef]="topThreeHeaderTemplate"
+      [teamsTemplateRef]="topThreeTeamsTemplate"
+    ></team-standing-table>
+
+    <ng-template #topThreeHeaderTemplate>
+      <th class="left">Name</th>
+      <th class="left">Division</th>
+      <th class="left">Points</th>
+    </ng-template>
+
+    <ng-template #topThreeTeamsTemplate>
+      <tr *ngFor="let team of topThreeTeams">
+        <td class="left">
+          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+        </td>
+        <td class="left">{{ team.division }}</td>
+        <td class="left">{{ team.points }}</td>
+      </tr>
+    </ng-template>
+  </ng-container>
+  -->
+</div>

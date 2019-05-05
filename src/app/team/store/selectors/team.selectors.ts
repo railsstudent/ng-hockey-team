@@ -56,6 +56,11 @@ export const getTeamsLoaded = createSelector(
   fromTeam.getLoaded,
 );
 
+export const getTeamLoading = createSelector(
+  fromFeature.getTeamsFeature,
+  fromTeam.getLoading,
+);
+
 export const getTopThreeTeams = createSelector(
   getAllTeamPoints,
   teams => fromTeam.sortTeamsByPoints(teams).slice(0, THREE),
@@ -69,11 +74,13 @@ export const getDivisionStanding = createSelector(
 export const getDivisionLeaders = createSelector(
   getDivisionStanding,
   divisionStandingMap => {
-    const divisionLeaders = Object.keys(divisionStandingMap).reduce(
-      (acc, division) => acc.concat(divisionStandingMap[division][0]),
-      [] as TeamWithPoints[],
+    return Object.keys(divisionStandingMap).reduce(
+      (acc, division) => {
+        acc[division] = divisionStandingMap[division][0];
+        return acc;
+      },
+      {} as { [key: string]: TeamWithPoints },
     );
-    return divisionLeaders.sort((a, b) => b.points - a.points);
   },
 );
 

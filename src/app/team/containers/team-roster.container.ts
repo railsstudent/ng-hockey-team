@@ -3,9 +3,17 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
-import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { filter, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { ProgressService } from 'src/app/shared/progress.service';
 import { UpdateTeamDelta } from '../models';
-import { getCloseAlert, getSelectedTeam, getTeamErrorMessage, LeagueState, TeamActions } from '../store';
+import {
+  getCloseAlert,
+  getSelectedTeam,
+  getTeamErrorMessage,
+  getTeamLoading,
+  LeagueState,
+  TeamActions,
+} from '../store';
 
 @Component({
   templateUrl: './team-roster.container.html',
@@ -27,12 +35,14 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   team$ = this.store.pipe(select(getSelectedTeam));
   error$ = this.store.pipe(select(getTeamErrorMessage));
   hideError$ = this.store.pipe(select(getCloseAlert));
+  loading$ = this.store.pipe(select(getTeamLoading));
 
   constructor(
     private store: Store<LeagueState>,
     private router: Router,
     private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
+    private progress: ProgressService,
   ) {}
 
   ngOnInit() {
@@ -50,10 +60,18 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       this.updateGoalsAgainst$,
     )
       .pipe(
-        filter(() => !!this.teamId),
+        withLatestFrom(this.loading$, (teamDelta, loading) => ({ ...teamDelta, loading })),
+        filter(({ loading }) => !!this.teamId && !loading),
         tap(({ delta, field }) =>
           this.store.dispatch(new TeamActions.UpdateTeamRecord({ teamId: this.teamId, delta, field })),
         ),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.loading$
+      .pipe(
+        tap(value => (value ? this.progress.show() : this.progress.hide())),
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
