@@ -12,7 +12,7 @@ export class TeamCounterArrowsVisibleDirective implements OnInit, OnChanges {
       return;
     }
 
-    const arrowLinks = this.el.nativeElement.querySelectorAll('a.up-arrow') as HTMLAnchorElement[];
+    const arrowLinks = this.el.nativeElement.querySelectorAll('a') as HTMLAnchorElement[];
     if (arrowLinks && arrowLinks.length) {
       const display = this.teamCounterArrowsVisible ? 'block' : 'none';
       arrowLinks.forEach(aLink => (aLink.style.display = display));
