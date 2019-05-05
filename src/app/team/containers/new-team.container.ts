@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from '../../shared/progress.service';
-import { getTeamErrorMessage, getTeamLoading, getTeamMessage, LeagueState, TeamActions } from '../store';
+import { getCloseAlert, getTeamErrorMessage, getTeamLoading, getTeamMessage, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './new-team.container.html',
@@ -20,6 +20,7 @@ export class NewTeamContainer implements OnInit, OnDestroy {
   message$: Observable<string | null>;
 
   error$ = this.store.pipe(select(getTeamErrorMessage));
+  closeAlert$ = this.store.pipe(select(getCloseAlert));
   loading$ = this.store.pipe(select(getTeamLoading));
   addTeam$ = new Subject();
   unsubscribe$ = new Subject();
@@ -64,6 +65,10 @@ export class NewTeamContainer implements OnInit, OnDestroy {
 
   returnToMenu() {
     this.router.navigate(['/team']);
+  }
+
+  closeAlert() {
+    this.store.dispatch(new TeamActions.UpdateCloseAlert({ closeAlert: true }));
   }
 
   ngOnDestroy() {
