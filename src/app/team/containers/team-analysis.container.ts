@@ -26,11 +26,7 @@ export class TeamAnalysisContainer {
 
   constructor(private store: Store<any>) {}
 
-  gotoTeam($event: Event, teamId: string) {
-    if ($event) {
-      $event.stopPropagation();
-      $event.preventDefault();
-    }
+  gotoTeam(teamId: string) {
     this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
   }
 }

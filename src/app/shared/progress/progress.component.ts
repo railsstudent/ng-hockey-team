@@ -7,8 +7,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   styles: [
     `
-      .progress {
-        height: 1px;
+      progress {
+        height: 0.125rem;
+      }
+
+      div.progress {
+        height: 0.125rem;
+        min-height: 0.125rem;
+        max-height: 0.125rem;
       }
     `,
   ],

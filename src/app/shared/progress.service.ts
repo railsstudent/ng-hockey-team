@@ -36,9 +36,6 @@ export class ProgressService {
         container.appendChild(progressEl);
         this.progressRef = componentRef;
         this.showProgress = true;
-        console.log('show progress bar');
-      } else {
-        console.log('already showing progress bar');
       }
     }
   }
@@ -48,9 +45,6 @@ export class ProgressService {
       this.appRef.detachView(this.progressRef.hostView);
       this.progressRef.destroy();
       this.showProgress = false;
-      console.log('hide progress bar');
-    } else {
-      console.log('progress bar is not showing');
     }
   }
 }

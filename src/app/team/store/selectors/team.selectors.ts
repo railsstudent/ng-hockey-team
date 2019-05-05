@@ -56,6 +56,11 @@ export const getTeamsLoaded = createSelector(
   fromTeam.getLoaded,
 );
 
+export const getTeamLoading = createSelector(
+  fromFeature.getTeamsFeature,
+  fromTeam.getLoading,
+);
+
 export const getTopThreeTeams = createSelector(
   getAllTeamPoints,
   teams => fromTeam.sortTeamsByPoints(teams).slice(0, THREE),
