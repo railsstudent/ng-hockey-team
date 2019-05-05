@@ -3137,7 +3137,6 @@ handlebars@^4.1.0:
     neo-async "^2.6.0"
     optimist "^0.6.1"
     source-map "^0.6.1"
-    uglify-js "^3.1.4"
   optionalDependencies:
     uglify-js "^3.1.4"
 
@@ -4866,7 +4865,7 @@ node-gyp@^3.8.0:
     request "^2.87.0"
     rimraf "2"
     semver "~5.3.0"
-    tar "^4.0.0"
+    tar "^2.0.0"
     which "1"
 
 node-libs-browser@^2.0.0:
@@ -6987,7 +6986,7 @@ tapable@^1.0.0, tapable@^1.1.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.1.tgz#4d297923c5a72a42360de2ab52dadfaaec00018e"
   integrity sha512-9I2ydhj8Z9veORCw5PRm4u9uebCn0mcCa6scWoNcbZ6dAtoo2618u9UUzxgmsCOreJpqDDuv61LvwofW7hLcBA==
 
-tar@^4, tar@^4.4.8:
+tar@^4, tar@^4.0.0, tar@^4.4.8:
   version "4.4.8"
   resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.8.tgz#b19eec3fde2a96e64666df9fdb40c5ca1bc3747d"
   integrity sha512-LzHF64s5chPQQS0IYBn9IN5h3i98c12bo4NCO7e0sGM2llXQ3p2FGC5sdENN4cTW48O915Sh+x+EXx7XW96xYQ==
