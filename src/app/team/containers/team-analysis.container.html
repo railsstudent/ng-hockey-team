@@ -15,7 +15,7 @@
     <ng-template #topThreeTeamsTemplate>
       <tr *ngFor="let team of topThreeTeams">
         <td class="left">
-          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+          <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
         </td>
         <td class="left">{{ team.division }}</td>
         <td class="left">{{ team.points }}</td>
@@ -40,7 +40,10 @@
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
         <td class="left">{{ team.gamesPlayed }}</td>
-        <td class="left"><a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a> ({{ team.points }})</td>
+        <td class="left">
+          <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
+          ({{ team.points }})
+        </td>
       </tr>
     </ng-template>
   </ng-container>
@@ -62,7 +65,7 @@
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
         <td class="left">
-          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+          <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
         </td>
         <td class="left">{{ team.goalsFor }}</td>
       </tr>
@@ -86,7 +89,7 @@
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
         <td class="left">
-          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+          <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
         </td>
         <td class="left">{{ team.goalsFor }}</td>
       </tr>
@@ -110,7 +113,7 @@
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
         <td class="left">
-          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+          <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
         </td>
         <td class="left">{{ team.goalsAgainst }}</td>
       </tr>
@@ -134,7 +137,7 @@
       <tr *ngFor="let team of leaders">
         <td class="left">{{ team.division }}</td>
         <td class="left">
-          <a href (click)="gotoTeam($event, team.id)">{{ team.name }}</a>
+          <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
         </td>
         <td class="left">{{ team.goalsAgainst }}</td>
       </tr>

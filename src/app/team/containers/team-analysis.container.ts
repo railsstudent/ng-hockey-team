@@ -37,11 +37,7 @@ export class TeamAnalysisContainer implements OnInit {
     );
   }
 
-  gotoTeam($event: Event, teamId: string) {
-    if ($event) {
-      $event.stopPropagation();
-      $event.preventDefault();
-    }
+  gotoTeam(teamId: string) {
     this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
   }
 }
