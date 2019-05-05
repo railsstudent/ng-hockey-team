@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { DIVISION_ORDER } from 'src/app/shared';
-import { getDivisionStanding, LeagueState } from '../store';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
+import { ProgressService } from 'src/app/shared/progress.service';
+import { DIVISION_ORDER } from '../../shared';
+import { getDivisionStanding, getTeamLoading, LeagueState } from '../store';
 
 @Component({
   selector: 'app-division-standing',
@@ -9,8 +12,28 @@ import { getDivisionStanding, LeagueState } from '../store';
   styleUrls: ['./division-standing.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DivisionStandingContainer {
+export class DivisionStandingContainer implements OnInit, OnDestroy {
   divisionStanding$ = this.store.pipe(select(getDivisionStanding));
+  loading$ = this.store.pipe(select(getTeamLoading));
+  unsubscribe$ = new Subject();
 
-  constructor(private store: Store<LeagueState>, @Inject(DIVISION_ORDER) public orderOfDivision: string[]) {}
+  constructor(
+    private store: Store<LeagueState>,
+    @Inject(DIVISION_ORDER) public orderOfDivision: string[],
+    private progress: ProgressService,
+  ) {}
+
+  ngOnInit() {
+    this.loading$
+      .pipe(
+        tap(value => (value ? this.progress.show() : this.progress.hide())),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }
