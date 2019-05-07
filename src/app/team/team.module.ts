@@ -21,12 +21,11 @@ import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
 import { TeamService } from './services';
 import { reducers, TeamEffects } from './store';
-import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
+import { TeamMenuCardModule } from './team-menu-card';
 import { TeamRoutingModule } from './team-routing.module';
 
 @NgModule({
   declarations: [
-    TeamMenuCardComponent,
     ListingContainer,
     NewTeamContainer,
     TeamComponent,
@@ -45,6 +44,7 @@ import { TeamRoutingModule } from './team-routing.module';
     StoreModule.forFeature('teams', reducers.teams),
     EffectsModule.forFeature([TeamEffects]),
     SharedModule,
+    TeamMenuCardModule,
   ],
   providers: [TeamGuard, TeamService],
 })
