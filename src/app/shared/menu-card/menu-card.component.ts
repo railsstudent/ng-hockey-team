@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PortalService } from '../../core';
 
 @Component({
@@ -23,8 +23,6 @@ import { PortalService } from '../../core';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuCardComponent implements OnInit {
+export class MenuCardComponent {
   constructor(public portalService: PortalService) {}
-
-  ngOnInit() {}
 }
