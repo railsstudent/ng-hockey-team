@@ -26,7 +26,7 @@
       <ng-template #teamsTemplate>
         <tr *ngFor="let team of divisionStanding[division]">
           <td class="left">
-            {{ team.name }}
+            <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
           </td>
           <td class="left">{{ team.gamesPlayed }}</td>
           <td class="left">{{ team.numWin }}</td>

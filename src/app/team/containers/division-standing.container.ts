@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
 import { DIVISION_ORDER } from '../../shared';
-import { getDivisionStanding, getTeamLoading, LeagueState } from '../store';
+import { getDivisionStanding, getTeamLoading, LeagueState, TeamActions } from '../store';
 
 @Component({
   selector: 'app-division-standing',
@@ -30,6 +30,10 @@ export class DivisionStandingContainer implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
+  }
+
+  gotoTeam(teamId: string) {
+    this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
   }
 
   ngOnDestroy() {
