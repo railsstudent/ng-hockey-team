@@ -15,6 +15,11 @@ export const getAllTeamPoints = createSelector(
   teams => teams.filter(t => !!t).map(fromTeam.calculateTeamPoints),
 );
 
+export const getAllTeamWithPercentages = createSelector(
+  getAllTeams,
+  teams => teams.filter(t => !!t).map(fromTeam.calculateTeamPercentages),
+);
+
 export const getTeamMessage = createSelector(
   fromFeature.getTeamsFeature,
   fromTeam.getMessage,
@@ -67,7 +72,7 @@ export const getTopThreeTeams = createSelector(
 );
 
 export const getDivisionStanding = createSelector(
-  getAllTeamPoints,
+  getAllTeamWithPercentages,
   fromTeam.divisionStanding,
 );
 
