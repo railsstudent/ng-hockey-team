@@ -16,6 +16,12 @@ export interface TeamWithPoints extends Team {
   gamesPlayed: number;
 }
 
+export interface TeamWithPercentages extends TeamWithPoints {
+  winPercentage: number;
+  lossPercentage: number;
+  drawPercentage: number;
+}
+
 export enum UPDATE_STAT_TYPE {
   WIN = 0,
   LOSS,

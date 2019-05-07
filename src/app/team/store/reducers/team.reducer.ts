@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
-import { Team, TeamWithPoints } from '../../models';
+import { Team, TeamWithPercentages, TeamWithPoints } from '../../models';
 import { TeamActions } from '../actions';
 
 export interface State extends EntityState<Team> {
@@ -165,6 +165,16 @@ export const calculateTeamPoints = (team: Team): TeamWithPoints => {
   return { ...team, points, gamesPlayed };
 };
 
+const PERCENTAGE = 100;
+export const calculateTeamPercentages = (team: Team): TeamWithPercentages => {
+  const teamWithPoints = calculateTeamPoints(team);
+  const { numWin, numDraw, numLoss, gamesPlayed } = teamWithPoints;
+  const winPercentage = gamesPlayed === 0 ? 0 : (numWin * PERCENTAGE) / gamesPlayed;
+  const lossPercentage = gamesPlayed === 0 ? 0 : (numLoss * PERCENTAGE) / gamesPlayed;
+  const drawPercentage = gamesPlayed === 0 ? 0 : (numDraw * PERCENTAGE) / gamesPlayed;
+  return { ...teamWithPoints, winPercentage, lossPercentage, drawPercentage };
+};
+
 export const sortedOffensiveTeams = (teams: Team[]) =>
   [...teams].sort((first, second) => second.goalsFor - first.goalsFor);
 
@@ -174,7 +184,7 @@ export const sortedDefensiveTeams = (teams: Team[]) =>
 export const sortTeamsByPoints = (teams: TeamWithPoints[]) =>
   [...teams].sort((first, second) => second.points - first.points);
 
-export const divisionStanding = (teams: TeamWithPoints[]) => {
+export const divisionStanding = (teams: TeamWithPercentages[]) => {
   const sortedTeamsDesc = [...teams].sort((first, second) => second.points - first.points);
   return sortedTeamsDesc.reduce(
     (acc, t) => {
@@ -185,6 +195,6 @@ export const divisionStanding = (teams: TeamWithPoints[]) => {
       }
       return acc;
     },
-    {} as { [key: string]: TeamWithPoints[] },
+    {} as { [key: string]: TeamWithPercentages[] },
   );
 };

@@ -15,6 +15,9 @@
         <th class="left">Draw</th>
         <th class="left">OT Win</th>
         <th class="left">OT Loss</th>
+        <th class="left">Winning %</th>
+        <th class="left">Losing %</th>
+        <th class="left">Draw %</th>
         <th class="left">Goals For</th>
         <th class="left">Goals Against</th>
         <th class="left">Points</th>
@@ -31,6 +34,9 @@
           <td class="left">{{ team.numDraw }}</td>
           <td class="left">{{ team.numOTWin }}</td>
           <td class="left">{{ team.numOTLoss }}</td>
+          <td class="left">{{ team.winPercentage.toFixed(2) }}</td>
+          <td class="left">{{ team.lossPercentage.toFixed(2) }}</td>
+          <td class="left">{{ team.drawPercentage.toFixed(2) }}</td>
           <td class="left">{{ team.goalsFor }}</td>
           <td class="left">{{ team.goalsAgainst }}</td>
           <td class="left">{{ team.points }}</td>
