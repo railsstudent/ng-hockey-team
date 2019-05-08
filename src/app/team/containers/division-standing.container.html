@@ -4,7 +4,7 @@
       <team-standing-table
         [title]="division"
         [headerTemplateRef]="headerTemplate"
-        [teamsTemplateRef]="teamsTemplate"
+        [teamsTemplateRef]="divisionStanding[division] ? teamsTemplate : noData"
       ></team-standing-table>
 
       <ng-template #headerTemplate>
@@ -40,6 +40,14 @@
           <td class="left">{{ team.goalsFor }}</td>
           <td class="left">{{ team.goalsAgainst }}</td>
           <td class="left">{{ team.points }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template #noData>
+        <tr>
+          <td class="left" colspan="13">
+            No team data. Please create new team to join the league.
+          </td>
         </tr>
       </ng-template>
     </ng-container>
