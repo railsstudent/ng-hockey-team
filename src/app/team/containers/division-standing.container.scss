@@ -1,0 +1,17 @@
+.division-tables {
+  height: 100%;
+
+  team-standing-table {
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  div.no-league {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    h2.center {
+      margin: 0 auto;
+    }
+  }
+}
