@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
 import { DIVISION_ORDER } from '../../shared';
 import { getDivisionStanding, getTeamLoading, LeagueState, TeamActions } from '../store';
@@ -14,6 +14,7 @@ import { getDivisionStanding, getTeamLoading, LeagueState, TeamActions } from '.
 })
 export class DivisionStandingContainer implements OnInit, OnDestroy {
   divisionStanding$ = this.store.pipe(select(getDivisionStanding));
+  hasTeam$ = this.divisionStanding$.pipe(map(divisions => Object.keys(divisions).length > 0));
   loading$ = this.store.pipe(select(getTeamLoading));
   unsubscribe$ = new Subject();
 
@@ -30,6 +31,8 @@ export class DivisionStandingContainer implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
+
+    // this.hasTeam$.pipe(tap(console.log)).subscribe();
   }
 
   gotoTeam(teamId: string) {

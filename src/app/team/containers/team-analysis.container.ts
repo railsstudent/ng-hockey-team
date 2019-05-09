@@ -33,7 +33,9 @@ export class TeamAnalysisContainer implements OnInit {
 
   ngOnInit() {
     this.divisionLeaders$ = this.unorderedDivisionLeaders$.pipe(
-      map((teams: { [key: string]: TeamWithPoints }) => this.orderOfDivisions.map(division => teams[division])),
+      map((teams: { [key: string]: TeamWithPoints }) =>
+        this.orderOfDivisions.map(division => teams[division]).filter(team => !!team),
+      ),
     );
   }
 
