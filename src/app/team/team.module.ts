@@ -9,6 +9,7 @@ import {
   TeamStandingTableComponent,
   TeamStatHorizontalTableComponent,
   TeamStatVerticalTableComponent,
+  TeamTitleComponent,
 } from './components';
 import {
   DivisionStandingContainer,
@@ -37,6 +38,7 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamAnalysisContainer,
     TeamCounterArrowsVisibleDirective,
     DivisionStandingContainer,
+    TeamTitleComponent,
   ],
   imports: [
     CommonModule,
