@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class NewTeamContainer implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<LeagueState>,
-    private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private progress: ProgressService,
   ) {}
@@ -36,6 +36,11 @@ export class NewTeamContainer implements OnInit, OnDestroy {
     this.form = this.fb.group({
       name: new FormControl('', { validators: Validators.required, updateOn: 'blur' }),
       division: new FormControl('', { validators: Validators.required, updateOn: 'blur' }),
+    });
+
+    this.route.queryParams.subscribe(params => {
+      const division = params.division || '';
+      this.divisionCtrl.setValue(division);
     });
 
     this.message$ = this.store.pipe(
@@ -63,12 +68,16 @@ export class NewTeamContainer implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  returnToMenu() {
-    this.router.navigate(['/team']);
+  get divisionCtrl() {
+    return this.form.get('division') as AbstractControl;
   }
 
   closeAlert() {
     this.store.dispatch(new TeamActions.UpdateCloseAlert({ closeAlert: true }));
+  }
+
+  returnToMenu() {
+    this.store.dispatch(new TeamActions.NavigateAction({ url: '/team' }));
   }
 
   ngOnDestroy() {

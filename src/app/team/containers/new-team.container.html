@@ -1,13 +1,5 @@
 <article class="team-container">
-  <header class="heading">
-    <a (click)="returnToMenu()" aria-label="Return to team menu">
-      <i class="fas fa-chevron-circle-left fa-3x"></i>
-    </a>
-    <div class="title">
-      <span class="center">Add New Team</span>
-    </div>
-    <span class="spacer"></span>
-  </header>
+  <team-title [url]="'/team'">Add New Team</team-title>
   <ng-container *ngIf="{ msg: error$ | async, closeAlert: closeAlert$ | async } as o">
     <div class="alert alert-danger team-alert" role="alert" *ngIf="o.msg && !o.closeAlert">
       <div class="alert-items">

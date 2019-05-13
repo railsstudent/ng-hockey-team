@@ -40,6 +40,8 @@ export class TeamAnalysisContainer implements OnInit {
   }
 
   gotoTeam(teamId: string) {
-    this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
+    const url = '/team/roster';
+    const pathParams = [teamId];
+    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
   }
 }

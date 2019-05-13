@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { LeagueState, TeamActions } from '../store';
 
 @Component({
   selector: 'team-title',
@@ -6,8 +8,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./team-title.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamTitleComponent implements OnInit {
-  constructor() {}
+export class TeamTitleComponent {
+  @Input()
+  url: string;
 
-  ngOnInit() {}
+  constructor(private store: Store<LeagueState>) {}
+
+  back() {
+    this.store.dispatch(new TeamActions.NavigateAction({ url: this.url }));
+  }
 }

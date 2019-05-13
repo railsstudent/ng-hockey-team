@@ -1,3 +1,9 @@
-<p>
-  title-component works!
-</p>
+<header class="heading">
+  <a aria-label="Return to team menu" (click)="back()">
+    <i class="fas fa-chevron-circle-left fa-3x"></i>
+  </a>
+  <div class="title">
+    <span class="center"><ng-content></ng-content></span>
+  </div>
+  <span class="spacer"></span>
+</header>

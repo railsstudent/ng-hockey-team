@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
@@ -41,7 +41,6 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<LeagueState>,
-    private router: Router,
     private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
     private progress: ProgressService,
@@ -80,7 +79,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.router.navigate(['/team/list']);
+    this.store.dispatch(new TeamActions.NavigateAction({ url: '/team/list' }));
   }
 
   closeAlert() {
@@ -88,7 +87,9 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   gotoTeam(teamId: string) {
-    this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
+    const url = '/team/roster';
+    const pathParams = [teamId];
+    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
   }
 
   ngOnDestroy() {

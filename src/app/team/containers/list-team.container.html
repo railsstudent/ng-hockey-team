@@ -1,13 +1,5 @@
 <article class="team-container">
-  <header class="heading">
-    <a (click)="returnToMenu()" aria-label="Return to team menu">
-      <i class="fas fa-chevron-circle-left fa-3x"></i>
-    </a>
-    <div class="title">
-      <span class="center">Teams</span>
-    </div>
-    <span class="spacer"></span>
-  </header>
+  <team-title [url]="'/team'">Teams</team-title>
   <main class="list-container">
     <section class="clr-row">
       <div

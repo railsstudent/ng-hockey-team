@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -9,7 +8,21 @@ import { getAllTeamPoints, getTeamLoading, LeagueState, TeamActions } from '../s
 
 @Component({
   templateUrl: './list-team.container.html',
-  styleUrls: ['./list-team.container.scss'],
+  styles: [
+    `
+      .list-container {
+        display: grid;
+        grid-template-rows: 1fr auto;
+      }
+
+      .team-container {
+        display: grid;
+        min-height: 100%;
+
+        grid-template-rows: max-content 1fr;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListingContainer implements OnInit, OnDestroy {
@@ -18,12 +31,7 @@ export class ListingContainer implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject();
 
-  constructor(
-    private store: Store<LeagueState>,
-    private router: Router,
-    private route: ActivatedRoute,
-    private progress: ProgressService,
-  ) {}
+  constructor(private store: Store<LeagueState>, private progress: ProgressService) {}
 
   ngOnInit() {
     this.store.dispatch(new TeamActions.LoadTeams());
@@ -36,7 +44,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.store.dispatch(new TeamActions.NavigateAction({ url: '/team' }));
   }
 
   trackByFunction(index: number, team: TeamWithPoints) {
@@ -44,7 +52,9 @@ export class ListingContainer implements OnInit, OnDestroy {
   }
 
   showTeamRoster(teamId: string) {
-    this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
+    const url = '/team/roster';
+    const pathParams = [teamId];
+    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
   }
 
   ngOnDestroy() {
