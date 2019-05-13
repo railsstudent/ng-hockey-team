@@ -8,6 +8,7 @@ import { ProgressService } from 'src/app/shared/progress.service';
 import { UpdateTeamDelta } from '../models';
 import {
   getCloseAlert,
+  getCurrentDivision,
   getSelectedTeam,
   getTeamErrorMessage,
   getTeamLoading,
@@ -36,6 +37,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   error$ = this.store.pipe(select(getTeamErrorMessage));
   hideError$ = this.store.pipe(select(getCloseAlert));
   loading$ = this.store.pipe(select(getTeamLoading));
+  currentDivision$ = this.store.pipe(select(getCurrentDivision));
 
   constructor(
     private store: Store<LeagueState>,
@@ -83,6 +85,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
 
   closeAlert() {
     this.store.dispatch(new TeamActions.UpdateCloseAlert({ closeAlert: true }));
+  }
+
+  gotoTeam(teamId: string) {
+    this.store.dispatch(new TeamActions.LoadTeamRoster({ teamId }));
   }
 
   ngOnDestroy() {

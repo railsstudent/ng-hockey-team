@@ -31,8 +31,6 @@ export class DivisionStandingContainer implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
-
-    // this.hasTeam$.pipe(tap(console.log)).subscribe();
   }
 
   gotoTeam(teamId: string) {

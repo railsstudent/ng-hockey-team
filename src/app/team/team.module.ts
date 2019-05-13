@@ -17,10 +17,10 @@ import {
   NewTeamContainer,
   TeamAnalysisContainer,
   TeamRosterContainer,
+  TeamTablesContainer,
 } from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
-import { TeamService } from './services';
 import { reducers, TeamEffects } from './store';
 import { TeamMenuCardModule } from './team-menu-card';
 import { TeamRoutingModule } from './team-routing.module';
@@ -39,6 +39,7 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamCounterArrowsVisibleDirective,
     DivisionStandingContainer,
     TeamTitleComponent,
+    TeamTablesContainer,
   ],
   imports: [
     CommonModule,
@@ -48,6 +49,6 @@ import { TeamRoutingModule } from './team-routing.module';
     SharedModule,
     TeamMenuCardModule,
   ],
-  providers: [TeamGuard, TeamService],
+  providers: [TeamGuard],
 })
 export class TeamModule {}
