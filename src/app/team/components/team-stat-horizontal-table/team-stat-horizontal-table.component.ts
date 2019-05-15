@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeamWithPoints, UpdateTeamDelta } from '../models';
+import { TeamWithPoints, UpdateTeamDelta } from '../../models';
 
 @Component({
   selector: 'team-stat-horizontal-table',

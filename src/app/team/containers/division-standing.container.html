@@ -1,5 +1,4 @@
 <div class="division-tables">
-  <team-title [url]="'/team'">Standings</team-title>
   <ng-container *ngIf="{ divisionStanding: divisionStanding$ | async, hasTeam: hasTeam$ | async } as o">
     <ng-container *ngIf="o.hasTeam; else noLeague">
       <team-tables>
@@ -35,8 +34,13 @@
           <ng-template #noDivision>
             <tr>
               <td colspan="13">
-                Pleas <a routerLinkActive="active" (click)="createTeamWithDivision(division)">create</a> new team to
-                join {{ division }} division
+                Please
+                <a routerLinkActive="active" (click)="createTeam(division)"><span class="division">create</span></a> new
+                team to join
+                <a routerLinkActive="active" (click)="createTeam(division)"
+                  ><span class="division">{{ division }}</span></a
+                >
+                division
               </td>
             </tr>
           </ng-template>
@@ -64,7 +68,7 @@
   <ng-template #noLeague>
     <div class="no-league">
       <h2 class="center">
-        Please <a (click)="createTeamWithDivision()" routerLinkActive="active">create</a> new team to join the league.
+        Please <a (click)="createTeam('')" routerLinkActive="active">create</a> new team to join the league.
       </h2>
     </div>
   </ng-template>

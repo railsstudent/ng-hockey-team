@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LeagueState, TeamActions } from '../store';
+import { LeagueState, TeamActions } from '../../store';
 
 @Component({
   selector: 'team-title',

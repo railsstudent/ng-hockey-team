@@ -38,6 +38,7 @@
     "core-js": "^2.5.4",
     "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.3.3",
+    "rxjs-tslint-rules": "^4.23.1",
     "tslib": "^1.9.0",
     "uuid": "^3.3.2",
     "yarn": "^1.15.2",

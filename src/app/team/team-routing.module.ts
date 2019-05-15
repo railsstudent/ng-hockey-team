@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DivisionStandingContainer, ListingContainer, NewTeamContainer, TeamRosterContainer } from './containers';
+import { ListingContainer, NewTeamContainer, TeamRosterContainer, TeamStatisticsContainer } from './containers';
 import { TeamGuard } from './guards';
 import { TeamMenuCardComponent } from './team-menu-card/team-menu-card.component';
 
@@ -19,8 +19,8 @@ const routes: Routes = [
     component: ListingContainer,
   },
   {
-    path: 'division',
-    component: DivisionStandingContainer,
+    path: 'statistcs',
+    component: TeamStatisticsContainer,
     canActivate: [TeamGuard],
   },
   {

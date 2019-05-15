@@ -18,6 +18,7 @@ import {
   NewTeamContainer,
   TeamAnalysisContainer,
   TeamRosterContainer,
+  TeamStatisticsContainer,
 } from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
@@ -40,6 +41,7 @@ import { TeamRoutingModule } from './team-routing.module';
     DivisionStandingContainer,
     TeamTitleComponent,
     TeamTablesComponent,
+    TeamStatisticsContainer,
   ],
   imports: [
     CommonModule,
