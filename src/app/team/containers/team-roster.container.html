@@ -44,10 +44,15 @@
         <!-- <div class="player-container"></div> -->
         <team-tables>
           <team-standing-table
-            [title]="team.division + ' Division'"
             [headerTemplateRef]="leaderHeaderTemplate"
             [teamsTemplateRef]="leaderTemplate"
-          ></team-standing-table>
+            [titleTemplateRef]="titleTemplate"
+          >
+          </team-standing-table>
+
+          <ng-template #titleTemplate>
+            <p class="standing-table-title">{{ team.division + ' Division' }}</p>
+          </ng-template>
 
           <ng-template #leaderHeaderTemplate>
             <th class="left">Name</th>

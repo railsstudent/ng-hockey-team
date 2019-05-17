@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular
 @Component({
   selector: 'team-standing-table',
   template: `
-    <p class="standing-table-title">{{ title }}</p>
+    <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
     <table class="table">
       <thead>
         <ng-template [ngTemplateOutlet]="headerTemplateRef"></ng-template>
@@ -15,13 +15,6 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular
   `,
   styles: [
     `
-      .standing-table-title {
-        font-size: 0.75rem;
-        text-align: center;
-        text-decoration: underline;
-        margin-top: 0rem;
-      }
-
       table.table {
         margin-top: 0.5rem;
       }
@@ -31,11 +24,11 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular
 })
 export class TeamStandingTableComponent {
   @Input()
-  title: string;
-
-  @Input()
   headerTemplateRef: TemplateRef<any>;
 
   @Input()
   teamsTemplateRef: TemplateRef<any>;
+
+  @Input()
+  titleTemplateRef: TemplateRef<any>;
 }

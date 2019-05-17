@@ -4,10 +4,14 @@
       <team-tables>
         <ng-container *ngFor="let division of orderOfDivision">
           <team-standing-table
-            [title]="division"
             [headerTemplateRef]="headerTemplate"
             [teamsTemplateRef]="o.divisionStanding[division] ? teamsTemplate : noDivision"
+            [titleTemplateRef]="titleTemplate"
           ></team-standing-table>
+
+          <ng-template #titleTemplate>
+            <p class="standing-table-title">{{ division }}</p>
+          </ng-template>
 
           <ng-template #teamsTemplate>
             <tr *ngFor="let team of o.divisionStanding[division]">
