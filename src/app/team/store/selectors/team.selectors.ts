@@ -76,6 +76,12 @@ export const getDivisionStanding = createSelector(
   fromTeam.divisionStanding,
 );
 
+export const getCurrentDivision = createSelector(
+  getDivisionStanding,
+  getSelectedTeam,
+  (divisions, team) => divisions[team.division],
+);
+
 export const getDivisionLeaders = createSelector(
   getDivisionStanding,
   divisionStandingMap => {

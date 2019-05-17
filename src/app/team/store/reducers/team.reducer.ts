@@ -89,15 +89,6 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.LoadTeamRoster: {
-      return {
-        ...state,
-        message: null,
-        error: null,
-        closeAlert: false,
-      };
-    }
-
     case TeamActions.TeamActionTypes.UpdateTeamRecord: {
       return {
         ...state,
@@ -139,6 +130,14 @@ export function reducer(state = initialState, action: Action): State {
       return {
         ...state,
         closeAlert,
+      };
+
+    case TeamActions.TeamActionTypes.NavigateAction:
+      return {
+        ...state,
+        message: null,
+        error: null,
+        closeAlert: false,
       };
 
     default: {

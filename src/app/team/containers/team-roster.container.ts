@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { ProgressService } from 'src/app/shared/progress.service';
 import { UpdateTeamDelta } from '../models';
 import {
   getCloseAlert,
+  getCurrentDivision,
   getSelectedTeam,
   getTeamErrorMessage,
   getTeamLoading,
@@ -36,10 +37,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   error$ = this.store.pipe(select(getTeamErrorMessage));
   hideError$ = this.store.pipe(select(getCloseAlert));
   loading$ = this.store.pipe(select(getTeamLoading));
+  currentDivision$ = this.store.pipe(select(getCurrentDivision));
 
   constructor(
     private store: Store<LeagueState>,
-    private router: Router,
     private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
     private progress: ProgressService,
@@ -78,11 +79,17 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.router.navigate(['/team/list']);
+    this.store.dispatch(new TeamActions.NavigateAction({ url: '/team/list' }));
   }
 
   closeAlert() {
     this.store.dispatch(new TeamActions.UpdateCloseAlert({ closeAlert: true }));
+  }
+
+  gotoTeam(teamId: string) {
+    const url = '/team/roster';
+    const pathParams = [teamId];
+    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
   }
 
   ngOnDestroy() {

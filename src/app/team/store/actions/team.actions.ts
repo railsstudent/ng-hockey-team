@@ -1,3 +1,4 @@
+import { Params } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Team } from '../../models';
 
@@ -8,11 +9,11 @@ export enum TeamActionTypes {
   AddTeam = '[Team] Add Team',
   AddTeamSuccess = '[Team] Add Team Success',
   AddTeamFailure = '[Team] Add Team Failure',
-  LoadTeamRoster = '[Team] Load Team Roster',
   UpdateCloseAlert = '[Team] Update Close Alert',
   UpdateTeamRecord = '[Team] Update Team Record',
   UpdateTeamRecordSuccess = '[Team] Update Team Record Success',
   UpdateTeamRecordFailure = '[Team] Update Team Record Failure',
+  NavigateAction = '[Team] Route to next url',
 }
 
 export class LoadTeams implements Action {
@@ -49,12 +50,6 @@ export class AddTeamFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
-export class LoadTeamRoster implements Action {
-  readonly type = TeamActionTypes.LoadTeamRoster;
-
-  constructor(public payload: { teamId: string }) {}
-}
-
 export class UpdateTeamRecord implements Action {
   readonly type = TeamActionTypes.UpdateTeamRecord;
 
@@ -79,6 +74,11 @@ export class UpdateCloseAlert implements Action {
   constructor(public payload: { closeAlert: boolean }) {}
 }
 
+export class NavigateAction implements Action {
+  readonly type = TeamActionTypes.NavigateAction;
+  constructor(public payload: { url: string; pathParams?: any[]; queryParams?: Params }) {}
+}
+
 export type TeamActionsUnion =
   | LoadTeams
   | LoadTeamsSuccess
@@ -86,8 +86,8 @@ export type TeamActionsUnion =
   | AddTeam
   | AddTeamSuccess
   | AddTeamFailure
-  | LoadTeamRoster
   | UpdateCloseAlert
   | UpdateTeamRecord
   | UpdateTeamRecordSuccess
-  | UpdateTeamRecordFailure;
+  | UpdateTeamRecordFailure
+  | NavigateAction;

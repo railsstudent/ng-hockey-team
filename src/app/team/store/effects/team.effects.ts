@@ -37,13 +37,6 @@ export class TeamEffects {
     }),
   );
 
-  @Effect({ dispatch: false })
-  loadTeamRoster$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.LoadTeamRoster),
-    map((action: TeamActions.LoadTeamRoster) => action.payload),
-    tap(({ teamId }) => this.router.navigate(['/team/roster', teamId])),
-  );
-
   @Effect()
   updateTeamRecord$ = this.actions$.pipe(
     ofType(TeamActions.TeamActionTypes.UpdateTeamRecord),
@@ -54,6 +47,17 @@ export class TeamEffects {
         map(team => new TeamActions.UpdateTeamRecordSuccess({ team })),
         catchError((error: string) => of(new TeamActions.UpdateTeamRecordFailure({ error })).pipe(delay(DELAY))),
       );
+    }),
+  );
+
+  @Effect({ dispatch: false })
+  navigate$ = this.actions$.pipe(
+    ofType(TeamActions.TeamActionTypes.NavigateAction),
+    map((action: TeamActions.NavigateAction) => action.payload),
+    tap(({ url, queryParams = null, pathParams = null }) => {
+      const queryParamsArg = queryParams ? { queryParams } : {};
+      const pathParamsArg = pathParams ? pathParams : [];
+      return this.router.navigate([url, ...pathParamsArg], queryParamsArg);
     }),
   );
 }

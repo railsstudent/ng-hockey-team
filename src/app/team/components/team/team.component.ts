@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import logos from '../../../assets/logos.json';
-import { TeamWithPoints } from '../models';
+import logos from '../../../../assets/logos.json';
+import { TeamWithPoints } from '../../models';
 
 @Component({
   selector: 'team-summary',

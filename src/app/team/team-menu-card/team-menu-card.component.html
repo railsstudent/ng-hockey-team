@@ -8,7 +8,7 @@
     Team Menu
   </div>
   <div class="card-block">
-    <button class="btn btn-outline" aria-label="Add new team" [routerLink]="['/team/new']">
+    <button class="btn btn-outline" aria-label="Add new team" (click)="openAddTeamForm()">
       Add Team <i class="fas fa-plus"></i>
     </button>
   </div>
@@ -18,8 +18,8 @@
     </button>
   </div>
   <div class="card-block">
-    <button class="btn btn-outline" aria-label="Team standing" [routerLink]="['/team/division']">
-      Standing <i class="fas fa-table"></i>
+    <button class="btn btn-outline" aria-label="Team statistics" [routerLink]="['/team/statistcs']">
+      Statistics <i class="fas fa-table"></i>
     </button>
   </div>
 </ng-template>

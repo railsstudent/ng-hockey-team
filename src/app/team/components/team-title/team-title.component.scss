@@ -1,13 +1,5 @@
-.list-container {
-  display: grid;
-  grid-template-rows: 1fr auto;
-}
-
-.team-container {
-  display: grid;
-  min-height: 100%;
-
-  grid-template-rows: max-content 1fr;
+:host {
+  display: block;
 }
 
 .heading {

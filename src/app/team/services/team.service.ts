@@ -4,7 +4,9 @@ import { v4 as uuid } from 'uuid';
 import { BAD_WORDS } from '../../shared';
 import { Team, UPDATE_STAT_TYPE } from '../models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TeamService {
   constructor(@Inject(BAD_WORDS) private badWords: string[]) {}
 

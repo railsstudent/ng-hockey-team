@@ -1,0 +1,17 @@
+<div class="statistics-container">
+  <team-title [url]="'/team'">Statistics</team-title>
+  <clr-tabs>
+    <clr-tab>
+      <button clrTabLink id="link1">Division Standing</button>
+      <clr-tab-content id="content1" *clrIfActive="true">
+        <division-standing></division-standing>
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink>Category Leaders</button>
+      <clr-tab-content *clrIfActive>
+        ...
+      </clr-tab-content>
+    </clr-tab>
+  </clr-tabs>
+</div>
