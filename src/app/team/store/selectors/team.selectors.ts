@@ -1,5 +1,4 @@
 import { createSelector } from '@ngrx/store';
-import { TeamWithPoints } from '../../models';
 import * as fromFeature from '../reducers';
 import * as fromTeam from '../reducers/team.reducer';
 
@@ -8,11 +7,6 @@ const THREE = 3;
 export const getAllTeams = createSelector(
   fromFeature.getTeamsFeature,
   fromTeam.selectAll,
-);
-
-export const getAllTeamPoints = createSelector(
-  getAllTeams,
-  teams => teams.filter(t => !!t).map(fromTeam.calculateTeamPoints),
 );
 
 export const getAllTeamWithPercentages = createSelector(
@@ -48,7 +42,7 @@ export const getSelectedTeamByParam = createSelector(
 
 export const getSelectedTeam = createSelector(
   getSelectedTeamByParam,
-  fromTeam.calculateTeamPoints,
+  fromTeam.calculateTeamPercentages,
 );
 
 export const getCloseAlert = createSelector(
@@ -67,7 +61,7 @@ export const getTeamLoading = createSelector(
 );
 
 export const getTopThreeTeams = createSelector(
-  getAllTeamPoints,
+  getAllTeamWithPercentages,
   teams => fromTeam.sortTeamsByPoints(teams).slice(0, THREE),
 );
 
@@ -82,17 +76,9 @@ export const getCurrentDivision = createSelector(
   (divisions, team) => divisions[team.division],
 );
 
-export const getDivisionLeaders = createSelector(
-  getDivisionStanding,
-  divisionStandingMap => {
-    return Object.keys(divisionStandingMap).reduce(
-      (acc, division) => {
-        acc[division] = divisionStandingMap[division][0];
-        return acc;
-      },
-      {} as { [key: string]: TeamWithPoints },
-    );
-  },
+export const getOverallStanding = createSelector(
+  getAllTeamWithPercentages,
+  fromTeam.sortTeamsByPoints,
 );
 
 export const getTopOffensiveTeams = createSelector(

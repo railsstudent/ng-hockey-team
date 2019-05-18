@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import logos from '../../../../assets/logos.json';
-import { TeamWithPoints } from '../../models';
+import { TeamWithPercentages } from './../../models';
 
 @Component({
   selector: 'team-summary',
@@ -10,7 +10,7 @@ import { TeamWithPoints } from '../../models';
 })
 export class TeamComponent {
   @Input()
-  team: TeamWithPoints;
+  team: TeamWithPercentages;
 
   @Input()
   index: number;

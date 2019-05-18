@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeamWithPoints, UpdateTeamDelta } from '../../models';
+import { UpdateTeamDelta } from '../../models';
+import { TeamWithPercentages } from './../../models';
 
 @Component({
   selector: 'team-stat-horizontal-table',
@@ -9,7 +10,7 @@ import { TeamWithPoints, UpdateTeamDelta } from '../../models';
 })
 export class TeamStatHorizontalTableComponent {
   @Input()
-  team: TeamWithPoints;
+  team: TeamWithPercentages;
 
   @Input()
   overtimeArrowsVisible: boolean;
