@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { merge, Subject } from 'rxjs';
-import { filter, mapTo, tap } from 'rxjs/operators';
-import { UpdateTeamDelta } from '../models';
+import { filter, mapTo, takeUntil, tap } from 'rxjs/operators';
+import { UpdateTeamDelta } from '../../models';
 
 @Component({
   selector: 'team-match-counter',
@@ -31,7 +31,7 @@ import { UpdateTeamDelta } from '../models';
   styleUrls: ['./match-counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MatchCounterComponent implements OnInit {
+export class MatchCounterComponent implements OnInit, OnDestroy {
   @Input()
   value: number;
 
@@ -43,6 +43,7 @@ export class MatchCounterComponent implements OnInit {
 
   incrementValue$ = new Subject<Event>();
   decrementValue$ = new Subject<Event>();
+  unsubscribe$ = new Subject();
 
   ngOnInit() {
     const plusOne$ = this.incrementValue$.pipe(mapTo(1));
@@ -53,7 +54,15 @@ export class MatchCounterComponent implements OnInit {
     );
 
     merge(plusOne$, minusOne$)
-      .pipe(tap(delta => this.counter.emit({ delta, field: this.field })))
+      .pipe(
+        tap(delta => this.counter.emit({ delta, field: this.field })),
+        takeUntil(this.unsubscribe$),
+      )
       .subscribe();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
