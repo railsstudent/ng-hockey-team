@@ -6,6 +6,11 @@
     flex: 1;
     margin-bottom: 0.5rem;
   }
+
+  td,
+  th {
+    width: calc(100% / 3);
+  }
 }
 
 @media screen and (max-width: 767px) {
