@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular
 @Component({
   selector: 'team-standing-table',
   template: `
-    <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+    <ng-template [ngTemplateOutlet]="titleTemplateRef || defaultTitleTemplate"></ng-template>
     <table class="table">
       <thead>
         <ng-template [ngTemplateOutlet]="headerTemplateRef"></ng-template>
@@ -12,11 +12,20 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular
         <ng-template [ngTemplateOutlet]="teamsTemplateRef"></ng-template>
       </tbody>
     </table>
+    <ng-template #defaultTitleTemplate>
+      <p class="standing-table-title"><ng-content></ng-content></p>
+    </ng-template>
   `,
   styles: [
     `
       table.table {
         margin-top: 0.5rem;
+      }
+
+      p.standing-table-title {
+        font-weight: bold;
+        font-style: italic;
+        font-size: 0.8rem;
       }
     `,
   ],

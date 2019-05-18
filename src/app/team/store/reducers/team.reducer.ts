@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
-import { Team, TeamWithPercentages, TeamWithPoints } from '../../models';
+import { Team, TeamWithPercentages } from '../../models';
 import { TeamActions } from '../actions';
 
 export interface State extends EntityState<Team> {
@@ -157,7 +157,7 @@ export const getCloseAlert = (state: State) => state.closeAlert;
 export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
-export const calculateTeamPoints = (team: Team): TeamWithPoints => {
+const calculateTeamPoints = (team: Team) => {
   const { numWin = 0, numDraw = 0, numOTWin = 0, numLoss = 0 } = team || {};
   const points = numWin * WIN_POINTS + numDraw * DRAW_POINT + numOTWin * DRAW_POINT;
   const gamesPlayed = numWin + numDraw + numLoss;
@@ -180,11 +180,11 @@ export const sortedOffensiveTeams = (teams: Team[]) =>
 export const sortedDefensiveTeams = (teams: Team[]) =>
   [...teams].sort((first, second) => first.goalsAgainst - second.goalsAgainst);
 
-export const sortTeamsByPoints = (teams: TeamWithPoints[]) =>
+export const sortTeamsByPoints = (teams: TeamWithPercentages[]) =>
   [...teams].sort((first, second) => second.points - first.points);
 
 export const divisionStanding = (teams: TeamWithPercentages[]) => {
-  const sortedTeamsDesc = [...teams].sort((first, second) => second.points - first.points);
+  const sortedTeamsDesc = sortTeamsByPoints(teams);
   return sortedTeamsDesc.reduce(
     (acc, t) => {
       if (!acc[t.division]) {

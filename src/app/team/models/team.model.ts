@@ -11,12 +11,9 @@ export interface Team {
   goalsAgainst: number;
 }
 
-export interface TeamWithPoints extends Team {
+export interface TeamWithPercentages extends Team {
   points: number;
   gamesPlayed: number;
-}
-
-export interface TeamWithPercentages extends TeamWithPoints {
   winPercentage: number;
   lossPercentage: number;
   drawPercentage: number;

@@ -1,10 +1,8 @@
 <div class="team-standing-tables">
   <ng-container *ngIf="(topThreeTeams$ | async) as topThreeTeams">
-    <team-standing-table
-      [title]="'Top 3 teams'"
-      [headerTemplateRef]="topThreeHeaderTemplate"
-      [teamsTemplateRef]="topThreeTeamsTemplate"
-    ></team-standing-table>
+    <team-standing-table [headerTemplateRef]="topThreeHeaderTemplate" [teamsTemplateRef]="topThreeTeamsTemplate"
+      >Top 3 teams</team-standing-table
+    >
 
     <ng-template #topThreeHeaderTemplate>
       <th class="left">Name</th>
@@ -23,37 +21,10 @@
     </ng-template>
   </ng-container>
 
-  <ng-container *ngIf="(divisionLeaders$ | async) as leaders">
-    <team-standing-table
-      [title]="'Division Leaders'"
-      [headerTemplateRef]="leaderHeaderTemplate"
-      [teamsTemplateRef]="leaderTemplate"
-    ></team-standing-table>
-
-    <ng-template #leaderHeaderTemplate>
-      <th class="left">Division</th>
-      <th class="left">Games Played</th>
-      <th class="left">Name (Points)</th>
-    </ng-template>
-
-    <ng-template #leaderTemplate>
-      <tr *ngFor="let team of leaders">
-        <td class="left">{{ team.division }}</td>
-        <td class="left">{{ team.gamesPlayed }}</td>
-        <td class="left">
-          <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)">{{ team.name }}</a>
-          ({{ team.points }})
-        </td>
-      </tr>
-    </ng-template>
-  </ng-container>
-
   <ng-container *ngIf="(topOffensiveTeams$ | async) as leaders">
-    <team-standing-table
-      [title]="'Top 3 Offensive Teams'"
-      [headerTemplateRef]="leaderHeaderTemplate"
-      [teamsTemplateRef]="leaderTemplate"
-    ></team-standing-table>
+    <team-standing-table [headerTemplateRef]="leaderHeaderTemplate" [teamsTemplateRef]="leaderTemplate"
+      >Top 3 Offensive Teams</team-standing-table
+    >
 
     <ng-template #leaderHeaderTemplate>
       <th class="left">Division</th>
@@ -73,11 +44,9 @@
   </ng-container>
 
   <ng-container *ngIf="(worstOffensiveTeams$ | async) as leaders">
-    <team-standing-table
-      [title]="'Worst 3 Offensive Teams'"
-      [headerTemplateRef]="leaderHeaderTemplate"
-      [teamsTemplateRef]="leaderTemplate"
-    ></team-standing-table>
+    <team-standing-table [headerTemplateRef]="leaderHeaderTemplate" [teamsTemplateRef]="leaderTemplate"
+      >Worst 3 Offensive Teams</team-standing-table
+    >
 
     <ng-template #leaderHeaderTemplate>
       <th class="left">Division</th>
@@ -97,11 +66,9 @@
   </ng-container>
 
   <ng-container *ngIf="(topDefensiveTeams$ | async) as leaders">
-    <team-standing-table
-      [title]="'Top 3 Defensive Teams'"
-      [headerTemplateRef]="leaderHeaderTemplate"
-      [teamsTemplateRef]="leaderTemplate"
-    ></team-standing-table>
+    <team-standing-table [headerTemplateRef]="leaderHeaderTemplate" [teamsTemplateRef]="leaderTemplate"
+      >Top 3 Defensive Teams</team-standing-table
+    >
 
     <ng-template #leaderHeaderTemplate>
       <th class="left">Division</th>
@@ -121,11 +88,9 @@
   </ng-container>
 
   <ng-container *ngIf="(worstDefensiveTeams$ | async) as leaders">
-    <team-standing-table
-      [title]="'Worst 3 Defensive Teams'"
-      [headerTemplateRef]="leaderHeaderTemplate"
-      [teamsTemplateRef]="leaderTemplate"
-    ></team-standing-table>
+    <team-standing-table [headerTemplateRef]="leaderHeaderTemplate" [teamsTemplateRef]="leaderTemplate"
+      >Worst 3 Defensive Teams</team-standing-table
+    >
 
     <ng-template #leaderHeaderTemplate>
       <th class="left">Division</th>

@@ -2,15 +2,21 @@
   <team-title [url]="'/team'">Statistics</team-title>
   <clr-tabs>
     <clr-tab>
-      <button clrTabLink id="link1">Division Standing</button>
-      <clr-tab-content id="content1" *clrIfActive="true">
+      <button clrTabLink id="link1">Overall</button>
+      <clr-tab-content id="content2" *clrIfActive="true">
+        <team-tables>TBA</team-tables>
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink id="link2">Division Standing</button>
+      <clr-tab-content id="content2" *clrIfActive>
         <division-standing></division-standing>
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
       <button clrTabLink>Category Leaders</button>
       <clr-tab-content *clrIfActive>
-        <team-analysis></team-analysis>
+        <team-category-leaders></team-category-leaders>
       </clr-tab-content>
     </clr-tab>
   </clr-tabs>

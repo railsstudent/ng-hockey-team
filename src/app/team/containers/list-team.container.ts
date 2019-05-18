@@ -3,8 +3,8 @@ import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
-import { TeamWithPoints } from '../models';
-import { getAllTeamPoints, getTeamLoading, LeagueState, TeamActions } from '../store';
+import { TeamWithPercentages } from '../models';
+import { getAllTeamWithPercentages, getTeamLoading, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './list-team.container.html',
@@ -26,7 +26,7 @@ import { getAllTeamPoints, getTeamLoading, LeagueState, TeamActions } from '../s
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListingContainer implements OnInit, OnDestroy {
-  teams$ = this.store.pipe(select(getAllTeamPoints));
+  teams$ = this.store.pipe(select(getAllTeamWithPercentages));
   loading$ = this.store.pipe(select(getTeamLoading));
 
   private unsubscribe$ = new Subject();
@@ -47,7 +47,7 @@ export class ListingContainer implements OnInit, OnDestroy {
     this.store.dispatch(new TeamActions.NavigateAction({ url: '/team' }));
   }
 
-  trackByFunction(index: number, team: TeamWithPoints) {
+  trackByFunction(index: number, team: TeamWithPercentages) {
     return team.id;
   }
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeamWithPoints, UpdateTeamDelta } from '../../models';
+import { TeamWithPercentages, UpdateTeamDelta } from '../../models';
 
 @Component({
   selector: 'team-stat-vertical-table',
@@ -9,7 +9,7 @@ import { TeamWithPoints, UpdateTeamDelta } from '../../models';
 })
 export class TeamStatVerticalTableComponent {
   @Input()
-  team: TeamWithPoints;
+  team: TeamWithPercentages;
 
   @Input()
   overtimeArrowsVisible: boolean;
