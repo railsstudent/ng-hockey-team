@@ -4,7 +4,37 @@
     <clr-tab>
       <button clrTabLink id="link1">Overall</button>
       <clr-tab-content id="content2" *clrIfActive="true">
-        <team-tables>TBA</team-tables>
+        <team-tables>
+          <ng-container *ngIf="overallStanding$ | async as overallStanding">
+            <team-standing-table
+              [headerTemplateRef]="headerTemplate"
+              [teamsTemplateRef]="overallStanding && overallStanding.length > 0 ? teamsTemplate : noLeague"
+              [titleTemplateRef]="titleTemplate"
+            ></team-standing-table>
+
+            <ng-template #teamsTemplate>
+              <tr *ngFor="let team of overallStanding">
+                <td class="left">
+                  <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)"
+                    >{{ team.name }}</a
+                  >
+                </td>
+                <td class="left">{{ team.gamesPlayed }}</td>
+                <td class="left">{{ team.numWin }}</td>
+                <td class="left">{{ team.numLoss }}</td>
+                <td class="left">{{ team.numDraw }}</td>
+                <td class="left">{{ team.numOTWin }}</td>
+                <td class="left">{{ team.numOTLoss }}</td>
+                <td class="left">{{ team.winPercentage.toFixed(2) }}</td>
+                <td class="left">{{ team.lossPercentage.toFixed(2) }}</td>
+                <td class="left">{{ team.drawPercentage.toFixed(2) }}</td>
+                <td class="left">{{ team.goalsFor }}</td>
+                <td class="left">{{ team.goalsAgainst }}</td>
+                <td class="left">{{ team.points }}</td>
+              </tr>
+            </ng-template>
+          </ng-container>
+        </team-tables>
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
@@ -21,3 +51,31 @@
     </clr-tab>
   </clr-tabs>
 </div>
+
+<ng-template #titleTemplate>
+  <p class="standing-table-title">Overall Standing</p>
+</ng-template>
+
+<ng-template #headerTemplate>
+  <th class="left">Name</th>
+  <th class="left">Number of games</th>
+  <th class="left">Win</th>
+  <th class="left">Loss</th>
+  <th class="left">Draw</th>
+  <th class="left">OT Win</th>
+  <th class="left">OT Loss</th>
+  <th class="left">Winning %</th>
+  <th class="left">Losing %</th>
+  <th class="left">Draw %</th>
+  <th class="left">Goals For</th>
+  <th class="left">Goals Against</th>
+  <th class="left">Points</th>
+</ng-template>
+
+<ng-template #noLeague>
+  <tr>
+    <td colspan="13">
+      Please <a (click)="createTeam()" routerLinkActive="active">create</a> new team to join the league.
+    </td>
+  </tr>
+</ng-template>
