@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { getOverallStanding, LeagueState, TeamActions } from '../store';
 
 @Component({
   selector: 'team-statistics-container',
@@ -7,8 +8,19 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./team-statistics.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamStatisticsContainer implements OnInit {
-  constructor(private store: Store<any>) {}
+export class TeamStatisticsContainer {
+  overallStanding$ = this.store.pipe(select(getOverallStanding));
 
-  ngOnInit() {}
+  constructor(private store: Store<LeagueState>) {}
+
+  gotoTeam(teamId: string) {
+    const url = '/team/roster';
+    const pathParams = [teamId];
+    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
+  }
+
+  createTeam() {
+    const url = '/team/new';
+    this.store.dispatch(new TeamActions.NavigateAction({ url }));
+  }
 }

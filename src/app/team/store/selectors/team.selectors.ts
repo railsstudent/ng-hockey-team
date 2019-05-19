@@ -62,7 +62,7 @@ export const getTeamLoading = createSelector(
 
 export const getTopThreeTeams = createSelector(
   getAllTeamWithPercentages,
-  teams => fromTeam.sortTeamsByPoints(teams).slice(0, THREE),
+  teams => fromTeam.sortTeamsByWinningPercentage(teams).slice(0, THREE),
 );
 
 export const getDivisionStanding = createSelector(
@@ -78,7 +78,7 @@ export const getCurrentDivision = createSelector(
 
 export const getOverallStanding = createSelector(
   getAllTeamWithPercentages,
-  fromTeam.sortTeamsByPoints,
+  fromTeam.sortTeamsByWinningPercentage,
 );
 
 export const getTopOffensiveTeams = createSelector(

@@ -157,21 +157,15 @@ export const getCloseAlert = (state: State) => state.closeAlert;
 export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
-const calculateTeamPoints = (team: Team) => {
+const PERCENTAGE = 100;
+export const calculateTeamPercentages = (team: Team): TeamWithPercentages => {
   const { numWin = 0, numDraw = 0, numOTWin = 0, numLoss = 0 } = team || {};
   const points = numWin * WIN_POINTS + numDraw * DRAW_POINT + numOTWin * DRAW_POINT;
   const gamesPlayed = numWin + numDraw + numLoss;
-  return { ...team, points, gamesPlayed };
-};
-
-const PERCENTAGE = 100;
-export const calculateTeamPercentages = (team: Team): TeamWithPercentages => {
-  const teamWithPoints = calculateTeamPoints(team);
-  const { numWin, numDraw, numLoss, gamesPlayed } = teamWithPoints;
   const winPercentage = gamesPlayed === 0 ? 0 : (numWin * PERCENTAGE) / gamesPlayed;
   const lossPercentage = gamesPlayed === 0 ? 0 : (numLoss * PERCENTAGE) / gamesPlayed;
   const drawPercentage = gamesPlayed === 0 ? 0 : (numDraw * PERCENTAGE) / gamesPlayed;
-  return { ...teamWithPoints, winPercentage, lossPercentage, drawPercentage };
+  return { ...team, points, gamesPlayed, winPercentage, lossPercentage, drawPercentage };
 };
 
 export const sortedOffensiveTeams = (teams: Team[]) =>
@@ -180,11 +174,11 @@ export const sortedOffensiveTeams = (teams: Team[]) =>
 export const sortedDefensiveTeams = (teams: Team[]) =>
   [...teams].sort((first, second) => first.goalsAgainst - second.goalsAgainst);
 
-export const sortTeamsByPoints = (teams: TeamWithPercentages[]) =>
-  [...teams].sort((first, second) => second.points - first.points);
+export const sortTeamsByWinningPercentage = (teams: TeamWithPercentages[]) =>
+  [...teams].sort((first, second) => second.winPercentage - first.winPercentage);
 
 export const divisionStanding = (teams: TeamWithPercentages[]) => {
-  const sortedTeamsDesc = sortTeamsByPoints(teams);
+  const sortedTeamsDesc = sortTeamsByWinningPercentage(teams);
   return sortedTeamsDesc.reduce(
     (acc, t) => {
       if (!acc[t.division]) {
