@@ -15,6 +15,6 @@ export class TeamTitleComponent {
   constructor(private store: Store<LeagueState>) {}
 
   back() {
-    this.store.dispatch(TeamActions.NavigateAction({ url: this.url }));
+    this.store.dispatch(TeamActions.NavigateAction(this.url));
   }
 }

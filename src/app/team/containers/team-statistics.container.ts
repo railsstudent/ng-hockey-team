@@ -16,11 +16,11 @@ export class TeamStatisticsContainer {
   gotoTeam(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(TeamActions.NavigateAction({ url, pathParams }));
+    this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
   }
 
   createTeam() {
     const url = '/team/new';
-    this.store.dispatch(TeamActions.NavigateAction({ url }));
+    this.store.dispatch(TeamActions.NavigateAction(url));
   }
 }

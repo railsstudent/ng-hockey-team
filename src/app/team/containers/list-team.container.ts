@@ -44,7 +44,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.store.dispatch(TeamActions.NavigateAction({ url: '/team' }));
+    this.store.dispatch(TeamActions.NavigateAction('/team'));
   }
 
   trackByFunction(index: number, team: TeamWithPercentages) {
@@ -54,7 +54,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   showTeamRoster(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(TeamActions.NavigateAction({ url, pathParams }));
+    this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
   }
 
   ngOnDestroy() {
