@@ -62,7 +62,7 @@ export class NewTeamContainer implements OnInit, OnDestroy {
 
     this.addTeam$
       .pipe(
-        tap(() => this.store.dispatch(new TeamActions.AddTeam(this.form.value))),
+        tap(() => this.store.dispatch(TeamActions.AddTeam(this.form.value))),
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
@@ -73,11 +73,11 @@ export class NewTeamContainer implements OnInit, OnDestroy {
   }
 
   closeAlert() {
-    this.store.dispatch(new TeamActions.UpdateCloseAlert({ closeAlert: true }));
+    this.store.dispatch(TeamActions.UpdateCloseAlert({ closeAlert: true }));
   }
 
   returnToMenu() {
-    this.store.dispatch(new TeamActions.NavigateAction({ url: '/team' }));
+    this.store.dispatch(TeamActions.NavigateAction({ url: '/team' }));
   }
 
   ngOnDestroy() {

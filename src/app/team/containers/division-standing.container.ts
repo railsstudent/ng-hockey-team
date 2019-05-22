@@ -28,13 +28,13 @@ export class DivisionStandingContainer implements OnDestroy {
   gotoTeam(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
+    this.store.dispatch(TeamActions.NavigateAction({ url, pathParams }));
   }
 
   createTeam(division = '') {
     const url = '/team/new';
     const queryParams = { division };
-    this.store.dispatch(new TeamActions.NavigateAction({ url, queryParams }));
+    this.store.dispatch(TeamActions.NavigateAction({ url, queryParams }));
   }
 
   ngOnDestroy() {

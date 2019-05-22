@@ -7,7 +7,7 @@ export interface LeagueState extends fromRoot.AppState {
   teams: fromTeam.State;
 }
 
-export const reducers: ActionReducerMap<LeagueState, Action> = {
+export const reducers: ActionReducerMap<LeagueState, any> = {
   teams: fromTeam.reducer,
   router: fromRouter.routerReducer,
 };
