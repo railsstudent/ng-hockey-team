@@ -21,6 +21,6 @@ export class TeamMenuCardComponent implements OnInit {
   }
 
   openAddTeamForm() {
-    this.store.dispatch(TeamActions.NavigateAction({ url: '/team/new' }));
+    this.store.dispatch(TeamActions.NavigateAction('/team/new'));
   }
 }

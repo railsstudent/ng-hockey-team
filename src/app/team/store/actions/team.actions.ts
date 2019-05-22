@@ -17,7 +17,7 @@ export const UpdateTeamRecordFailure = createAction('[Team] Update Team Record F
 export const UpdateCloseAlert = createAction('[Team] Update Close Alert', props<{ closeAlert: boolean }>());
 export const NavigateAction = createAction(
   '[Team] Navigate to next url',
-  props<{ url: string; pathParams?: any[]; queryParams?: Params }>(),
+  (url: string, pathParams: any[] = [], queryParams: Params = {}) => ({ url, pathParams, queryParams }),
 );
 
 const all = union({

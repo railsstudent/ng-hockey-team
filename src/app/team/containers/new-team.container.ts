@@ -77,7 +77,7 @@ export class NewTeamContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.store.dispatch(TeamActions.NavigateAction({ url: '/team' }));
+    this.store.dispatch(TeamActions.NavigateAction('/team'));
   }
 
   ngOnDestroy() {
