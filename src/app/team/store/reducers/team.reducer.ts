@@ -1,5 +1,4 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Action } from '@ngrx/store';
 import { Team, TeamWithPercentages } from '../../models';
 import { TeamActions } from '../actions';
 
@@ -23,20 +22,18 @@ export const initialState: State = adapter.getInitialState({
   loading: false,
 });
 
-export function reducer(state = initialState, action: Action): State {
-  const teamAction = action as TeamActions.TeamActionsUnion;
-
-  switch (teamAction.type) {
-    case TeamActions.TeamActionTypes.LoadTeams: {
+export function reducer(state = initialState, action: TeamActions.TeamActionsUnion): State {
+  switch (action.type) {
+    case TeamActions.LoadTeams.type: {
       return {
         ...state,
         loading: true,
       };
     }
 
-    case TeamActions.TeamActionTypes.LoadTeamsSuccess: {
+    case TeamActions.LoadTeamsSuccess.type: {
       return {
-        ...adapter.addAll(teamAction.payload.teams, state),
+        ...adapter.addAll(action.teams, state),
         error: null,
         message: null,
         closeAlert: false,
@@ -45,19 +42,18 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.LoadTeamsFailure: {
-      const { error = null } = teamAction.payload;
+    case TeamActions.LoadTeamsFailure.type: {
       return {
         ...state,
         message: null,
-        error,
+        error: action.error || null,
         closeAlert: false,
         loading: false,
         loaded: false,
       };
     }
 
-    case TeamActions.TeamActionTypes.AddTeam: {
+    case TeamActions.AddTeam.type: {
       return {
         ...state,
         message: null,
@@ -67,29 +63,27 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.AddTeamSuccess: {
-      const { team, message } = teamAction.payload;
+    case TeamActions.AddTeamSuccess.type: {
       return {
-        ...adapter.addOne(team, state),
+        ...adapter.addOne(action.team, state),
         error: null,
-        message,
+        message: action.message,
         closeAlert: false,
         loading: false,
       };
     }
 
-    case TeamActions.TeamActionTypes.AddTeamFailure: {
-      const { error } = teamAction.payload;
+    case TeamActions.AddTeamFailure.type: {
       return {
         ...state,
         message: null,
-        error,
+        error: action.error,
         closeAlert: false,
         loading: false,
       };
     }
 
-    case TeamActions.TeamActionTypes.UpdateTeamRecord: {
+    case TeamActions.UpdateTeamRecord.type: {
       return {
         ...state,
         message: null,
@@ -99,8 +93,8 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.UpdateTeamRecordSuccess: {
-      const { team } = teamAction.payload;
+    case TeamActions.UpdateTeamRecordSuccess.type: {
+      const { team } = action;
       const changes = {
         id: team.id,
         changes: team,
@@ -114,25 +108,23 @@ export function reducer(state = initialState, action: Action): State {
       };
     }
 
-    case TeamActions.TeamActionTypes.UpdateTeamRecordFailure: {
-      const { error } = teamAction.payload;
+    case TeamActions.UpdateTeamRecordFailure.type: {
       return {
         ...state,
         message: null,
-        error,
+        error: action.error,
         closeAlert: false,
         loading: false,
       };
     }
 
-    case TeamActions.TeamActionTypes.UpdateCloseAlert:
-      const { closeAlert } = teamAction.payload;
+    case TeamActions.UpdateCloseAlert.type:
       return {
         ...state,
-        closeAlert,
+        closeAlert: action.closeAlert,
       };
 
-    case TeamActions.TeamActionTypes.NavigateAction:
+    case TeamActions.NavigateAction.type:
       return {
         ...state,
         message: null,

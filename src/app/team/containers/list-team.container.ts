@@ -34,7 +34,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   constructor(private store: Store<LeagueState>, private progress: ProgressService) {}
 
   ngOnInit() {
-    this.store.dispatch(new TeamActions.LoadTeams());
+    this.store.dispatch(TeamActions.LoadTeams());
     this.loading$
       .pipe(
         tap(value => (value ? this.progress.show() : this.progress.hide())),
@@ -44,7 +44,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.store.dispatch(new TeamActions.NavigateAction({ url: '/team' }));
+    this.store.dispatch(TeamActions.NavigateAction({ url: '/team' }));
   }
 
   trackByFunction(index: number, team: TeamWithPercentages) {
@@ -54,7 +54,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   showTeamRoster(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
+    this.store.dispatch(TeamActions.NavigateAction({ url, pathParams }));
   }
 
   ngOnDestroy() {

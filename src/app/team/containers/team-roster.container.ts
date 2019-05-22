@@ -64,7 +64,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
         withLatestFrom(this.loading$, (teamDelta, loading) => ({ ...teamDelta, loading })),
         filter(({ loading }) => !!this.teamId && !loading),
         tap(({ delta, field }) =>
-          this.store.dispatch(new TeamActions.UpdateTeamRecord({ teamId: this.teamId, delta, field })),
+          this.store.dispatch(TeamActions.UpdateTeamRecord({ teamId: this.teamId, delta, field })),
         ),
         takeUntil(this.unsubscribe$),
       )
@@ -79,17 +79,17 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.store.dispatch(new TeamActions.NavigateAction({ url: '/team/list' }));
+    this.store.dispatch(TeamActions.NavigateAction({ url: '/team/list' }));
   }
 
   closeAlert() {
-    this.store.dispatch(new TeamActions.UpdateCloseAlert({ closeAlert: true }));
+    this.store.dispatch(TeamActions.UpdateCloseAlert({ closeAlert: true }));
   }
 
   gotoTeam(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(new TeamActions.NavigateAction({ url, pathParams }));
+    this.store.dispatch(TeamActions.NavigateAction({ url, pathParams }));
   }
 
   ngOnDestroy() {

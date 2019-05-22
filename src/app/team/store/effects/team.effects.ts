@@ -14,49 +14,46 @@ export class TeamEffects {
 
   @Effect()
   loadTeams$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.LoadTeams),
+    ofType(TeamActions.LoadTeams.type),
     switchMap(() => {
       const team$ = this.teamService.getAll().pipe(delay(DELAY));
       return team$.pipe(
-        map(teams => new TeamActions.LoadTeamsSuccess({ teams })),
-        catchError((error: string) => of(new TeamActions.LoadTeamsFailure({ error })).pipe(delay(DELAY))),
+        map(teams => TeamActions.LoadTeamsSuccess({ teams })),
+        catchError((error: string) => of(TeamActions.LoadTeamsFailure({ error })).pipe(delay(DELAY))),
       );
     }),
   );
 
   @Effect()
   addTeam$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.AddTeam),
-    map((action: TeamActions.AddTeam) => action.payload),
+    ofType(TeamActions.AddTeam.type),
     exhaustMap(({ division, name }) => {
       const team$ = this.teamService.addTeam(division, name).pipe(delay(DELAY));
       return team$.pipe(
-        map(team => new TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
-        catchError((error: string) => of(new TeamActions.AddTeamFailure({ error })).pipe(delay(DELAY))),
+        map(team => TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
+        catchError((error: string) => of(TeamActions.AddTeamFailure({ error })).pipe(delay(DELAY))),
       );
     }),
   );
 
   @Effect()
   updateTeamRecord$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.UpdateTeamRecord),
-    map((action: TeamActions.UpdateTeamRecord) => action.payload),
+    ofType(TeamActions.UpdateTeamRecord.type),
     concatMap(({ teamId, delta, field }) => {
       const team$ = this.teamService.updateTeamRecord(teamId, delta, field).pipe(delay(DELAY));
       return team$.pipe(
-        map(team => new TeamActions.UpdateTeamRecordSuccess({ team })),
-        catchError((error: string) => of(new TeamActions.UpdateTeamRecordFailure({ error })).pipe(delay(DELAY))),
+        map(team => TeamActions.UpdateTeamRecordSuccess({ team })),
+        catchError((error: string) => of(TeamActions.UpdateTeamRecordFailure({ error })).pipe(delay(DELAY))),
       );
     }),
   );
 
   @Effect({ dispatch: false })
   navigate$ = this.actions$.pipe(
-    ofType(TeamActions.TeamActionTypes.NavigateAction),
-    map((action: TeamActions.NavigateAction) => action.payload),
-    tap(({ url, queryParams = null, pathParams = null }) => {
+    ofType(TeamActions.NavigateAction.type),
+    tap(({ url, queryParams, pathParams }) => {
       const queryParamsArg = queryParams ? { queryParams } : {};
-      const pathParamsArg = pathParams ? pathParams : [];
+      const pathParamsArg = pathParams ? pathParams : ([] as any[]);
       return this.router.navigate([url, ...pathParamsArg], queryParamsArg);
     }),
   );

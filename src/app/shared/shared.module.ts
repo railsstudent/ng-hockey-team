@@ -15,4 +15,4 @@ import { ProgressModule } from './progress';
 export class SharedModule {}
 
 export const BAD_WORDS = new InjectionToken('BAD_WORDS');
-export const DIVISION_ORDER = new InjectionToken('DIVISON_');
+export const DIVISION_ORDER = new InjectionToken('DIVISON_ORDER');
