@@ -167,7 +167,9 @@ export const sortedDefensiveTeams = (teams: Team[]) =>
   [...teams].sort((first, second) => first.goalsAgainst - second.goalsAgainst);
 
 export const sortTeamsByWinningPercentage = (teams: TeamWithPercentages[]) =>
-  [...teams].sort((first, second) => second.winPercentage - first.winPercentage);
+  [...teams].sort((first, second) =>
+    second.points !== first.points ? second.points - first.points : second.winPercentage - first.winPercentage,
+  );
 
 export const divisionStanding = (teams: TeamWithPercentages[]) => {
   const sortedTeamsDesc = sortTeamsByWinningPercentage(teams);
