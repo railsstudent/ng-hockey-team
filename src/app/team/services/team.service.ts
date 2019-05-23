@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { BAD_WORDS } from '../../shared';
 import { Team, UPDATE_STAT_TYPE } from '../models';
@@ -170,5 +170,17 @@ export class TeamService {
     } catch (e) {
       return throwError(e.message);
     }
+  }
+
+  deleteTeam(id: string) {
+    const strTeams = localStorage.getItem('teams');
+    if (strTeams) {
+      const teams = JSON.parse(strTeams) as Team[];
+      const deletedTeam = teams.find(team => team.id === id);
+      const modifiedTeams = teams.filter(team => team.id !== id);
+      localStorage.setItem('teams', JSON.stringify(modifiedTeams));
+      return deletedTeam ? of(deletedTeam) : EMPTY;
+    }
+    return EMPTY;
   }
 }
