@@ -51,10 +51,6 @@ export class TeamEffects {
   @Effect({ dispatch: false })
   navigate$ = this.actions$.pipe(
     ofType(TeamActions.NavigateAction.type),
-    tap(({ url, queryParams, pathParams }) => {
-      const queryParamsArg = queryParams ? { queryParams } : {};
-      const pathParamsArg = pathParams ? pathParams : ([] as any[]);
-      return this.router.navigate([url, ...pathParamsArg], queryParamsArg);
-    }),
+    tap(({ url, queryParams, pathParams }) => this.router.navigate([url, ...(pathParams as any[])], queryParams)),
   );
 }

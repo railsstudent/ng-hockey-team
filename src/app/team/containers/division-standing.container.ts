@@ -33,7 +33,7 @@ export class DivisionStandingContainer implements OnDestroy {
 
   createTeam(division = '') {
     const url = '/team/new';
-    const queryParams = { division };
+    const queryParams = { queryParams: { division } };
     this.store.dispatch(TeamActions.NavigateAction(url, [], queryParams));
   }
 
