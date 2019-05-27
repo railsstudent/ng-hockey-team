@@ -54,7 +54,8 @@ export function reducer(state = initialState, action: TeamActions.TeamActionsUni
     }
 
     case TeamActions.AddTeam.type:
-    case TeamActions.DeleteTeam.type: {
+    case TeamActions.DeleteTeam.type:
+    case TeamActions.UpdateTeamRecord.type: {
       return {
         ...state,
         message: null,
@@ -79,20 +80,8 @@ export function reducer(state = initialState, action: TeamActions.TeamActionsUni
     case TeamActions.DeleteTeamFailure.type: {
       return {
         ...state,
-        message: null,
         error: action.error,
-        closeAlert: false,
         loading: false,
-      };
-    }
-
-    case TeamActions.UpdateTeamRecord.type: {
-      return {
-        ...state,
-        message: null,
-        error: null,
-        closeAlert: false,
-        loading: true,
       };
     }
 
@@ -104,9 +93,6 @@ export function reducer(state = initialState, action: TeamActions.TeamActionsUni
       };
       return {
         ...adapter.updateOne(changes, state),
-        message: null,
-        error: null,
-        closeAlert: false,
         loading: false,
       };
     }
@@ -126,7 +112,12 @@ export function reducer(state = initialState, action: TeamActions.TeamActionsUni
       };
 
     case TeamActions.DeleteTeamSuccess.type:
-      return state;
+      const { teamId, message } = action;
+      return {
+        ...adapter.removeOne(teamId, state),
+        message,
+        loading: false,
+      };
 
     default: {
       return state;
