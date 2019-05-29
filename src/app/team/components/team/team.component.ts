@@ -18,6 +18,9 @@ export class TeamComponent {
   @Output()
   gotoTeam = new EventEmitter<string>();
 
+  @Output()
+  deleteTeam = new EventEmitter<string>();
+
   getLogoUrl() {
     return logos[this.index % logos.length];
   }

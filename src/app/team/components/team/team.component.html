@@ -1,7 +1,12 @@
 <div class="card">
   <div class="card-header">
-    <p>{{ team.name }}</p>
-    <p class="p2">({{ team.division }} Division)</p>
+    <div class="team-info-group">
+      <p>{{ team.name }}</p>
+      <p class="p2">({{ team.division }} Division)</p>
+    </div>
+    <button type="button" class="btn btn-danger button-action" (click)="deleteTeam.emit(team.id)">
+      <span>Delete</span><i class="fas fa-trash-alt" alt="Delete Team" aria-label="Delete Team"></i>
+    </button>
   </div>
   <div class="card-img">
     <div class="img-parent">
@@ -27,7 +32,7 @@
     </div>
   </div>
   <div class="card-footer">
-    <button type="button" class="btn btn-primary" (click)="showTeamRoster(team.id)">
+    <button type="button" class="btn btn-primary button-action" (click)="showTeamRoster(team.id)">
       <span>Roster</span><i class="fas fa-users"></i>
     </button>
   </div>
