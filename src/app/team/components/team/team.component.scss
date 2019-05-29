@@ -15,25 +15,10 @@
   }
 }
 
-.button-action {
-  &.btn {
-    margin-right: 0;
-
-    > span {
-      margin-right: 0.5rem;
-    }
-  }
-}
-
 .card-header {
-  display: flex;
-  justify-content: space-between;
-
-  .team-info-group {
-    p,
-    p.p2 {
-      margin-top: 0;
-    }
+  p,
+  p.p2 {
+    margin-top: 0;
   }
 }
 
@@ -61,6 +46,20 @@
 .card-footer {
   display: flex;
   justify-content: flex-end;
+
+  button.btn {
+    > span {
+      margin-right: 0.5rem;
+    }
+  }
+
+  button.btn:not(:last-of-type) {
+    margin-right: 0.5rem;
+  }
+
+  button.btn:last-of-type {
+    margin-right: 0;
+  }
 
   clr-dropdown {
     margin-right: 0.5rem;
