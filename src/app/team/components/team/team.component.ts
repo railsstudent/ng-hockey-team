@@ -21,11 +21,22 @@ export class TeamComponent {
   @Output()
   deleteTeam = new EventEmitter<string>();
 
+  opened = false;
+
   getLogoUrl() {
     return logos[this.index % logos.length];
   }
 
-  showTeamRoster(teamId: string) {
-    this.gotoTeam.emit(teamId);
+  showTeamRoster() {
+    this.gotoTeam.emit(this.team.id);
+  }
+
+  openDeleteDialog() {
+    this.opened = true;
+  }
+
+  closeDeleteDialog() {
+    this.deleteTeam.emit(this.team.id);
+    this.opened = false;
   }
 }
