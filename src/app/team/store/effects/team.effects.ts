@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, delay, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, concatMap, delay, exhaustMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { TeamService } from '../../services';
 import { TeamActions } from '../actions';
 
@@ -44,6 +44,20 @@ export class TeamEffects {
       return team$.pipe(
         map(team => TeamActions.UpdateTeamRecordSuccess({ team })),
         catchError((error: string) => of(TeamActions.UpdateTeamRecordFailure({ error })).pipe(delay(DELAY))),
+      );
+    }),
+  );
+
+  @Effect()
+  deleteTeam$ = this.actions$.pipe(
+    ofType(TeamActions.DeleteTeam.type),
+    mergeMap(({ teamId }) => {
+      const team$ = this.teamService.deleteTeam(teamId).pipe(delay(DELAY));
+      return team$.pipe(
+        map(team =>
+          TeamActions.DeleteTeamSuccess({ teamId: team.id, message: `${team.name} is deleted successfully` }),
+        ),
+        catchError((error: string) => of(TeamActions.DeleteTeamFailure({ error })).pipe(delay(DELAY))),
       );
     }),
   );

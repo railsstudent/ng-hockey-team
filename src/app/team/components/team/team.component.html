@@ -5,7 +5,7 @@
   </div>
   <div class="card-img">
     <div class="img-parent">
-      <img [attr.src]="getLogoUrl()" alt="team logo" (click)="showTeamRoster(team.id)" />
+      <img [attr.src]="getLogoUrl()" alt="team logo" (click)="showTeamRoster()" />
     </div>
   </div>
   <div class="card-block">
@@ -27,8 +27,21 @@
     </div>
   </div>
   <div class="card-footer">
-    <button type="button" class="btn btn-primary" (click)="showTeamRoster(team.id)">
+    <button type="button" class="btn btn-primary button-action" (click)="showTeamRoster()">
       <span>Roster</span><i class="fas fa-users"></i>
+    </button>
+    <button type="button" class="btn btn-danger button-action" (click)="openDeleteDialog()">
+      <span>Delete</span><i class="fas fa-trash-alt" alt="Delete Team" aria-label="Delete Team"></i>
     </button>
   </div>
 </div>
+
+<clr-modal [(clrModalOpen)]="opened">
+  <h3 class="modal-title">Confirmation</h3>
+  <div class="modal-body">
+    <p>Are you sure to delete {{ team.name }}? The action is irreversible.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="closeDeleteDialog()">Confirm</button>
+  </div>
+</clr-modal>

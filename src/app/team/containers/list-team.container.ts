@@ -57,6 +57,11 @@ export class ListingContainer implements OnInit, OnDestroy {
     this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
   }
 
+  deleteCurrentTeam(teamId: string) {
+    console.log('delete this team', teamId);
+    this.store.dispatch(TeamActions.DeleteTeam({ teamId }));
+  }
+
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

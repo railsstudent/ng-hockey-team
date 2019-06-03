@@ -19,6 +19,12 @@ export const NavigateAction = createAction(
   '[Team] Navigate to next url',
   (url: string, pathParams: any[] = [], queryParams: Params = {}) => ({ url, pathParams, queryParams }),
 );
+export const DeleteTeam = createAction('[Team] Delete Team', props<{ teamId: string }>());
+export const DeleteTeamSuccess = createAction(
+  '[Team] Delete Team Success',
+  props<{ teamId: string; message: string }>(),
+);
+export const DeleteTeamFailure = createAction('[Team] Delete Team Failed', props<{ error: string }>());
 
 const all = union({
   LoadTeams,
@@ -32,5 +38,8 @@ const all = union({
   UpdateTeamRecordFailure,
   UpdateCloseAlert,
   NavigateAction,
+  DeleteTeam,
+  DeleteTeamSuccess,
+  DeleteTeamFailure,
 });
 export type TeamActionsUnion = typeof all;
