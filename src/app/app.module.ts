@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContentLoaderModule } from '@netbasal/ngx-content-loader';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
@@ -28,6 +29,7 @@ import { CustomSerializer, metaReducers, reducers } from './store';
     }),
     SharedModule,
     ConfigModule.forRoot(),
+    ContentLoaderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

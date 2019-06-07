@@ -331,6 +331,13 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.8.1.tgz#cbafbfe8894c4e3e3c3a9da6774e249ac1f2da8b"
   integrity sha512-GJtx6e55qLEOy2gPOsok2lohjpdWNGrYGtQx0FFT/++K4SYx+Z8LlPHdQBaFzKEwH5IbBB4fNgb//uyZjgYXoA==
 
+"@netbasal/ngx-content-loader@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@netbasal/ngx-content-loader/-/ngx-content-loader-2.2.0.tgz#a59900b8494a9aedd99813bba8296a6f44f7b422"
+  integrity sha512-Y904hVMi3lMyp2qH3TdqW7kAPmLcDFv/aAPO2Z92+d8RYOTL6IvXfS06ohFtdTGRjZ4TaOTl8K0/3fr16+g1lg==
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngrx/effects@^7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.4.0.tgz#7d1977538cf85e42ab48fd648acdfbc8b52f93d3"
