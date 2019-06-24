@@ -1,21 +1,34 @@
 <article class="team-container">
   <team-title [url]="'/team'">Teams</team-title>
+
+  <ng-template #loader>
+    <content-loader [height]="150">
+      <svg:rect x="20" y="20" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="35" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="50" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="65" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="80" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="95" rx="3" ry="3" width="250" height="5" />
+    </content-loader>
+  </ng-template>
+
   <main class="list-container">
-    <section class="clr-row">
-      <div
-        *ngFor="let team of (teams$ | async); index as i; trackBy: trackByFunction"
-        class="clr-col-lg-4 clr-col-md-6 clr-col-sm-6 clr-col-12"
-      >
-        <team-summary
-          [team]="team"
-          [index]="i"
-          (gotoTeam)="showTeamRoster($event)"
-          (deleteTeam)="deleteCurrentTeam($event)"
-        ></team-summary>
-      </div>
-    </section>
-    <!-- <div class="pagination">
-      dummy pagination
-    </div> -->
+    <ng-container *ngIf="{ teams: teams$ | async, loading: loading$ | async } as o">
+      <ng-container *ngIf="!o.loading && o.teams; else loader">
+        <section class="clr-row">
+          <div
+            *ngFor="let team of o.teams; index as i; trackBy: trackByFunction"
+            class="clr-col-lg-4 clr-col-md-6 clr-col-sm-6 clr-col-12"
+          >
+            <team-summary
+              [team]="team"
+              [index]="i"
+              (gotoTeam)="showTeamRoster($event)"
+              (deleteTeam)="deleteCurrentTeam($event)"
+            ></team-summary>
+          </div>
+        </section>
+      </ng-container>
+    </ng-container>
   </main>
 </article>

@@ -1,7 +1,7 @@
 <div class="division-tables">
   <ng-container *ngIf="{ divisionStanding: divisionStanding$ | async, hasTeam: hasTeam$ | async } as o">
     <ng-container *ngIf="o.hasTeam; else noLeague">
-      <team-tables>
+      <div>
         <ng-container *ngFor="let division of orderOfDivision">
           <team-standing-table
             [headerTemplateRef]="headerTemplate"
@@ -49,7 +49,7 @@
             </tr>
           </ng-template>
         </ng-container>
-      </team-tables>
+      </div>
     </ng-container>
   </ng-container>
 
