@@ -58,7 +58,6 @@ export class ListingContainer implements OnInit, OnDestroy {
   }
 
   deleteCurrentTeam(teamId: string) {
-    console.log('delete this team', teamId);
     this.store.dispatch(TeamActions.DeleteTeam({ teamId }));
   }
 

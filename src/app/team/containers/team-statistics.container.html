@@ -4,37 +4,39 @@
     <clr-tab>
       <button clrTabLink id="link1">Overall</button>
       <clr-tab-content id="content2" *clrIfActive="true">
-        <team-tables>
-          <ng-container *ngIf="overallStanding$ | async as overallStanding">
-            <team-standing-table
-              [headerTemplateRef]="headerTemplate"
-              [teamsTemplateRef]="overallStanding && overallStanding.length > 0 ? teamsTemplate : noLeague"
-              [titleTemplateRef]="titleTemplate"
-            ></team-standing-table>
+        <div>
+          <ng-container *ngIf="{ overallStanding: overallStanding$ | async, loading: loading$ | async } as o">
+            <ng-container *ngIf="!o.loading else loader">
+              <team-standing-table
+                [headerTemplateRef]="headerTemplate"
+                [teamsTemplateRef]="o.overallStanding && o.overallStanding.length > 0 ? teamsTemplate : noLeague"
+                [titleTemplateRef]="titleTemplate"
+              ></team-standing-table>
 
-            <ng-template #teamsTemplate>
-              <tr *ngFor="let team of overallStanding">
-                <td class="left">
-                  <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)"
-                    >{{ team.name }}</a
-                  >
-                </td>
-                <td class="left">{{ team.gamesPlayed }}</td>
-                <td class="left">{{ team.numWin }}</td>
-                <td class="left">{{ team.numLoss }}</td>
-                <td class="left">{{ team.numDraw }}</td>
-                <td class="left">{{ team.numOTWin }}</td>
-                <td class="left">{{ team.numOTLoss }}</td>
-                <td class="left">{{ team.winPercentage.toFixed(2) }}</td>
-                <td class="left">{{ team.lossPercentage.toFixed(2) }}</td>
-                <td class="left">{{ team.drawPercentage.toFixed(2) }}</td>
-                <td class="left">{{ team.goalsFor }}</td>
-                <td class="left">{{ team.goalsAgainst }}</td>
-                <td class="left">{{ team.points }}</td>
-              </tr>
-            </ng-template>
+              <ng-template #teamsTemplate>
+                <tr *ngFor="let team of o.overallStanding">
+                  <td class="left">
+                    <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)"
+                      >{{ team.name }}</a
+                    >
+                  </td>
+                  <td class="left">{{ team.gamesPlayed }}</td>
+                  <td class="left">{{ team.numWin }}</td>
+                  <td class="left">{{ team.numLoss }}</td>
+                  <td class="left">{{ team.numDraw }}</td>
+                  <td class="left">{{ team.numOTWin }}</td>
+                  <td class="left">{{ team.numOTLoss }}</td>
+                  <td class="left">{{ team.winPercentage.toFixed(2) }}</td>
+                  <td class="left">{{ team.lossPercentage.toFixed(2) }}</td>
+                  <td class="left">{{ team.drawPercentage.toFixed(2) }}</td>
+                  <td class="left">{{ team.goalsFor }}</td>
+                  <td class="left">{{ team.goalsAgainst }}</td>
+                  <td class="left">{{ team.points }}</td>
+                </tr>
+              </ng-template>
+            </ng-container>
           </ng-container>
-        </team-tables>
+        </div>
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
@@ -50,6 +52,18 @@
       </clr-tab-content>
     </clr-tab>
   </clr-tabs>
+  <ng-template #loader>
+    <content-loader [height]="150">
+      <svg:rect x="20" y="20" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="35" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="50" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="65" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="80" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="95" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="110" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="125" rx="3" ry="3" width="250" height="5" />
+    </content-loader>
+  </ng-template>
 </div>
 
 <ng-template #titleTemplate>

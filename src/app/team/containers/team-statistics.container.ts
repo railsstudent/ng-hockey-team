@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { getOverallStanding, LeagueState, TeamActions } from '../store';
+import { getOverallStanding, getTeamLoading, LeagueState, TeamActions } from '../store';
 
 @Component({
   selector: 'team-statistics-container',
@@ -10,6 +10,7 @@ import { getOverallStanding, LeagueState, TeamActions } from '../store';
 })
 export class TeamStatisticsContainer {
   overallStanding$ = this.store.pipe(select(getOverallStanding));
+  loading$ = this.store.pipe(select(getTeamLoading));
 
   constructor(private store: Store<LeagueState>) {}
 

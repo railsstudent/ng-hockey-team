@@ -26,6 +26,7 @@
     "@clr/icons": "1.1.2",
     "@clr/ui": "1.1.2",
     "@fortawesome/fontawesome-free": "^5.8.1",
+    "@netbasal/ngx-content-loader": "^2.2.0",
     "@ngrx/effects": "^7.4.0",
     "@ngrx/entity": "^7.4.0",
     "@ngrx/router-store": "^7.4.0",

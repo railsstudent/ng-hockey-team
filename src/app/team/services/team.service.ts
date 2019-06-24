@@ -124,7 +124,9 @@ export class TeamService {
             } else if (team.numDraw + delta >= team.numOTWin + team.numOTLoss) {
               team.numDraw = team.numDraw + delta;
             } else {
-              return throwError('Number of draws must not less than number of overtime wins and overtime losses.');
+              return throwError(
+                'Number of draws must not less than total number of overtime wins and overtime losses.',
+              );
             }
             break;
           case UPDATE_STAT_TYPE.OVERTIME_WIN:

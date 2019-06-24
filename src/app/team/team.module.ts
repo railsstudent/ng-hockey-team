@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ContentLoaderModule } from '@netbasal/ngx-content-loader';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared';
@@ -9,7 +10,6 @@ import {
   TeamStandingTableComponent,
   TeamStatHorizontalTableComponent,
   TeamStatVerticalTableComponent,
-  TeamTablesComponent,
   TeamTitleComponent,
 } from './components';
 import {
@@ -40,7 +40,6 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamCounterArrowsVisibleDirective,
     DivisionStandingContainer,
     TeamTitleComponent,
-    TeamTablesComponent,
     TeamStatisticsContainer,
   ],
   imports: [
@@ -50,6 +49,7 @@ import { TeamRoutingModule } from './team-routing.module';
     EffectsModule.forFeature([TeamEffects]),
     SharedModule,
     TeamMenuCardModule,
+    ContentLoaderModule,
   ],
   providers: [TeamGuard],
 })
