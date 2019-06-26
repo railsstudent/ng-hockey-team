@@ -34,6 +34,9 @@ export class ListingContainer implements OnInit, OnDestroy {
   constructor(private store: Store<LeagueState>, private progress: ProgressService) {}
 
   ngOnInit() {
+    console.log('teams$', this.teams$);
+    console.log('loading$', this.loading$);
+
     this.store.dispatch(TeamActions.LoadTeams());
     this.loading$
       .pipe(
