@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { DIVISION_ORDER } from '../../shared';
 import {
+  getTeamLoading,
   getTopDefensiveTeams,
   getTopOffensiveTeams,
   getTopThreeTeams,
@@ -22,6 +23,7 @@ export class TeamAnalysisContainer {
   worstOffensiveTeams$ = this.store.pipe(select(getWorstOffensiveTeams));
   topDefensiveTeams$ = this.store.pipe(select(getTopDefensiveTeams));
   worstDefensiveTeams$ = this.store.pipe(select(getWorstDefensiveTeams));
+  loading$ = this.store.pipe(select(getTeamLoading));
 
   constructor(private store: Store<any>, @Inject(DIVISION_ORDER) private orderOfDivisions: string[]) {}
 

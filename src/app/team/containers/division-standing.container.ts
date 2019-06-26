@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { map, shareReplay, takeUntil } from 'rxjs/operators';
 import { DIVISION_ORDER } from '../../shared';
-import { getDivisionStanding, LeagueState, TeamActions } from '../store';
+import { getDivisionStanding, getTeamLoading, LeagueState, TeamActions } from '../store';
 
 @Component({
   selector: 'division-standing',
@@ -22,6 +22,7 @@ export class DivisionStandingContainer implements OnDestroy {
     map(divisions => Object.keys(divisions).length > 0),
     takeUntil(this.unsubscribe$),
   );
+  loading$ = this.store.pipe(select(getTeamLoading));
 
   constructor(private store: Store<LeagueState>, @Inject(DIVISION_ORDER) public orderOfDivision: string[]) {}
 

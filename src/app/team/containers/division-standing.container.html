@@ -1,55 +1,59 @@
 <div class="division-tables">
-  <ng-container *ngIf="{ divisionStanding: divisionStanding$ | async, hasTeam: hasTeam$ | async } as o">
-    <ng-container *ngIf="o.hasTeam; else noLeague">
-      <div>
-        <ng-container *ngFor="let division of orderOfDivision">
-          <team-standing-table
-            [headerTemplateRef]="headerTemplate"
-            [teamsTemplateRef]="o.divisionStanding[division] ? teamsTemplate : noDivision"
-            [titleTemplateRef]="titleTemplate"
-          ></team-standing-table>
+  <ng-container
+    *ngIf="{ divisionStanding: divisionStanding$ | async, hasTeam: hasTeam$ | async, loading: loading$ | async } as o"
+  >
+    <ng-container *ngIf="!o.loading else loader">
+      <ng-container *ngIf="o.hasTeam; else noLeague">
+        <div>
+          <ng-container *ngFor="let division of orderOfDivision">
+            <team-standing-table
+              [headerTemplateRef]="headerTemplate"
+              [teamsTemplateRef]="o.divisionStanding[division] ? teamsTemplate : noDivision"
+              [titleTemplateRef]="titleTemplate"
+            ></team-standing-table>
 
-          <ng-template #titleTemplate>
-            <p class="standing-table-title">{{ division }}</p>
-          </ng-template>
+            <ng-template #titleTemplate>
+              <p class="standing-table-title">{{ division }}</p>
+            </ng-template>
 
-          <ng-template #teamsTemplate>
-            <tr *ngFor="let team of o.divisionStanding[division]">
-              <td class="left">
-                <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)"
-                  >{{ team.name }}</a
-                >
-              </td>
-              <td class="left">{{ team.gamesPlayed }}</td>
-              <td class="left">{{ team.numWin }}</td>
-              <td class="left">{{ team.numLoss }}</td>
-              <td class="left">{{ team.numDraw }}</td>
-              <td class="left">{{ team.numOTWin }}</td>
-              <td class="left">{{ team.numOTLoss }}</td>
-              <td class="left">{{ team.winPercentage.toFixed(2) }}</td>
-              <td class="left">{{ team.lossPercentage.toFixed(2) }}</td>
-              <td class="left">{{ team.drawPercentage.toFixed(2) }}</td>
-              <td class="left">{{ team.goalsFor }}</td>
-              <td class="left">{{ team.goalsAgainst }}</td>
-              <td class="left">{{ team.points }}</td>
-            </tr>
-          </ng-template>
+            <ng-template #teamsTemplate>
+              <tr *ngFor="let team of o.divisionStanding[division]">
+                <td class="left">
+                  <a href (click)="$event.preventDefault(); $event.stopPropagation(); gotoTeam(team.id)"
+                    >{{ team.name }}</a
+                  >
+                </td>
+                <td class="left">{{ team.gamesPlayed }}</td>
+                <td class="left">{{ team.numWin }}</td>
+                <td class="left">{{ team.numLoss }}</td>
+                <td class="left">{{ team.numDraw }}</td>
+                <td class="left">{{ team.numOTWin }}</td>
+                <td class="left">{{ team.numOTLoss }}</td>
+                <td class="left">{{ team.winPercentage.toFixed(2) }}</td>
+                <td class="left">{{ team.lossPercentage.toFixed(2) }}</td>
+                <td class="left">{{ team.drawPercentage.toFixed(2) }}</td>
+                <td class="left">{{ team.goalsFor }}</td>
+                <td class="left">{{ team.goalsAgainst }}</td>
+                <td class="left">{{ team.points }}</td>
+              </tr>
+            </ng-template>
 
-          <ng-template #noDivision>
-            <tr>
-              <td colspan="13">
-                Please
-                <a routerLinkActive="active" (click)="createTeam(division)"><span class="division">create</span></a> new
-                team to join
-                <a routerLinkActive="active" (click)="createTeam(division)"
-                  ><span class="division">{{ division }}</span></a
-                >
-                division
-              </td>
-            </tr>
-          </ng-template>
-        </ng-container>
-      </div>
+            <ng-template #noDivision>
+              <tr>
+                <td colspan="13">
+                  Please
+                  <a routerLinkActive="active" (click)="createTeam(division)"><span class="division">create</span></a>
+                  new team to join
+                  <a routerLinkActive="active" (click)="createTeam(division)"
+                    ><span class="division">{{ division }}</span></a
+                  >
+                  division
+                </td>
+              </tr>
+            </ng-template>
+          </ng-container>
+        </div>
+      </ng-container>
     </ng-container>
   </ng-container>
 
@@ -75,5 +79,18 @@
         Please <a (click)="createTeam()" routerLinkActive="active">create</a> new team to join the league.
       </h2>
     </div>
+  </ng-template>
+
+  <ng-template #loader>
+    <content-loader [height]="150">
+      <svg:rect x="20" y="20" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="35" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="50" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="65" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="80" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="95" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="110" rx="3" ry="3" width="250" height="5" />
+      <svg:rect x="20" y="125" rx="3" ry="3" width="250" height="5" />
+    </content-loader>
   </ng-template>
 </div>
