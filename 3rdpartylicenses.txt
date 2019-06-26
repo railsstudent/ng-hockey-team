@@ -75,6 +75,8 @@ MIT
 @clr/ui
 MIT
 
+@netbasal/ngx-content-loader
+
 @ngrx/effects
 MIT
 
