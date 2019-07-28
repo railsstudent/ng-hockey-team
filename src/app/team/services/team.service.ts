@@ -18,7 +18,10 @@ export class TeamService {
 
   addTeam(division: string, name: string): Observable<Team> {
     const lname = name.toLowerCase();
-    const isContain = this.badWords.some(badWord => lname.indexOf(badWord) >= 0);
+    const isContain = this.badWords.some(badWord => {
+      const splitNames = lname.split(' ');
+      return splitNames.some(sn => sn === badWord);
+    });
     if (isContain) {
       return throwError(`${lname} is not an appropriate team name`);
     }

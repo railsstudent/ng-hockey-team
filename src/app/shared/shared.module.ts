@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { InjectionToken, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
-import { ErrMessageComponent } from './err-message/err-message.component';
 import { MenuCardComponent } from './menu-card';
 import { ProgressModule } from './progress';
 
 @NgModule({
-  declarations: [MenuCardComponent, ErrMessageComponent],
+  declarations: [MenuCardComponent],
   imports: [CommonModule, PortalModule, LayoutModule, ProgressModule],
-  exports: [MenuCardComponent, ReactiveFormsModule, ClarityModule, LayoutModule, ErrMessageComponent],
+  exports: [MenuCardComponent, ReactiveFormsModule, ClarityModule, LayoutModule],
 })
 export class SharedModule {}
 
