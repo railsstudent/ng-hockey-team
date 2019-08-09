@@ -16,21 +16,7 @@
     <ng-container *ngIf="!o.loading; else loader">
       <team-title [url]="'/team/list'">{{ o.team.division }} - {{ o.team.name }}</team-title>
       <section class="roster-container">
-        <ng-container *ngIf="{ msg: error$ | async, hideError: hideError$ | async } as error">
-          <div class="alert alert-danger team-alert" role="alert" *ngIf="error.msg && !error.hideError">
-            <div class="alert-items">
-              <div class="alert-item static">
-                <div class="alert-icon-wrapper">
-                  <i class="fas fa-info-circle"></i>
-                </div>
-                <span class="alert-text">{{ error.msg }}</span>
-              </div>
-            </div>
-            <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
-              <i class="fas fa-times-circle"></i>
-            </button>
-          </div>
-        </ng-container>
+        <team-err-message [error]="error$| async" [closeAlert]="hideError$ | async"></team-err-message>
         <section class="main-content">
           <ng-container *ngIf="(isSmallScreen$ | async); else horizontalTable">
             <team-stat-vertical-table

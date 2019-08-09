@@ -7,9 +7,11 @@ import { SharedModule } from '../shared';
 import {
   MatchCounterComponent,
   TeamComponent,
+  TeamErrMessageComponent,
   TeamStandingTableComponent,
   TeamStatHorizontalTableComponent,
   TeamStatVerticalTableComponent,
+  TeamSuccessMessageComponent,
   TeamTitleComponent,
 } from './components';
 import {
@@ -41,6 +43,8 @@ import { TeamRoutingModule } from './team-routing.module';
     DivisionStandingContainer,
     TeamTitleComponent,
     TeamStatisticsContainer,
+    TeamErrMessageComponent,
+    TeamSuccessMessageComponent,
   ],
   imports: [
     CommonModule,

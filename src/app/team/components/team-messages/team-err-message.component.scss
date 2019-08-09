@@ -1,0 +1,21 @@
+@import '../../../../variables';
+
+.alert-danger {
+  color: $danger-color;
+}
+
+.alert-success {
+  color: $success-color;
+}
+
+.alert-icon-wrapper {
+  color: $icon-color;
+}
+
+.team-alert {
+  margin-bottom: 0.5rem;
+
+  .close i {
+    font-size: 1rem;
+  }
+}
