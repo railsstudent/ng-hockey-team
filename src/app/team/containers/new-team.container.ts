@@ -13,7 +13,7 @@ import { getCloseAlert, getTeamErrorMessage, getTeamLoading, getTeamMessage, Lea
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewTeamContainer implements OnInit, OnDestroy {
-  @ViewChild('f')
+  @ViewChild('f', { static: true })
   formDirective: NgForm;
 
   form: FormGroup;

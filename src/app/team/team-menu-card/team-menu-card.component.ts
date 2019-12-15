@@ -11,7 +11,7 @@ import { LeagueState, TeamActions } from '../store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamMenuCardComponent implements OnInit {
-  @ViewChild('teamMenu')
+  @ViewChild('teamMenu', { static: true })
   teamTemplate: TemplateRef<any>;
 
   constructor(private portalService: PortalService, private vcf: ViewContainerRef, private store: Store<LeagueState>) {}
