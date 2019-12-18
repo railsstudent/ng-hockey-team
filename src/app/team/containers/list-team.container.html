@@ -1,20 +1,8 @@
 <article class="team-container">
   <team-title [url]="'/team'">Teams</team-title>
-
-  <ng-template #loader>
-    <content-loader [height]="150">
-      <svg:rect x="20" y="20" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="35" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="50" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="65" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="80" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="95" rx="3" ry="3" width="250" height="5" />
-    </content-loader>
-  </ng-template>
-
   <main class="list-container">
     <ng-container *ngIf="{ teams: teams$ | async, loading: loading$ | async } as o">
-      <ng-container *ngIf="!o.loading && o.teams; else loader">
+      <ng-container *appContentLoaderIf="!o.loading; height 150">
         <section class="clr-row">
           <div
             *ngFor="let team of o.teams; index as i; trackBy: trackByFunction"

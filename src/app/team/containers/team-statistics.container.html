@@ -6,7 +6,7 @@
       <clr-tab-content id="content2" *clrIfActive="true">
         <div>
           <ng-container *ngIf="{ overallStanding: overallStanding$ | async, loading: loading$ | async } as o">
-            <ng-container *appContentLoaderIf="!o.loading; height 80">
+            <ng-container *appContentLoaderIf="!o.loading; height 120">
               <team-standing-table
                 [headerTemplateRef]="headerTemplate"
                 [teamsTemplateRef]="o.overallStanding && o.overallStanding.length > 0 ? teamsTemplate : noLeague"

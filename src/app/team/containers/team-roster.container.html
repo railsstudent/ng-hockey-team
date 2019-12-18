@@ -1,19 +1,6 @@
 <div class="team-container">
-  <ng-template #loader>
-    <content-loader [height]="150">
-      <svg:rect x="20" y="20" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="35" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="50" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="65" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="80" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="95" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="110" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="125" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="140" rx="3" ry="3" width="250" height="5" />
-    </content-loader>
-  </ng-template>
   <ng-container *ngIf="{ team: team$ | async, loading: loading$ | async } as o">
-    <ng-container *ngIf="!o.loading; else loader">
+    <ng-container *appContentLoaderIf="!o.loading; height 150">
       <team-title [url]="'/team/list'">{{ o.team.division }} - {{ o.team.name }}</team-title>
       <section class="roster-container">
         <team-err-message [error]="error$| async" [closeAlert]="hideError$ | async"></team-err-message>

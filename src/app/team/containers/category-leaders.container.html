@@ -1,6 +1,6 @@
 <div class="team-standing-tables">
   <ng-container *ngIf="{ loading: loading$ | async } as o">
-    <ng-container *ngIf="!o.loading else loader">
+    <ng-container *appContentLoaderIf="!o.loading; height 150">
       <ng-container *ngIf="(topThreeTeams$ | async) as topThreeTeams">
         <team-standing-table [headerTemplateRef]="topThreeHeaderTemplate" [teamsTemplateRef]="topThreeTeamsTemplate"
           >Top 3 teams</team-standing-table
@@ -112,17 +112,4 @@
       </ng-container>
     </ng-container>
   </ng-container>
-
-  <ng-template #loader>
-    <content-loader [height]="150">
-      <svg:rect x="20" y="20" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="35" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="50" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="65" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="80" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="95" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="110" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="125" rx="3" ry="3" width="250" height="5" />
-    </content-loader>
-  </ng-template>
 </div>
