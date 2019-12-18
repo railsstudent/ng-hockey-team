@@ -7,7 +7,7 @@ import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector,
  * exception will be thrown. This is useful during development mode to
  * ensure that none of the reducers accidentally mutates the state.
  */
-import { storeFreeze } from 'ngrx-store-freeze';
+
 import { environment } from '../../../environments/environment';
 
 export interface AppState {
@@ -63,4 +63,4 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   };
 }
 
-export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [debug, storeFreeze] : [];
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [debug] : [];

@@ -1,4 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
 import { Team, TeamWithPercentages } from '../../models';
 import { TeamActions } from '../actions';
 
@@ -22,107 +23,97 @@ export const initialState: State = adapter.getInitialState({
   loading: false,
 });
 
-export function reducer(state = initialState, action: TeamActions.TeamActionsUnion): State {
-  switch (action.type) {
-    case TeamActions.LoadTeams.type: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
+const teamReducer = createReducer(
+  initialState,
+  on(TeamActions.LoadTeams, state => ({ ...state, loading: true })),
+  on(TeamActions.LoadTeamsSuccess, (state, { teams }) => ({
+    ...adapter.addAll(teams, state),
+    error: null,
+    message: null,
+    closeAlert: false,
+    loaded: true,
+    loading: false,
+  })),
+  on(TeamActions.LoadTeamsFailure, (state, { error }) => ({
+    ...state,
+    message: null,
+    error: error || null,
+    closeAlert: false,
+    loading: false,
+    loaded: false,
+  })),
+  on(TeamActions.AddTeam, state => ({
+    ...state,
+    message: null,
+    error: null,
+    closeAlert: false,
+    loading: true,
+  })),
+  on(TeamActions.DeleteTeam, state => ({
+    ...state,
+    message: null,
+    error: null,
+    closeAlert: false,
+    loading: true,
+  })),
+  on(TeamActions.UpdateTeamRecord, state => ({
+    ...state,
+    message: null,
+    error: null,
+    closeAlert: false,
+    loading: true,
+  })),
+  on(TeamActions.AddTeamSuccess, (state, { team, message }) => ({
+    ...adapter.addOne(team, state),
+    error: null,
+    message,
+    closeAlert: false,
+    loading: false,
+  })),
+  on(TeamActions.AddTeamFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
+  on(TeamActions.UpdateTeamRecordFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
+  on(TeamActions.DeleteTeamFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
+  on(TeamActions.UpdateTeamRecordSuccess, (state, { team }) => {
+    const changes = {
+      id: team.id,
+      changes: team,
+    };
+    return {
+      ...adapter.updateOne(changes, state),
+      loading: false,
+    };
+  }),
+  on(TeamActions.UpdateCloseAlert, (state, { closeAlert }) => ({
+    ...state,
+    closeAlert,
+  })),
+  on(TeamActions.NavigateAction, state => ({
+    ...state,
+    message: null,
+    error: null,
+    closeAlert: false,
+  })),
+  on(TeamActions.DeleteTeamSuccess, (state, { teamId, message }) => ({
+    ...adapter.removeOne(teamId, state),
+    message,
+    loading: false,
+  })),
+);
 
-    case TeamActions.LoadTeamsSuccess.type: {
-      return {
-        ...adapter.addAll(action.teams, state),
-        error: null,
-        message: null,
-        closeAlert: false,
-        loaded: true,
-        loading: false,
-      };
-    }
-
-    case TeamActions.LoadTeamsFailure.type: {
-      return {
-        ...state,
-        message: null,
-        error: action.error || null,
-        closeAlert: false,
-        loading: false,
-        loaded: false,
-      };
-    }
-
-    case TeamActions.AddTeam.type:
-    case TeamActions.DeleteTeam.type:
-    case TeamActions.UpdateTeamRecord.type: {
-      return {
-        ...state,
-        message: null,
-        error: null,
-        closeAlert: false,
-        loading: true,
-      };
-    }
-
-    case TeamActions.AddTeamSuccess.type: {
-      return {
-        ...adapter.addOne(action.team, state),
-        error: null,
-        message: action.message,
-        closeAlert: false,
-        loading: false,
-      };
-    }
-
-    case TeamActions.AddTeamFailure.type:
-    case TeamActions.UpdateTeamRecordFailure.type:
-    case TeamActions.DeleteTeamFailure.type: {
-      return {
-        ...state,
-        error: action.error,
-        loading: false,
-      };
-    }
-
-    case TeamActions.UpdateTeamRecordSuccess.type: {
-      const { team } = action;
-      const changes = {
-        id: team.id,
-        changes: team,
-      };
-      return {
-        ...adapter.updateOne(changes, state),
-        loading: false,
-      };
-    }
-
-    case TeamActions.UpdateCloseAlert.type:
-      return {
-        ...state,
-        closeAlert: action.closeAlert,
-      };
-
-    case TeamActions.NavigateAction.type:
-      return {
-        ...state,
-        message: null,
-        error: null,
-        closeAlert: false,
-      };
-
-    case TeamActions.DeleteTeamSuccess.type:
-      const { teamId, message } = action;
-      return {
-        ...adapter.removeOne(teamId, state),
-        message,
-        loading: false,
-      };
-
-    default: {
-      return state;
-    }
-  }
+export function reducer(state: State | undefined, action: TeamActions.TeamActionsUnion): State {
+  return teamReducer(state, action);
 }
 
 const WIN_POINTS = 3;

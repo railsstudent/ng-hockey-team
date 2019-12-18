@@ -20,7 +20,10 @@ import { CustomSerializer, metaReducers, reducers } from './store';
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
+    }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ name: 'ng hockey teams', maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot({
