@@ -1,4 +1,7 @@
+import { Dictionary } from '@ngrx/entity';
 import { createSelector } from '@ngrx/store';
+import { RouterStateUrl } from 'src/app/store';
+import { Team } from '../../models';
 import * as fromFeature from '../reducers';
 import * as fromTeam from '../reducers/team.reducer';
 
@@ -34,15 +37,19 @@ export const getRouterInfo = createSelector(
   state => state.state,
 );
 
-export const getSelectedTeamByParam = createSelector(
-  getTeamEntities,
-  getRouterInfo,
-  (entities, router) => router.params && router.params.teamId && entities[router.params.teamId],
-);
+// export const getSelectedTeamByParam = createSelector(
+//   getTeamEntities,
+//   getRouterInfo,
+//   (entities, router) => router.params && router.params.teamId && entities[router.params.teamId],
+// );
 
 export const getSelectedTeam = createSelector(
-  getSelectedTeamByParam,
-  fromTeam.calculateTeamPercentages,
+  getTeamEntities,
+  getRouterInfo,
+  (entities, router) => {
+    const team = router.params && router.params.teamId && entities[router.params.teamId];
+    return team ? fromTeam.calculateTeamPercentages(team) : undefined;
+  },
 );
 
 export const getCloseAlert = createSelector(
@@ -73,7 +80,7 @@ export const getDivisionStanding = createSelector(
 export const getCurrentDivision = createSelector(
   getDivisionStanding,
   getSelectedTeam,
-  (divisions, team) => divisions[team.division],
+  (divisions, team) => (team && divisions[team.division]) || undefined,
 );
 
 export const getOverallStanding = createSelector(
