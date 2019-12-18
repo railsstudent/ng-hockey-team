@@ -6,7 +6,7 @@
       <clr-tab-content id="content2" *clrIfActive="true">
         <div>
           <ng-container *ngIf="{ overallStanding: overallStanding$ | async, loading: loading$ | async } as o">
-            <ng-container *ngIf="!o.loading else loader">
+            <ng-container *appContentLoaderIf="!o.loading; height 80">
               <team-standing-table
                 [headerTemplateRef]="headerTemplate"
                 [teamsTemplateRef]="o.overallStanding && o.overallStanding.length > 0 ? teamsTemplate : noLeague"
@@ -52,18 +52,6 @@
       </clr-tab-content>
     </clr-tab>
   </clr-tabs>
-  <ng-template #loader>
-    <content-loader [height]="150">
-      <svg:rect x="20" y="20" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="35" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="50" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="65" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="80" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="95" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="110" rx="3" ry="3" width="250" height="5" />
-      <svg:rect x="20" y="125" rx="3" ry="3" width="250" height="5" />
-    </content-loader>
-  </ng-template>
 </div>
 
 <ng-template #titleTemplate>
