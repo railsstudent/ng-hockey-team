@@ -45,6 +45,7 @@ export class TeamService {
       numOTLoss: 0,
       goalsFor: 0,
       goalsAgainst: 0,
+      plusMinusGoal: 0,
     };
 
     const newTeamArray = [...teamArray, newTeam];

@@ -34,6 +34,7 @@
                 <td class="left">{{ team.drawPercentage.toFixed(2) }}</td>
                 <td class="left">{{ team.goalsFor }}</td>
                 <td class="left">{{ team.goalsAgainst }}</td>
+                <td class="left">{{ team.goalsFor - team.goalsAgainst }}</td>
                 <td class="left">{{ team.points }}</td>
               </tr>
             </ng-template>
@@ -70,6 +71,7 @@
     <th class="left">Draw %</th>
     <th class="left">Goals For</th>
     <th class="left">Goals Against</th>
+    <th class="left">+ / - Goals</th>
     <th class="left">Points</th>
   </ng-template>
 

@@ -9,6 +9,7 @@ export interface Team {
   numOTLoss: number;
   goalsFor: number;
   goalsAgainst: number;
+  plusMinusGoal: number;
 }
 
 export interface TeamWithPercentages extends Team {

@@ -25,6 +25,9 @@
       <p class="header-cell">Goals Against</p>
     </div>
     <div class="team-stats-item">
+      <p class="header-cell">+ / - Goals</p>
+    </div>
+    <div class="team-stats-item">
       <p class="header-cell">Points</p>
     </div>
   </section>
@@ -36,18 +39,12 @@
       <team-match-counter [value]="team.numWin" [field]="'WIN'" (counter)="updateWin.emit($event)"></team-match-counter>
     </div>
     <div class="team-stats-item">
-      <team-match-counter
-        [value]="team.numLoss"
-        [field]="'LOSS'"
-        (counter)="updateLoss.emit($event)"
-      ></team-match-counter>
+      <team-match-counter [value]="team.numLoss" [field]="'LOSS'" (counter)="updateLoss.emit($event)">
+      </team-match-counter>
     </div>
     <div class="team-stats-item">
-      <team-match-counter
-        [value]="team.numDraw"
-        [field]="'DRAW'"
-        (counter)="updateDraw.emit($event)"
-      ></team-match-counter>
+      <team-match-counter [value]="team.numDraw" [field]="'DRAW'" (counter)="updateDraw.emit($event)">
+      </team-match-counter>
     </div>
     <div class="team-stats-item">
       <team-match-counter
@@ -82,6 +79,9 @@
         [teamCounterArrowsVisible]="goalsAgainstVisible"
       >
       </team-match-counter>
+    </div>
+    <div class="team-stats-item">
+      <p class="text-cell">{{ team.goalsFor - team.goalsAgainst }}</p>
     </div>
     <div class="team-stats-item">
       <p class="text-cell">{{ team.points }}</p>
