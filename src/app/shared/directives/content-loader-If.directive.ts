@@ -31,7 +31,6 @@ export class ContentLoaderDirective implements OnInit, OnDestroy {
 
   @Input()
   set appContentLoaderIf(val: boolean) {
-    console.log('val', val, 'this.height', this.height);
     this.viewContainerRef.clear();
     if (!val) {
       // show content loader component

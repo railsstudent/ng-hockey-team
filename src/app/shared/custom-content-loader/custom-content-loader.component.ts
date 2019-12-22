@@ -23,7 +23,5 @@ export class CustomContentLoaderComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('this.height', this.height);
-  }
+  ngOnInit() {}
 }
