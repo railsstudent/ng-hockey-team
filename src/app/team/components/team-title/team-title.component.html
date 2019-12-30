@@ -1,9 +1,11 @@
 <header class="heading">
   <a aria-label="Return to team menu" (click)="back()">
-    <i class="fas fa-chevron-circle-left fa-3x"></i>
+    <clr-icon shape="angle" dir="left" size="36"></clr-icon>
   </a>
   <div class="title">
-    <span class="center"><ng-content></ng-content></span>
+    <span class="center">
+      <ng-content></ng-content>
+    </span>
   </div>
   <span class="spacer"></span>
 </header>

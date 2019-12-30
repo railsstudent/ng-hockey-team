@@ -15,7 +15,7 @@ import { UpdateTeamDelta } from '../../models';
           (click)="$event.preventDefault(); $event.stopPropagation(); incrementValue$.next()"
           class="up-arrow"
         >
-          <i class="fas fa-angle-up"></i>
+          <clr-icon shape="angle"></clr-icon>
         </a>
         <a
           href
@@ -23,7 +23,7 @@ import { UpdateTeamDelta } from '../../models';
           (click)="$event.preventDefault(); $event.stopPropagation(); decrementValue$.next($event)"
           class="down-arrow"
         >
-          <i class="fas fa-angle-down"></i>
+          <clr-icon shape="angle" dir="down"></clr-icon>
         </a>
       </div>
     </section>

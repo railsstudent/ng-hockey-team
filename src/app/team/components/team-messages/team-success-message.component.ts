@@ -9,13 +9,13 @@ import { LeagueState, TeamActions } from '../../store';
       <div class="alert-items">
         <div class="alert-item static">
           <div class="alert-icon-wrapper">
-            <i class="fas fa-info-circle"></i>
+            <clr-icon shape="info-standard" size="23"></clr-icon>
           </div>
           <span class="alert-text">{{ msg }}</span>
         </div>
       </div>
       <button type="button" class="close" aria-label="Close" (click)="closeAlertMessage()">
-        <i class="fas fa-times-circle"></i>
+        <clr-icon shape="times-circle"></clr-icon>
       </button>
     </div>
   `,

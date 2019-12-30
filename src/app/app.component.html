@@ -26,8 +26,13 @@
   </div>
   <footer class="footer footer5">
     <div class="info">
-      <div><span class="author">Made by Connie Leung</span><i class="fas fa-copyright"></i>{{ currentYear }}</div>
-      <div><i class="fab fa-github"></i><a [href]="repo" target="_blank" ref="noopener noreferrer">Code</a></div>
+      <div style="display: flex; align-items: center;">
+        <span class="author">Made by Connie Leung @ {{ currentYear }}</span>
+      </div>
+      <div>
+        <clr-icon shape="code" size="36"></clr-icon>
+        <a [href]="repo" target="_blank" ref="noopener noreferrer">Code</a>
+      </div>
     </div>
   </footer>
 </clr-main-container>
