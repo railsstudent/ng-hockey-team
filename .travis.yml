@@ -23,7 +23,7 @@ install:
 script:
   - npm audit
   - npm run lint
-  - ng deploy --base-href="$GITHUB_PAGE/$REPO_NAME" --repo="$GITHUB_ORG/$GITHUB_NAME/$REPO_NAME.git" --name="$GITHUB_NAME" --email="$GITHUB_EMAIL" --no-silent
+  - ng deploy --base-href="$GITHUB_PAGE/$REPO_NAME/" --repo="$GITHUB_ORG/$GITHUB_NAME/$REPO_NAME.git" --name="$GITHUB_NAME" --email="$GITHUB_EMAIL" --no-silent
 
 branches:
   only:
