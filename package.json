@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stats": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/ng-hockey-team/stats.json"
+    "stats": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/ng-hockey-team/stats.json",
+    "prettier-check": "prettier --single-quote --list-different \"*.{js,json,css,md,ts,html,component.html}\""
   },
   "private": true,
   "dependencies": {
