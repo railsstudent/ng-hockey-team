@@ -16,6 +16,7 @@ export class AppComponent implements OnDestroy, OnInit {
   repo = environment.repo;
   unsubscribe$ = new Subject();
   collapsed = false;
+  version = environment.version;
 
   constructor(titleService: Title, private breakpointObserver: BreakpointObserver) {
     titleService.setTitle('NG Hockey League');
