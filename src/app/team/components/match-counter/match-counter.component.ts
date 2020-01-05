@@ -1,32 +1,17 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { merge, Subject } from 'rxjs';
-import { filter, mapTo, takeUntil, tap } from 'rxjs/operators';
-import { UpdateTeamDelta } from '../../models';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, filter, pairwise, startWith, takeUntil } from 'rxjs/operators';
+import { UpdateTeamValue } from '../../models';
+
+const DEBOUNCE_TIME = 700;
 
 @Component({
   selector: 'team-match-counter',
   template: `
-    <section class="counter">
-      <p class="text-cell">{{ value }}</p>
-      <div class="value-change-wrapper">
-        <a
-          href
-          aria-label="Increment value"
-          (click)="$event.preventDefault(); $event.stopPropagation(); incrementValue$.next()"
-          class="up-arrow"
-        >
-          <clr-icon shape="angle"></clr-icon>
-        </a>
-        <a
-          href
-          aria-label="Decrement value"
-          (click)="$event.preventDefault(); $event.stopPropagation(); decrementValue$.next($event)"
-          class="down-arrow"
-        >
-          <clr-icon shape="angle" dir="down"></clr-icon>
-        </a>
-      </div>
-    </section>
+    <form clrForm [formGroup]="form" novalidate>
+      <input clrInput type="number" min="0" formControlName="counter" />
+    </form>
   `,
   styleUrls: ['./match-counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,27 +23,42 @@ export class MatchCounterComponent implements OnInit, OnDestroy {
   @Input()
   field: string;
 
-  @Output()
-  counter = new EventEmitter<UpdateTeamDelta>();
+  @Input()
+  enabled = true;
 
-  incrementValue$ = new Subject<Event>();
-  decrementValue$ = new Subject<Event>();
+  @Output()
+  counterUpdated = new EventEmitter<UpdateTeamValue>();
+
   unsubscribe$ = new Subject();
 
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
+
   ngOnInit() {
-    const plusOne$ = this.incrementValue$.pipe(mapTo(1));
+    this.form = this.fb.group({
+      counter: new FormControl({ value: this.value, disabled: !this.enabled }, { updateOn: 'change' }),
+    });
 
-    const minusOne$ = this.decrementValue$.pipe(
-      filter(() => this.value > 0),
-      mapTo(-1),
-    );
-
-    merge(plusOne$, minusOne$)
+    this.counter.valueChanges
       .pipe(
-        tap(delta => this.counter.emit({ delta, field: this.field })),
+        filter(v => typeof v !== 'undefined' && v !== null),
+        debounceTime(DEBOUNCE_TIME),
+        startWith(this.value),
+        pairwise(),
         takeUntil(this.unsubscribe$),
       )
-      .subscribe();
+      .subscribe(([prevValue, currValue]) => {
+        if (currValue < 0) {
+          this.counter.setValue(prevValue);
+        } else {
+          this.counterUpdated.emit({ value: this.counter.value, field: this.field });
+        }
+      });
+  }
+
+  get counter() {
+    return this.form.controls.counter as AbstractControl;
   }
 
   ngOnDestroy() {

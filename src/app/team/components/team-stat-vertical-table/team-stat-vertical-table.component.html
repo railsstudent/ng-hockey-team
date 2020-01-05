@@ -1,7 +1,7 @@
 <main class="team-stats">
   <section class="clr-row">
     <div class="team-stats-item clr-col-6 clr-col-sm-2">
-      <p class="header-cell">Games Played</p>
+      <p class="header-cell">GP</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
       <p class="text-cell">{{ team.gamesPlayed }}</p>
@@ -16,7 +16,11 @@
       <p class="header-cell">Win</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
-      <team-match-counter [value]="team.numWin" [field]="'WIN'" (counter)="updateWin.emit($event)"></team-match-counter>
+      <team-match-counter
+        [value]="team.numWin"
+        [field]="'WIN'"
+        (counterUpdated)="updateWin.emit($event)"
+      ></team-match-counter>
     </div>
   </section>
   <section class="clr-row">
@@ -24,39 +28,39 @@
       <p class="header-cell">Loss</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
-      <team-match-counter [value]="team.numLoss" [field]="'LOSS'" (counter)="updateLoss.emit($event)">
+      <team-match-counter [value]="team.numLoss" [field]="'LOSS'" (counterUpdated)="updateLoss.emit($event)">
       </team-match-counter>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2">
       <p class="header-cell">Draw</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
-      <team-match-counter [value]="team.numDraw" [field]="'DRAW'" (counter)="updateDraw.emit($event)">
+      <team-match-counter [value]="team.numDraw" [field]="'DRAW'" (counterUpdated)="updateDraw.emit($event)">
       </team-match-counter>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2">
-      <p class="header-cell">Overtime Win</p>
+      <p class="header-cell">OTW</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
       <team-match-counter
         [value]="team.numOTWin"
         [field]="'OVERTIME_WIN'"
-        (counter)="updateOvertimeWin.emit($event)"
-        [teamCounterArrowsVisible]="overtimeArrowsVisible"
+        (counterUpdated)="updateOvertimeWin.emit($event)"
+        [enabled]="overtimeArrowsVisible"
       >
       </team-match-counter>
     </div>
   </section>
   <section class="clr-row">
     <div class="team-stats-item clr-col-6 clr-col-sm-2">
-      <p class="header-cell">Overtime Loss</p>
+      <p class="header-cell">OTL</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
       <team-match-counter
         [value]="team.numOTLoss"
         [field]="'OVERTIME_LOSS'"
-        (counter)="updateOvertimeLoss.emit($event)"
-        [teamCounterArrowsVisible]="overtimeArrowsVisible"
+        (counterUpdated)="updateOvertimeLoss.emit($event)"
+        [enabled]="overtimeArrowsVisible"
       >
       </team-match-counter>
     </div>
@@ -67,8 +71,8 @@
       <team-match-counter
         [value]="team.goalsFor"
         [field]="'GOALS_FOR'"
-        (counter)="updateGoalsFor.emit($event)"
-        [teamCounterArrowsVisible]="goalsForVisible"
+        (counterUpdated)="updateGoalsFor.emit($event)"
+        [enabled]="goalsForVisible"
       >
       </team-match-counter>
     </div>
@@ -79,22 +83,18 @@
       <team-match-counter
         [value]="team.goalsAgainst"
         [field]="'GOALS_AGAINST'"
-        (counter)="updateGoalsAgainst.emit($event)"
-        [teamCounterArrowsVisible]="goalsAgainstVisible"
+        (counterUpdated)="updateGoalsAgainst.emit($event)"
+        [enabled]="goalsAgainstVisible"
       >
       </team-match-counter>
     </div>
+  </section>
+  <section class="clr-row">
     <div class="team-stats-item clr-col-6 clr-col-sm-2">
       <p class="header-cell">+ / - Goals</p>
     </div>
     <div class="team-stats-item clr-col-6 clr-col-sm-2 gray">
-      <team-match-counter
-        [value]="team.goalsAgainst"
-        [field]="'GOALS_AGAINST'"
-        (counter)="updateGoalsAgainst.emit($event)"
-        [teamCounterArrowsVisible]="goalsAgainstVisible"
-      >
-      </team-match-counter>
+      <p class="text-cell">{{ team.goalsFor - team.goalsAgainst }}</p>
     </div>
   </section>
 </main>

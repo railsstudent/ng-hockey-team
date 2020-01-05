@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
-import { UpdateTeamDelta } from '../models';
+import { UpdateTeamValue } from '../models';
 import {
   getCloseAlert,
   getCurrentDivision,
@@ -23,13 +23,13 @@ import {
 })
 export class TeamRosterContainer implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
-  updateWin$ = new Subject<UpdateTeamDelta>();
-  updateLoss$ = new Subject<UpdateTeamDelta>();
-  updateDraw$ = new Subject<UpdateTeamDelta>();
-  updateOvertimeWin$ = new Subject<UpdateTeamDelta>();
-  updateOvertimeLoss$ = new Subject<UpdateTeamDelta>();
-  updateGoalsFor$ = new Subject<UpdateTeamDelta>();
-  updateGoalsAgainst$ = new Subject<UpdateTeamDelta>();
+  updateWin$ = new Subject<UpdateTeamValue>();
+  updateLoss$ = new Subject<UpdateTeamValue>();
+  updateDraw$ = new Subject<UpdateTeamValue>();
+  updateOvertimeWin$ = new Subject<UpdateTeamValue>();
+  updateOvertimeLoss$ = new Subject<UpdateTeamValue>();
+  updateGoalsFor$ = new Subject<UpdateTeamValue>();
+  updateGoalsAgainst$ = new Subject<UpdateTeamValue>();
 
   teamId: string;
   isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
@@ -61,10 +61,10 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
       this.updateGoalsAgainst$,
     )
       .pipe(
-        withLatestFrom(this.loading$, (teamDelta, loading) => ({ ...teamDelta, loading })),
+        withLatestFrom(this.loading$, (teamValue, loading) => ({ ...teamValue, loading })),
         filter(({ loading }) => !!this.teamId && !loading),
-        tap(({ delta, field }) =>
-          this.store.dispatch(TeamActions.UpdateTeamRecord({ teamId: this.teamId, delta, field })),
+        tap(({ value, field }) =>
+          this.store.dispatch(TeamActions.UpdateTeamRecord({ teamId: this.teamId, value, field })),
         ),
         takeUntil(this.unsubscribe$),
       )

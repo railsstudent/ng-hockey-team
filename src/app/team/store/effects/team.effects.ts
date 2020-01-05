@@ -39,8 +39,8 @@ export class TeamEffects {
   @Effect()
   updateTeamRecord$ = this.actions$.pipe(
     ofType(TeamActions.UpdateTeamRecord.type),
-    concatMap(({ teamId, delta, field }) => {
-      const team$ = this.teamService.updateTeamRecord(teamId, delta, field).pipe(delay(DELAY));
+    concatMap(({ teamId, value, field }) => {
+      const team$ = this.teamService.updateTeamRecord(teamId, value, field).pipe(delay(DELAY));
       return team$.pipe(
         map(team => TeamActions.UpdateTeamRecordSuccess({ team })),
         catchError((error: string) => of(TeamActions.UpdateTeamRecordFailure({ error })).pipe(delay(DELAY))),

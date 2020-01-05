@@ -30,7 +30,7 @@ export enum UPDATE_STAT_TYPE {
   GOALS_AGAINST,
 }
 
-export interface UpdateTeamDelta {
-  delta: number;
+export interface UpdateTeamValue {
+  value: number;
   field: string;
 }

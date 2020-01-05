@@ -10,7 +10,7 @@ export const AddTeamSuccess = createAction('[Team] Add Team Success', props<{ te
 export const AddTeamFailure = createAction('[Team] Add Team Failure', props<{ error: string }>());
 export const UpdateTeamRecord = createAction(
   '[Team] Update Team Record',
-  props<{ teamId: string; delta: number; field: string }>(),
+  props<{ teamId: string; value: number; field: string }>(),
 );
 export const UpdateTeamRecordSuccess = createAction('[Team] Update Team Record Success', props<{ team: Team }>());
 export const UpdateTeamRecordFailure = createAction('[Team] Update Team Record Failure', props<{ error: string }>());

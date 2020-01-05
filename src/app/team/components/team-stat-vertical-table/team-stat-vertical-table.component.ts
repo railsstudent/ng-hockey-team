@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeamWithPercentages, UpdateTeamDelta } from '../../models';
+import { TeamWithPercentages, UpdateTeamValue } from '../../models';
 
 @Component({
   selector: 'team-stat-vertical-table',
@@ -21,23 +21,23 @@ export class TeamStatVerticalTableComponent {
   goalsAgainstVisible: boolean;
 
   @Output()
-  updateWin = new EventEmitter<UpdateTeamDelta>();
+  updateWin = new EventEmitter<UpdateTeamValue>();
 
   @Output()
-  updateLoss = new EventEmitter<UpdateTeamDelta>();
+  updateLoss = new EventEmitter<UpdateTeamValue>();
 
   @Output()
-  updateDraw = new EventEmitter<UpdateTeamDelta>();
+  updateDraw = new EventEmitter<UpdateTeamValue>();
 
   @Output()
-  updateOvertimeWin = new EventEmitter<UpdateTeamDelta>();
+  updateOvertimeWin = new EventEmitter<UpdateTeamValue>();
 
   @Output()
-  updateOvertimeLoss = new EventEmitter<UpdateTeamDelta>();
+  updateOvertimeLoss = new EventEmitter<UpdateTeamValue>();
 
   @Output()
-  updateGoalsFor = new EventEmitter<UpdateTeamDelta>();
+  updateGoalsFor = new EventEmitter<UpdateTeamValue>();
 
   @Output()
-  updateGoalsAgainst = new EventEmitter<UpdateTeamDelta>();
+  updateGoalsAgainst = new EventEmitter<UpdateTeamValue>();
 }

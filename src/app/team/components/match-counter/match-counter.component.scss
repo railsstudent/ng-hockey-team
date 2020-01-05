@@ -1,22 +1,16 @@
-.counter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+:host {
+  display: block;
+}
 
-  p.text-cell {
-    margin-top: 0;
-    margin-right: 0.5rem;
-    text-align: center;
-  }
+form {
+  width: 100%;
+}
 
-  .value-change-wrapper {
-    a {
-      display: block;
-      line-height: 0.75rem;
-    }
+input {
+  width: 100%;
+}
 
-    a:hover {
-      text-decoration: none;
-    }
-  }
+.clr-form {
+  padding-left: 0;
+  padding-right: 0;
 }

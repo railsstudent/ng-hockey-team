@@ -65,9 +65,9 @@ export class TeamService {
     return throwError('Team does not exist.');
   }
 
-  updateTeamRecord(id: string, delta: number, field: string): Observable<Team> {
+  updateTeamRecord(id: string, value: number, field: string): Observable<Team> {
     const typedStatType = field as keyof typeof UPDATE_STAT_TYPE;
-    return this.updateStat(id, delta, UPDATE_STAT_TYPE[typedStatType]);
+    return this.updateStat(id, value, UPDATE_STAT_TYPE[typedStatType]);
   }
 
   private mapStatTypeToText(statType: UPDATE_STAT_TYPE) {
@@ -87,7 +87,7 @@ export class TeamService {
     }
   }
 
-  private updateStat(id: string, delta: number, statType: UPDATE_STAT_TYPE): Observable<Team> {
+  private updateStat(id: string, value: number, statType: UPDATE_STAT_TYPE): Observable<Team> {
     try {
       const teamStr = localStorage.getItem('teams');
       const teamArray = teamStr ? (JSON.parse(teamStr) as Team[]) : [];
@@ -97,36 +97,36 @@ export class TeamService {
       if (team) {
         switch (statType) {
           case UPDATE_STAT_TYPE.WIN:
-            if (team.numWin + team.numLoss + team.numDraw + delta <= 0 && team.goalsFor + team.goalsAgainst > 0) {
+            if (team.numLoss + team.numDraw + value <= 0 && team.goalsFor + team.goalsAgainst > 0) {
               return throwError('At least one game is played when either goals for or goals against is non-zero.');
             }
 
-            if (team.numWin + delta < 0) {
+            if (value < 0) {
               team.numWin = 0;
             } else {
-              team.numWin = team.numWin + delta;
+              team.numWin = value;
             }
             break;
           case UPDATE_STAT_TYPE.LOSS:
-            if (team.numWin + team.numLoss + team.numDraw + delta <= 0 && team.goalsFor + team.goalsAgainst > 0) {
+            if (team.numWin + team.numDraw + value <= 0 && team.goalsFor + team.goalsAgainst > 0) {
               return throwError('At least one game is played when either goals for or goals against is non-zero.');
             }
 
-            if (team.numLoss + delta < 0) {
+            if (value < 0) {
               team.numLoss = 0;
             } else {
-              team.numLoss = team.numLoss + delta;
+              team.numLoss = value;
             }
             break;
           case UPDATE_STAT_TYPE.DRAW:
-            if (team.numWin + team.numLoss + team.numDraw + delta <= 0 && team.goalsFor + team.goalsAgainst > 0) {
+            if (team.numWin + team.numLoss + value <= 0 && team.goalsFor + team.goalsAgainst > 0) {
               return throwError('At least one game is played when either goals for or goals against is non-zero.');
             }
 
-            if (team.numDraw + delta < 0) {
+            if (value < 0) {
               team.numDraw = 0;
-            } else if (team.numDraw + delta >= team.numOTWin + team.numOTLoss) {
-              team.numDraw = team.numDraw + delta;
+            } else if (value >= team.numOTWin + team.numOTLoss) {
+              team.numDraw = value;
             } else {
               return throwError(
                 'Number of draws must not less than total number of overtime wins and overtime losses.',
@@ -134,33 +134,33 @@ export class TeamService {
             }
             break;
           case UPDATE_STAT_TYPE.OVERTIME_WIN:
-            if (team.numOTWin + delta < 0) {
+            if (value < 0) {
               team.numOTWin = 0;
-            } else if (team.numOTWin + delta + team.numOTLoss <= team.numDraw) {
-              team.numOTWin = team.numOTWin + delta;
+            } else if (value + team.numOTLoss <= team.numDraw) {
+              team.numOTWin = value;
             } else {
               return throwError('Number of overtime wins and overtime losses cannot exceed number of draws.');
             }
             break;
           case UPDATE_STAT_TYPE.OVERTIME_LOSS:
-            if (team.numOTLoss + delta < 0) {
+            if (value < 0) {
               team.numOTLoss = 0;
-            } else if (team.numOTLoss + delta + team.numOTWin <= team.numDraw) {
-              team.numOTLoss = team.numOTLoss + delta;
+            } else if (value + team.numOTWin <= team.numDraw) {
+              team.numOTLoss = value;
             } else {
               return throwError('Number of overtime wins and overtime losses cannot exceed number of draws.');
             }
             break;
           case UPDATE_STAT_TYPE.GOALS_FOR:
             if (team.numWin + team.numLoss + team.numDraw > 0) {
-              team.goalsFor = (team.goalsFor || 0) + delta;
+              team.goalsFor = value;
             } else {
               return throwError('Cannot update goals for if no game is played.');
             }
             break;
           case UPDATE_STAT_TYPE.GOALS_AGAINST:
             if (team.numWin + team.numLoss + team.numDraw > 0) {
-              team.goalsAgainst = (team.goalsAgainst || 0) + delta;
+              team.goalsAgainst = value;
             } else {
               return throwError('Cannot update goals against if no game is played.');
             }

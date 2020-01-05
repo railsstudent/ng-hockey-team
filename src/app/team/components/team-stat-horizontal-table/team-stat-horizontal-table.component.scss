@@ -36,5 +36,9 @@
     &:nth-child(even) {
       border: 1px solid $border-color;
     }
+
+    team-match-counter {
+      width: 100%;
+    }
   }
 }
