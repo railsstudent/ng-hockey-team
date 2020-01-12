@@ -1,4 +1,3 @@
-import { Team } from './team.model';
 export enum PLAYER_POSITION {
   GOALIE,
   DEFENSEMAN,
@@ -11,7 +10,7 @@ export enum SHOOTING_HAND {
   RIGHT,
 }
 
-export interface Player {
+export interface NewPlayer {
   name: string;
   dob: Date;
   age: number;
@@ -25,4 +24,8 @@ export interface Player {
   isCaptain: boolean;
   isAssistantCaptain: boolean;
   yearOfExperience: number;
+}
+
+export interface Player extends NewPlayer {
+  id: string;
 }

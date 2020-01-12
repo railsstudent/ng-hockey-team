@@ -14,7 +14,7 @@ export const getTeamMessage = createSelector(fromFeature.getTeamsFeature, fromTe
 
 export const getTeamErrorMessage = createSelector(fromFeature.getTeamsFeature, fromTeam.getError);
 
-export const getTeamEntities = createSelector(fromFeature.getTeamsFeature, state => state.entities);
+export const getTeamEntities = createSelector(fromFeature.getTeamsFeature, fromTeam.selectEntities);
 
 export const getRouterInfo = createSelector(fromFeature.getRouterFeature, state => state.state);
 
