@@ -1,3 +1,4 @@
+import * as PlayerActions from './player.actions';
 import * as TeamActions from './team.actions';
 
-export { TeamActions };
+export { TeamActions, PlayerActions };
