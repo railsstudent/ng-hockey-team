@@ -29,23 +29,3 @@ export const loadPlayerFailure = createAction('[Player] Load Player Failure', pr
 export const loadPlayers = createAction('[Player] Load Players');
 export const loadPlayersSuccess = createAction('[Player] Load Players Success', props<{ players: Player[] }>());
 export const loadPlayersFailure = createAction('[Player] Load Players Failure', props<{ error: string }>());
-
-const all = union({
-  addPlayer,
-  addPlayerFailure,
-  addPlayerSuccess,
-  deletePlayer,
-  deletePlayerFailure,
-  deletePlayerSuccess,
-  updatePlayer,
-  updatePlayerFailure,
-  updatePlayerSuccess,
-  loadPlayer,
-  loadPlayerFailure,
-  loadPlayerSuccess,
-  loadPlayers,
-  loadPlayersFailure,
-  loadPlayersSuccess,
-});
-
-export type PlayerActionsUnion = typeof all;

@@ -23,7 +23,7 @@ import {
 } from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
-import { reducers, TeamEffects } from './store';
+import { PlayerEffects, reducers, TeamEffects } from './store';
 import { TeamMenuCardModule } from './team-menu-card';
 import { TeamRoutingModule } from './team-routing.module';
 
@@ -49,7 +49,7 @@ import { TeamRoutingModule } from './team-routing.module';
     CommonModule,
     TeamRoutingModule,
     StoreModule.forFeature('teams', reducers.teams),
-    EffectsModule.forFeature([TeamEffects]),
+    EffectsModule.forFeature([TeamEffects, PlayerEffects]),
     SharedModule,
     TeamMenuCardModule,
   ],

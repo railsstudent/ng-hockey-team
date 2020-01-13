@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import { Player } from '../../models';
 import { PlayerActions } from '../actions';
 
@@ -75,7 +75,43 @@ export const playerReducer = createReducer(
     error,
     loading: false,
   })),
+  on(PlayerActions.loadPlayer, state => ({
+    ...state,
+    message: null,
+    error: null,
+    loading: true,
+  })),
+  on(PlayerActions.loadPlayerSuccess, (state, { player }) => ({
+    ...playerAdapter.addOne(player, state),
+    loading: false,
+  })),
+  on(PlayerActions.loadPlayerFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
+  on(PlayerActions.loadPlayers, state => ({
+    ...state,
+    message: null,
+    error: null,
+    loading: true,
+  })),
+  on(PlayerActions.loadPlayersSuccess, (state, { players }) => ({
+    ...playerAdapter.addAll(players, state),
+    loaded: true,
+    loading: false,
+  })),
+  on(PlayerActions.loadPlayersFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loaded: false,
+    loading: false,
+  })),
 );
+
+export function reducer(state: PlayerState | undefined, actions: Action) {
+  return playerReducer(state, actions);
+}
 
 // get the selectors
 const { selectIds, selectEntities, selectAll, selectTotal } = playerAdapter.getSelectors();
