@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
-import { concatMap, exhaustMap, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, concatMap, delay, exhaustMap, map, mergeMap, switchMap } from 'rxjs/operators';
+import { PlayerService } from '../../services';
 import { PlayerActions } from '../actions';
+
+const DELAY = 2000;
 
 @Injectable()
 export class PlayerEffects {
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private service: PlayerService) {}
 
   addPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.addPlayer),
-      exhaustMap(({ player }) => {
-        console.log('player', player);
-        return EMPTY;
+      exhaustMap(({ newPlayer }) => {
+        const player$ = this.service.addPlayer(newPlayer).pipe(delay(DELAY));
+        return player$.pipe(
+          map(player => PlayerActions.addPlayerSuccess({ player, message: 'Player is created successfully' })),
+          catchError((error: string) => of(PlayerActions.addPlayerFailure({ error })).pipe(delay(DELAY))),
+        );
       }),
     ),
   );
@@ -22,11 +28,18 @@ export class PlayerEffects {
     this.actions$.pipe(
       ofType(PlayerActions.updatePlayer),
       concatMap(({ player }) => {
-        const id = player.id;
+        const { id } = player;
         if (!id) {
-          return of(PlayerActions.updatePlayerFailure({ error: 'Player id does not exist' }));
+          return of(PlayerActions.updatePlayerFailure({ error: 'Player id does not exist' })).pipe(delay(DELAY));
         }
-        return EMPTY;
+
+        const player$ = this.service.updatePlayer(player).pipe(delay(DELAY));
+        return player$.pipe(
+          map(updatedPlayer =>
+            PlayerActions.updatePlayerSuccess({ player: updatedPlayer, message: 'Player is created successfully' }),
+          ),
+          catchError((error: string) => of(PlayerActions.updatePlayerFailure({ error })).pipe(delay(DELAY))),
+        );
       }),
     ),
   );

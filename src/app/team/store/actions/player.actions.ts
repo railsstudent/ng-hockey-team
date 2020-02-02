@@ -1,7 +1,7 @@
 import { createAction, props, union } from '@ngrx/store';
 import { NewPlayer, Player } from '../../models';
 
-export const addPlayer = createAction('[Player] Add Player', props<{ player: NewPlayer }>());
+export const addPlayer = createAction('[Player] Add Player', props<{ newPlayer: NewPlayer }>());
 export const addPlayerSuccess = createAction(
   '[Player] Add Player Success',
   props<{ player: Player; message: string }>(),
@@ -15,7 +15,7 @@ export const deletePlayerSuccess = createAction(
 );
 export const deletePlayerFailure = createAction('[Player] Delete Player Failure', props<{ error: string }>());
 
-export const updatePlayer = createAction('[Player] Update Player', props<{ player: Partial<Player> }>());
+export const updatePlayer = createAction('[Player] Update Player', props<{ player: Player }>());
 export const updatePlayerSuccess = createAction(
   '[Player] Update Player Success',
   props<{ player: Player; message: string }>(),
