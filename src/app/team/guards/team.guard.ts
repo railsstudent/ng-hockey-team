@@ -9,12 +9,7 @@ export class TeamGuard implements CanActivate {
   loaded: boolean;
 
   constructor(private store: Store<LeagueState>) {
-    this.store
-      .pipe(
-        select(getTeamsLoaded),
-        first(),
-      )
-      .subscribe(v => (this.loaded = v));
+    this.store.pipe(select(getTeamsLoaded), first()).subscribe(v => (this.loaded = v));
   }
 
   // tslint:disable-next-line:variable-name

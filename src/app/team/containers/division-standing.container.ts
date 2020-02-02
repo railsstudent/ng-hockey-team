@@ -13,11 +13,7 @@ import { getDivisionStanding, getTeamLoading, LeagueState, TeamActions } from '.
 })
 export class DivisionStandingContainer implements OnDestroy {
   unsubscribe$ = new Subject();
-  divisionStanding$ = this.store.pipe(
-    select(getDivisionStanding),
-    takeUntil(this.unsubscribe$),
-    shareReplay(1),
-  );
+  divisionStanding$ = this.store.pipe(select(getDivisionStanding), takeUntil(this.unsubscribe$), shareReplay(1));
   hasTeam$ = this.divisionStanding$.pipe(
     map(divisions => Object.keys(divisions).length > 0),
     takeUntil(this.unsubscribe$),

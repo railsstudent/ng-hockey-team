@@ -48,10 +48,7 @@ export const getRouterFeature = createFeatureSelector<AppState, fromRouter.Route
   'router',
 );
 
-export const selectRouterInfo = createSelector(
-  getRouterFeature,
-  state => state.state,
-);
+export const selectRouterInfo = createSelector(getRouterFeature, state => state.state);
 
 // console.log all actions
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {

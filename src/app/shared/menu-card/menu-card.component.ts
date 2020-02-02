@@ -4,7 +4,7 @@ import { PortalService } from '../../core';
 @Component({
   selector: 'app-menu-card',
   template: `
-    <ng-container *ngIf="(portalService.portal | async) as portal">
+    <ng-container *ngIf="portalService.portal | async as portal">
       <div class="clr-row">
         <div class="clr-col-12">
           <div class="card">

@@ -151,15 +151,12 @@ export const sortTeamsByWinningPercentage = (teams: TeamWithPercentages[]) =>
 
 export const divisionStanding = (teams: TeamWithPercentages[]) => {
   const sortedTeamsDesc = sortTeamsByWinningPercentage(teams);
-  return sortedTeamsDesc.reduce(
-    (acc, t) => {
-      if (!acc[t.division]) {
-        acc[t.division] = [t];
-      } else {
-        acc[t.division] = acc[t.division].concat(t);
-      }
-      return acc;
-    },
-    {} as { [key: string]: TeamWithPercentages[] },
-  );
+  return sortedTeamsDesc.reduce((acc, t) => {
+    if (!acc[t.division]) {
+      acc[t.division] = [t];
+    } else {
+      acc[t.division] = acc[t.division].concat(t);
+    }
+    return acc;
+  }, {} as { [key: string]: TeamWithPercentages[] });
 };
