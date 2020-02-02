@@ -28,8 +28,8 @@ export class PlayerEffects {
     this.actions$.pipe(
       ofType(PlayerActions.updatePlayer),
       concatMap(({ player }) => {
-        const { id } = player;
-        if (!id) {
+        const { id: playerId } = player;
+        if (typeof playerId === 'undefined' || playerId === null || playerId === '') {
           return of(PlayerActions.updatePlayerFailure({ error: 'Player id does not exist' })).pipe(delay(DELAY));
         }
 
@@ -48,7 +48,7 @@ export class PlayerEffects {
     this.actions$.pipe(
       ofType(PlayerActions.deletePlayer),
       mergeMap(({ playerId }) => {
-        if (!playerId) {
+        if (typeof playerId === 'undefined' || playerId === null || playerId === '') {
           return of(PlayerActions.deletePlayerFailure({ error: 'Player id does not exist' }));
         }
         return EMPTY;
