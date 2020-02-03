@@ -1,6 +1,6 @@
 {
   "name": "ng-hockey-team",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "prettier": "prettier --write \"**/*.{js,json,css,md,ts,html,component.html}\"",
@@ -78,7 +78,7 @@
   },
   "lint-staged": {
     "*.{js,json,css,md,ts,html,component.html}": [
-      "prettier --write",
+      "npm run prettier",
       "git add"
     ]
   },

@@ -28,6 +28,10 @@ const routes: Routes = [
     component: TeamRosterContainer,
     canActivate: [TeamGuard],
   },
+  {
+    path: 'players',
+    component: TeamMenuCardComponent,
+  },
 ];
 
 @NgModule({
