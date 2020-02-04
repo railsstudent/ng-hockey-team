@@ -1,0 +1,22 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spacer,
+app-menu-card {
+  flex: 1 1 calc(100% / 3);
+}
+
+div.card-block {
+  display: flex;
+
+  button {
+    flex-grow: 1;
+    &.btn {
+      margin: 0 auto;
+    }
+  }
+}

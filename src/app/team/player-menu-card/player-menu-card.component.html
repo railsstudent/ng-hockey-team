@@ -1,0 +1,15 @@
+<div class="container">
+  <span class="spacer"></span>
+  <app-menu-card></app-menu-card>
+  <span class="spacer"></span>
+</div>
+<ng-template #playerMenu>
+  <div class="card-header">
+    Player Menu
+  </div>
+  <div class="card-block">
+    <button class="btn btn-outline" aria-label="Add new team" (click)="openAddPlayerForm()">
+      Add Player <clr-icon shape="plus-circle"></clr-icon>
+    </button>
+  </div>
+</ng-template>
