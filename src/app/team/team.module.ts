@@ -16,6 +16,7 @@ import {
 import {
   DivisionStandingContainer,
   ListingContainer,
+  NewPlayerContainer,
   NewTeamContainer,
   TeamAnalysisContainer,
   TeamRosterContainer,
@@ -45,6 +46,7 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamStatisticsContainer,
     TeamErrMessageComponent,
     TeamSuccessMessageComponent,
+    NewPlayerContainer,
   ],
   imports: [
     CommonModule,

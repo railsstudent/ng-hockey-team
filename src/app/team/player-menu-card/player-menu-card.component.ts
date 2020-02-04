@@ -20,6 +20,6 @@ export class PlayerMenuCardComponent implements OnInit {
   }
 
   openAddPlayerForm() {
-    this.store.dispatch(PlayerActions.NavigateAction('/team/player/new'));
+    this.store.dispatch(PlayerActions.NavigateAction('/team/players/new'));
   }
 }

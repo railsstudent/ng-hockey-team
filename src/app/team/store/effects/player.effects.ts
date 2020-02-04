@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
-import { catchError, concatMap, delay, exhaustMap, map, mergeMap, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, concatMap, delay, exhaustMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { PlayerService } from '../../services';
 import { PlayerActions } from '../actions';
 
@@ -9,7 +10,7 @@ const DELAY = 2000;
 
 @Injectable()
 export class PlayerEffects {
-  constructor(private actions$: Actions, private service: PlayerService) {}
+  constructor(private actions$: Actions, private service: PlayerService, private router: Router) {}
 
   addPlayer$ = createEffect(() =>
     this.actions$.pipe(
@@ -89,5 +90,11 @@ export class PlayerEffects {
         );
       }),
     ),
+  );
+
+  @Effect({ dispatch: false })
+  navigate$ = this.actions$.pipe(
+    ofType(PlayerActions.NavigateAction.type),
+    tap(({ url, queryParams, pathParams }) => this.router.navigate([url, ...(pathParams as any[])], queryParams)),
   );
 }

@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListingContainer, NewTeamContainer, TeamRosterContainer, TeamStatisticsContainer } from './containers';
+import {
+  ListingContainer,
+  NewPlayerContainer,
+  NewTeamContainer,
+  TeamRosterContainer,
+  TeamStatisticsContainer,
+} from './containers';
 import { TeamGuard } from './guards';
 import { PlayerMenuCardComponent } from './player-menu-card';
 import { TeamMenuCardComponent } from './team-menu-card';
@@ -32,6 +38,10 @@ const routes: Routes = [
   {
     path: 'players',
     component: PlayerMenuCardComponent,
+  },
+  {
+    path: 'players/new',
+    component: NewPlayerContainer,
   },
 ];
 
