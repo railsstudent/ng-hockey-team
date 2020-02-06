@@ -123,5 +123,10 @@ const { selectIds, selectEntities, selectAll, selectTotal } = playerAdapter.getS
 
 export const selectPlayerIds = selectIds;
 export const selectPlayerEntities = selectEntities;
-export const selectPlayerUsers = selectAll;
+export const selectPlayers = selectAll;
 export const selectPlayerTotal = selectTotal;
+
+export const getError = (state: PlayerState) => state.error;
+export const getMessage = (state: PlayerState) => state.message;
+export const getLoaded = (state: PlayerState) => state.loaded;
+export const getLoading = (state: PlayerState) => state.loading;

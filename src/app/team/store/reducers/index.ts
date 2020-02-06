@@ -20,3 +20,4 @@ export const getRouterFeature = createFeatureSelector<
   LeagueState,
   fromRouter.RouterReducerState<fromRoot.RouterStateUrl>
 >('router');
+export const getPlayersFeature = createFeatureSelector<LeagueState, fromPlayer.PlayerState>('players');

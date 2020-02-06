@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import * as fromFeature from '../reducers';
 import * as fromTeam from '../reducers/team.reducer';
+import { getRouterInfo } from './router.selectors';
 
 const THREE = 3;
 
@@ -16,7 +17,7 @@ export const getTeamErrorMessage = createSelector(fromFeature.getTeamsFeature, f
 
 export const getTeamEntities = createSelector(fromFeature.getTeamsFeature, fromTeam.selectEntities);
 
-export const getRouterInfo = createSelector(fromFeature.getRouterFeature, state => state.state);
+// export const getRouterInfo = createSelector(fromFeature.getRouterFeature, state => state.state);
 
 // export const getSelectedTeamByParam = createSelector(
 //   getTeamEntities,
