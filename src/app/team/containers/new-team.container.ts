@@ -72,14 +72,6 @@ export class NewTeamContainer implements OnInit, OnDestroy {
     return this.form.get('division') as AbstractControl;
   }
 
-  closeAlert() {
-    this.store.dispatch(TeamActions.UpdateCloseAlert({ closeAlert: true }));
-  }
-
-  returnToMenu() {
-    this.store.dispatch(TeamActions.NavigateAction('/team'));
-  }
-
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

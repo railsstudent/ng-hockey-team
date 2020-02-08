@@ -1,13 +1,13 @@
 export enum PLAYER_POSITION {
-  GOALIE,
-  DEFENSEMAN,
-  CENTER,
-  FORWARD,
+  GOALIE = 'Goalie',
+  DEFENSEMAN = 'Defenseman',
+  CENTER = 'Center',
+  WINGER = 'Winger',
 }
 
 export enum SHOOTING_HAND {
-  LEFT,
-  RIGHT,
+  LEFT = 'Left',
+  RIGHT = 'Right',
 }
 
 export interface NewPlayer {
