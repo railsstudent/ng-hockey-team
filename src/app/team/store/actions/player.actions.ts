@@ -34,3 +34,4 @@ export const NavigateAction = createAction(
   '[Player] Navigate to next url',
   (url: string, pathParams: any[] = [], queryParams: Params = {}) => ({ url, pathParams, queryParams }),
 );
+export const UpdateCloseAlert = createAction('[Player] Update Close Alert', props<{ closeAlert: boolean }>());

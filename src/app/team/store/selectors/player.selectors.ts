@@ -16,3 +16,4 @@ export const getSelectedPlayer = createSelector(
   getRouterInfo,
   (entities, router) => router.params && router.params.id && entities[router.params.id],
 );
+export const getPlayerCloseAlert = createSelector(fromFeature.getPlayersFeature, fromPlayer.getCloseAlert);
