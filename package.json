@@ -36,6 +36,7 @@
     "@webcomponents/custom-elements": "^1.0.0",
     "add": "^2.0.6",
     "core-js": "^2.5.4",
+    "date-fns": "^2.9.0",
     "rxjs": "~6.5.3",
     "rxjs-tslint-rules": "^4.23.1",
     "tslib": "^1.9.0",

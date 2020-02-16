@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { differenceInYears } from 'date-fns';
 import { Observable, of, throwError } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { NewPlayer, Player } from '../models';
@@ -34,9 +35,13 @@ export class PlayerService {
     const playerArray = playerStr ? (JSON.parse(playerStr) as Player[]) : [];
 
     const id = uuid();
+
+    const age = differenceInYears(new Date(), newPlayer.dob);
+
     const player: Player = {
       id,
       ...newPlayer,
+      age,
     };
 
     const newPlayerArray = [...playerArray, player];

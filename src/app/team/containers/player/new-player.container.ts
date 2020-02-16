@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
 import { getPlayerCloseAlert, getPlayerErrorMessage, getPlayerMessage, getTeamNameMap, LeagueState } from '../../store';
+import { minimumAgeValidator } from '../../validators';
 
 const MIN_AGE = 18;
 
@@ -40,8 +41,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
 
     this.form = this.fb.group({
       name: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
-      dob: new FormControl('', { validators: [Validators.required] }),
-      age: new FormControl(MIN_AGE, { validators: [Validators.required, Validators.min(MIN_AGE)] }),
+      dob: new FormControl('', { validators: [Validators.required, minimumAgeValidator(MIN_AGE)] }),
       nationality: new FormControl('', { validators: [Validators.required] }),
       position: new FormControl(PLAYER_POSITION.CENTER, { validators: [Validators.required] }),
       shootingHand: new FormControl(SHOOTING_HAND.RIGHT, { validators: [Validators.required] }),
@@ -70,10 +70,6 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
 
   get yearOfExperience() {
     return this.form.controls && (this.form.controls.yearOfExperience as AbstractControl);
-  }
-
-  get age() {
-    return this.form.controls && (this.form.controls.age as AbstractControl);
   }
 
   ngOnDestroy() {

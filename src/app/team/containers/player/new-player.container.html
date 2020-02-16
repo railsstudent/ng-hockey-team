@@ -19,14 +19,6 @@
       </clr-date-container>
 
       <clr-input-container>
-        <label for="age">Age:</label>
-        <input name="age" clrInput type="number" formControlName="age" required />
-        <clr-control-helper>Age of the new player</clr-control-helper>
-        <clr-control-error *ngIf="age.errors && age.errors.required">Age is required!</clr-control-error>
-        <clr-control-error *ngIf="age.errors && age.errors.min">Minimum age is 18!</clr-control-error>
-      </clr-input-container>
-
-      <clr-input-container>
         <label for="nationality">Nationality:</label>
         <input name="nationality" clrInput type="text" formControlName="nationality" required />
         <clr-control-helper>Nationality of the new player</clr-control-helper>

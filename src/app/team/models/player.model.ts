@@ -13,7 +13,6 @@ export enum SHOOTING_HAND {
 export interface NewPlayer {
   name: string;
   dob: Date;
-  age: number;
   nationality: string;
   position: PLAYER_POSITION;
   shootingHand?: SHOOTING_HAND;
@@ -28,4 +27,5 @@ export interface NewPlayer {
 
 export interface Player extends NewPlayer {
   id: string;
+  age: number;
 }
