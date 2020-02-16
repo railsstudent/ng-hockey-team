@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, filter, pairwise, startWith, takeUntil } from 'rxjs/operators';
@@ -16,7 +26,7 @@ const DEBOUNCE_TIME = 700;
   styleUrls: ['./match-counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MatchCounterComponent implements OnInit, OnDestroy {
+export class MatchCounterComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   value: number;
 
@@ -57,8 +67,16 @@ export class MatchCounterComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    const { value = null } = changes || {};
+    const { currentValue = null } = value || {};
+    if (this.counter) {
+      this.counter.setValue(currentValue);
+    }
+  }
+
   get counter() {
-    return this.form.controls.counter as AbstractControl;
+    return this.form && this.form.controls && (this.form.controls.counter as AbstractControl);
   }
 
   ngOnDestroy() {

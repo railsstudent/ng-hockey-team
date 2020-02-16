@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { UpdateTeamValue } from '../../models';
 import { TeamWithPercentages } from './../../models';
 
@@ -8,7 +16,7 @@ import { TeamWithPercentages } from './../../models';
   styleUrls: ['./team-stat-horizontal-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamStatHorizontalTableComponent {
+export class TeamStatHorizontalTableComponent implements OnChanges {
   @Input()
   team: TeamWithPercentages;
 
@@ -41,4 +49,12 @@ export class TeamStatHorizontalTableComponent {
 
   @Output()
   updateGoalsAgainst = new EventEmitter<UpdateTeamValue>();
+
+  ngOnChanges(changes: SimpleChanges) {
+    const { team = null } = changes || {};
+    const { currentValue = null } = team || {};
+    if (currentValue) {
+      this.team = currentValue;
+    }
+  }
 }

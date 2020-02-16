@@ -52,6 +52,7 @@ import { TeamRoutingModule } from './team-routing.module';
     CommonModule,
     TeamRoutingModule,
     StoreModule.forFeature('teams', reducers.teams),
+    StoreModule.forFeature('players', reducers.players),
     EffectsModule.forFeature([TeamEffects, PlayerEffects]),
     SharedModule,
     TeamMenuCardModule,

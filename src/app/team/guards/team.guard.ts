@@ -6,7 +6,7 @@ import { getTeamsLoaded, LeagueState, TeamActions } from '../store';
 
 @Injectable()
 export class TeamGuard implements CanActivate {
-  loaded: boolean;
+  loaded = false;
 
   constructor(private store: Store<LeagueState>) {
     this.store.pipe(select(getTeamsLoaded), first()).subscribe(v => (this.loaded = v));
@@ -14,7 +14,8 @@ export class TeamGuard implements CanActivate {
 
   // tslint:disable-next-line:variable-name
   canActivate(next: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
-    if (next.url && next.url.length && ['roster', 'statistcs'].includes(next.url[0].path)) {
+    const path = next.url.map(u => u.path).join('/');
+    if (next.url && next.url.length && ['roster', 'statistcs', 'players/new'].some(prefix => path.startsWith(prefix))) {
       if (!this.loaded) {
         this.store.dispatch(TeamActions.LoadTeams());
       }

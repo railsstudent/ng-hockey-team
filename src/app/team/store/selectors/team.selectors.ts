@@ -1,4 +1,5 @@
 import { createSelector } from '@ngrx/store';
+import { Team } from '../../models';
 import * as fromFeature from '../reducers';
 import * as fromTeam from '../reducers/team.reducer';
 import { getRouterInfo } from './router.selectors';
@@ -65,3 +66,13 @@ export const getTopDefensiveTeams = createSelector(getAllTeams, teams =>
 export const getWorstDefensiveTeams = createSelector(getAllTeams, teams =>
   fromTeam.sortedDefensiveTeams(teams).slice(-THREE),
 );
+
+export const getTeamNameMap = createSelector(getTeamEntities, dict => {
+  return Object.keys(dict).reduce((acc, k) => {
+    const t = dict[k];
+    if (t) {
+      acc[k] = t.name;
+    }
+    return acc;
+  }, {} as { [key: string]: string });
+});

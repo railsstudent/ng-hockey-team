@@ -42,6 +42,7 @@ const routes: Routes = [
   {
     path: 'players/new',
     component: NewPlayerContainer,
+    canActivate: [TeamGuard],
   },
 ];
 

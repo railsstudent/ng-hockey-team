@@ -3,48 +3,128 @@
   <team-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></team-err-message>
   <team-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></team-success-message>
   <main class="form-container">
-    <form clrForm [formGroup]="form" (ngSubmit)="addPlayer$.next()" #f="ngForm">
+    <form clrForm [formGroup]="form" (ngSubmit)="addPlayer$.next(form.value)" #f="ngForm">
       <clr-input-container>
         <label for="name">Name:</label>
-        <input name="name" clrInput type="text" formControlName="name" />
+        <input name="name" clrInput type="text" formControlName="name" required />
         <clr-control-helper>Name of the new player</clr-control-helper>
         <clr-control-error>Name is required!</clr-control-error>
       </clr-input-container>
+
       <clr-date-container>
         <label for="dob">Date of birth:</label>
-        <input type="date" clrDate name="dob" formControlName="dob" />
+        <input type="date" clrDate name="dob" formControlName="dob" required />
         <clr-control-helper>Date of birth of the new player</clr-control-helper>
         <clr-control-error>Date of birth is required!</clr-control-error>
       </clr-date-container>
+
       <clr-input-container>
         <label for="age">Age:</label>
-        <input name="age" clrInput type="number" formControlName="age" />
+        <input name="age" clrInput type="number" formControlName="age" required />
         <clr-control-helper>Age of the new player</clr-control-helper>
-        <clr-control-error>Age is required!</clr-control-error>
-        <clr-control-error>Minimum age is 18!</clr-control-error>
+        <clr-control-error *ngIf="age.errors && age.errors.required">Age is required!</clr-control-error>
+        <clr-control-error *ngIf="age.errors && age.errors.min">Minimum age is 18!</clr-control-error>
       </clr-input-container>
+
       <clr-input-container>
         <label for="nationality">Nationality:</label>
-        <input name="nationality" clrInput type="text" formControlName="name" />
+        <input name="nationality" clrInput type="text" formControlName="nationality" required />
         <clr-control-helper>Nationality of the new player</clr-control-helper>
         <clr-control-error>Nationality is required!</clr-control-error>
       </clr-input-container>
 
       <clr-select-container>
-        <label>Division</label>
-        <select clrSelect name="division" formControlName="division" required>
-          <option value="East">East</option>
-          <option value="South">South</option>
-          <option value="West">West</option>
-          <option value="North">North</option>
+        <label>Position:</label>
+        <select clrSelect name="position" formControlName="position" required>
+          <option value="Center">Center</option>
+          <option value="Defenseman">Defenseman</option>
+          <option value="Goalie">Goalie</option>
+          <option value="Winger">Winger</option>
         </select>
-        <clr-control-helper>Division of the new team</clr-control-helper>
-        <clr-control-error>Division is required!</clr-control-error>
+        <clr-control-helper>Position of the new player</clr-control-helper>
+        <clr-control-error>Position is required!</clr-control-error>
       </clr-select-container>
+
+      <clr-select-container>
+        <label>Shooting Hand:</label>
+        <select clrSelect name="shootingHand" formControlName="shootingHand" required>
+          <option value="Left">Left</option>
+          <option value="Right">Right</option>
+        </select>
+        <clr-control-helper>Team of the new player</clr-control-helper>
+      </clr-select-container>
+
+      <clr-select-container>
+        <label>Team:</label>
+        <select clrSelect name="team" formControlName="team">
+          <option *ngFor="let t of teamNames | keyvalue" value="{{ t.key }}">
+            {{ t.value }}
+          </option>
+        </select>
+        <clr-control-helper>Team of the new player</clr-control-helper>
+        <clr-control-error>Team is required!</clr-control-error>
+      </clr-select-container>
+
+      <clr-radio-container clrInline>
+        <label>Captain:</label>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="isCaptain" required value="true" formControlName="isCaptain" />
+          <label>Yes</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="isCaptain" required value="false" formControlName="isCaptain" />
+          <label>No</label>
+        </clr-radio-wrapper>
+        <clr-control-helper>Is new player captain?</clr-control-helper>
+        <clr-control-error>Captain is required!</clr-control-error>
+      </clr-radio-container>
+
+      <clr-radio-container clrInline>
+        <label>Assistant Captain:</label>
+        <clr-radio-wrapper>
+          <input
+            type="radio"
+            clrRadio
+            name="isAssistantCaptain"
+            required
+            value="true"
+            formControlName="isAssistantCaptain"
+          />
+          <label>Yes</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input
+            type="radio"
+            clrRadio
+            name="isAssistantCaptain"
+            required
+            value="false"
+            formControlName="isAssistantCaptain"
+          />
+          <label>No</label>
+        </clr-radio-wrapper>
+        <clr-control-helper>Is new player assistant captain?</clr-control-helper>
+        <clr-control-error>Assistant captain is required!</clr-control-error>
+      </clr-radio-container>
+
+      <clr-input-container>
+        <label for="yearOfExperience">Year of experience:</label>
+        <input name="yearOfExperience" clrInput type="number" formControlName="yearOfExperience" />
+        <clr-control-helper>Year of experience of the new player</clr-control-helper>
+        <clr-control-error *ngIf="yearOfExperience.errors && yearOfExperience.errors.required"
+          >Year of experience is required!</clr-control-error
+        >
+        <clr-control-error *ngIf="yearOfExperience.errors && yearOfExperience.errors.min"
+          >Year of exerience is at least 0</clr-control-error
+        >
+      </clr-input-container>
+
       <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Add</button>
     </form>
     <pre>
       Form values: {{ form.value | json }}
+
+      Errors: {{ yearOfExperience.errors | json }}
     </pre>
   </main>
 </article>
