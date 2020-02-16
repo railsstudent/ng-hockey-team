@@ -1,7 +1,50 @@
-<p>new-player-container works!</p>
 <article class="team-container">
   <team-title [url]="'/team/players'">Add New Player</team-title>
-  <!-- <team-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></team-err-message>
-    <team-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></team-success-message> -->
-  <main class="form-container"></main>
+  <team-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></team-err-message>
+  <team-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></team-success-message>
+  <main class="form-container">
+    <form clrForm [formGroup]="form" (ngSubmit)="addPlayer$.next()" #f="ngForm">
+      <clr-input-container>
+        <label for="name">Name:</label>
+        <input name="name" clrInput type="text" formControlName="name" />
+        <clr-control-helper>Name of the new player</clr-control-helper>
+        <clr-control-error>Name is required!</clr-control-error>
+      </clr-input-container>
+      <clr-date-container>
+        <label for="dob">Date of birth:</label>
+        <input type="date" clrDate name="dob" formControlName="dob" />
+        <clr-control-helper>Date of birth of the new player</clr-control-helper>
+        <clr-control-error>Date of birth is required!</clr-control-error>
+      </clr-date-container>
+      <clr-input-container>
+        <label for="age">Age:</label>
+        <input name="age" clrInput type="number" formControlName="age" />
+        <clr-control-helper>Age of the new player</clr-control-helper>
+        <clr-control-error>Age is required!</clr-control-error>
+        <clr-control-error>Minimum age is 18!</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label for="nationality">Nationality:</label>
+        <input name="nationality" clrInput type="text" formControlName="name" />
+        <clr-control-helper>Nationality of the new player</clr-control-helper>
+        <clr-control-error>Nationality is required!</clr-control-error>
+      </clr-input-container>
+
+      <clr-select-container>
+        <label>Division</label>
+        <select clrSelect name="division" formControlName="division" required>
+          <option value="East">East</option>
+          <option value="South">South</option>
+          <option value="West">West</option>
+          <option value="North">North</option>
+        </select>
+        <clr-control-helper>Division of the new team</clr-control-helper>
+        <clr-control-error>Division is required!</clr-control-error>
+      </clr-select-container>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Add</button>
+    </form>
+    <pre>
+      Form values: {{ form.value | json }}
+    </pre>
+  </main>
 </article>
