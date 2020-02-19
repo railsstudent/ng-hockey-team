@@ -15,7 +15,9 @@
         <label for="dob">Date of birth:</label>
         <input type="date" clrDate name="dob" formControlName="dob" required />
         <clr-control-helper>Date of birth of the new player</clr-control-helper>
-        <clr-control-error>Date of birth is required!</clr-control-error>
+        <clr-control-error *ngIf="dob.errors && dob.errors.required">Date of birth is required!</clr-control-error>
+        <clr-control-error *ngIf="dob.errors && dob.errors.minimumAge">Minimum age is {{ minAge }}!</clr-control-error>
+        <clr-control-error *ngIf="dob.errors && dob.errors.futureTime">You are from the future!</clr-control-error>
       </clr-date-container>
 
       <clr-input-container>
@@ -116,7 +118,7 @@
     <pre>
       Form values: {{ form.value | json }}
 
-      Errors: {{ yearOfExperience.errors | json }}
+      Errors: {{ dob.errors | json }}
     </pre>
   </main>
 </article>
