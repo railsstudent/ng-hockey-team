@@ -22,8 +22,8 @@ install:
 
 script:
   - npm audit
-  # - npm run lint
-  # - npm run prettier-check
+  - npm run lint
+  - npm run prettier-check
   - ng deploy --base-href="$GITHUB_PAGE/$REPO_NAME/" --repo="$GITHUB_ORG/$GITHUB_NAME/$REPO_NAME.git" --name="$GITHUB_NAME" --email="$GITHUB_EMAIL" --no-silent
 
 branches:
