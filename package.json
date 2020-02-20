@@ -4,13 +4,13 @@
   "scripts": {
     "ng": "ng",
     "prettier": "prettier --write \"**/*.{js,json,css,md,ts,html,component.html}\"",
-    "start": "./node_modules/.bin/ng serve",
-    "build": "./node_modules/.bin/ng build",
-    "test": "./node_modules/.bin/ng test",
-    "lint": "./node_modules/.bin/ng lint",
-    "e2e": "./node_modules/.bin/ng e2e",
-    "stats": "./node_modules/.bin/ng build --prod --stats-json && webpack-bundle-analyzer ./dist/ng-hockey-team/stats.json",
-    "prettier-check": "./node_modules/.bin/prettier --single-quote --list-different \"*.{js,json,css,md,ts,html,component.html}\""
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "stats": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/ng-hockey-team/stats.json",
+    "prettier-check": "prettier --single-quote --list-different \"*.{js,json,css,md,ts,html,component.html}\""
   },
   "private": true,
   "dependencies": {
