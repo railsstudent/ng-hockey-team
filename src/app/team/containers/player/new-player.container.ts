@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
 import { getPlayerCloseAlert, getPlayerErrorMessage, getPlayerMessage, getTeamNameMap, LeagueState } from '../../store';
-import { futureTimeValidator, minimumAgeValidator } from '../../validators';
+import { futureTimeValidator, minimumAgeValidator, singlePositionValidator } from '../../validators';
 
 const MIN_AGE = 18;
 
@@ -41,19 +41,22 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       });
 
-    this.form = this.fb.group({
-      name: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
-      dob: new FormControl('', {
-        validators: [Validators.required, minimumAgeValidator(MIN_AGE), futureTimeValidator()],
-      }),
-      nationality: new FormControl('', { validators: [Validators.required] }),
-      position: new FormControl(PLAYER_POSITION.CENTER, { validators: [Validators.required] }),
-      shootingHand: new FormControl(SHOOTING_HAND.RIGHT, { validators: [Validators.required] }),
-      team: new FormControl(''),
-      isCaptain: new FormControl('false', { validators: [Validators.required] }),
-      isAssistantCaptain: new FormControl('false', { validators: [Validators.required] }),
-      yearOfExperience: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
-    });
+    this.form = this.fb.group(
+      {
+        name: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
+        dob: new FormControl('', {
+          validators: [Validators.required, minimumAgeValidator(MIN_AGE), futureTimeValidator()],
+        }),
+        nationality: new FormControl('', { validators: [Validators.required] }),
+        position: new FormControl(PLAYER_POSITION.CENTER, { validators: [Validators.required] }),
+        shootingHand: new FormControl(SHOOTING_HAND.RIGHT, { validators: [Validators.required] }),
+        team: new FormControl(''),
+        isCaptain: new FormControl('false', { validators: [Validators.required] }),
+        isAssistantCaptain: new FormControl('false', { validators: [Validators.required] }),
+        yearOfExperience: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
+      },
+      { validators: singlePositionValidator() },
+    );
 
     this.addPlayer$.pipe(takeUntil(this.unsubscribe$)).subscribe(v => {
       this.f.resetForm();
