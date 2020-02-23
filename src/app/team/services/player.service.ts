@@ -1,15 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { differenceInYears } from 'date-fns';
-import { Observable, of, throwError } from 'rxjs';
+import { EMPTY, Observable, of, Subject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
 import { NewPlayer, Player } from '../models';
 
 const PLAYERS_KEY = 'players';
+const JSON_URL = 'assets/nationality.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayerService {
+  private nationalitySub$ = new Subject<{ [key: string]: string }>();
+  nationality$ = this.nationalitySub$.asObservable();
+
+  constructor(private http: HttpClient) {}
+
   getAll(): Observable<Player[]> {
     const playerStr = localStorage.getItem(PLAYERS_KEY);
     const playerArray = playerStr ? (JSON.parse(playerStr) as Player[]) : [];
@@ -84,5 +92,18 @@ export class PlayerService {
     const updatedPlayerArray = playerArray.filter(p => p.id !== id);
     localStorage.setItem(PLAYERS_KEY, JSON.stringify(updatedPlayerArray));
     return of(player);
+  }
+
+  getNationalities() {
+    return this.http
+      .get<{ [key: string]: string }>(JSON_URL)
+      .pipe(
+        tap(result => this.nationalitySub$.next({ '': '', ...result })),
+        catchError(() => {
+          this.nationalitySub$.next({});
+          return EMPTY;
+        }),
+      )
+      .subscribe();
   }
 }

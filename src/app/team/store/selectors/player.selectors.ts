@@ -5,8 +5,8 @@ import { getRouterInfo } from './router.selectors';
 
 export const getPlayerMessage = createSelector(fromFeature.getPlayersFeature, fromPlayer.getMessage);
 export const getPlayerErrorMessage = createSelector(fromFeature.getPlayersFeature, fromPlayer.getError);
-export const getLoading = createSelector(fromFeature.getPlayersFeature, fromPlayer.getLoading);
-export const getLoaded = createSelector(fromFeature.getPlayersFeature, fromPlayer.getLoaded);
+export const getPlayerLoading = createSelector(fromFeature.getPlayersFeature, fromPlayer.getLoading);
+export const getPlayerLoaded = createSelector(fromFeature.getPlayersFeature, fromPlayer.getLoaded);
 
 export const getAllPlayers = createSelector(fromFeature.getPlayersFeature, fromPlayer.selectPlayers);
 

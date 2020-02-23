@@ -2,9 +2,20 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@ang
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { delay, finalize, takeUntil, tap } from 'rxjs/operators';
+import { ProgressService } from 'src/app/shared/progress.service';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
-import { getPlayerCloseAlert, getPlayerErrorMessage, getPlayerMessage, getTeamNameMap, LeagueState } from '../../store';
+import { PlayerService } from '../../services';
+import {
+  getPlayerCloseAlert,
+  getPlayerErrorMessage,
+  getPlayerLoading,
+  getPlayerMessage,
+  getTeamNameMap,
+  LeagueState,
+  PlayerActions,
+} from '../../store';
+import { getCloseAlert } from '../../store/';
 import { futureTimeValidator, minimumAgeValidator, singlePositionValidator } from '../../validators';
 
 const MIN_AGE = 18;
@@ -25,12 +36,20 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
   closeAlert$ = this.store.pipe(select(getPlayerCloseAlert));
   addPlayer$ = new Subject<NewPlayer>();
   teamNames: { [key: string]: string } = {};
+  nationality$ = this.service.nationality$;
+  loading$ = this.store.pipe(select(getPlayerLoading));
 
   form: FormGroup;
 
   private unsubscribe$ = new Subject();
 
-  constructor(private store: Store<LeagueState>, private fb: FormBuilder, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private store: Store<LeagueState>,
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private service: PlayerService,
+    private progress: ProgressService,
+  ) {}
 
   ngOnInit() {
     this.store
@@ -58,21 +77,38 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
       { validators: singlePositionValidator() },
     );
 
-    this.addPlayer$.pipe(takeUntil(this.unsubscribe$)).subscribe(v => {
-      this.f.resetForm();
-      this.form.reset({
-        name: '',
-        dob: '',
-        age: MIN_AGE,
-        nationality: '',
-        position: PLAYER_POSITION.CENTER,
-        shootingHand: SHOOTING_HAND.RIGHT,
-        team: '',
-        isCaptain: 'false',
-        isAssistantCaptain: 'false',
-        yearOfExperience: 0,
+    this.loading$
+      .pipe(
+        tap(value => (value ? this.progress.show() : this.progress.hide())),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe();
+
+    this.addPlayer$
+      .pipe(
+        delay(0),
+        tap(() => this.progress.show()),
+        tap(newPlayer => this.store.dispatch(PlayerActions.addPlayer({ newPlayer }))),
+        finalize(() => this.progress.hide()),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe(() => {
+        this.f.resetForm();
+        this.form.reset({
+          name: '',
+          dob: '',
+          age: MIN_AGE,
+          nationality: '',
+          position: PLAYER_POSITION.CENTER,
+          shootingHand: SHOOTING_HAND.RIGHT,
+          team: '',
+          isCaptain: 'false',
+          isAssistantCaptain: 'false',
+          yearOfExperience: 0,
+        });
       });
-    });
+
+    this.service.getNationalities();
   }
 
   get yearOfExperience() {

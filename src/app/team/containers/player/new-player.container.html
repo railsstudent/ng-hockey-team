@@ -16,16 +16,21 @@
         <input type="date" clrDate name="dob" formControlName="dob" required />
         <clr-control-helper>Date of birth of the new player</clr-control-helper>
         <clr-control-error *ngIf="dob.errors && dob.errors.required">Date of birth is required!</clr-control-error>
-        <clr-control-error *ngIf="dob.errors && dob.errors.minimumAge">Minimum age is {{ minAge }}!</clr-control-error>
+        <clr-control-error *ngIf="dob.errors && dob.errors.minimumAge">Minimum age is {{ minAge }}! </clr-control-error>
         <clr-control-error *ngIf="dob.errors && dob.errors.futureTime">You are from the future!</clr-control-error>
       </clr-date-container>
 
-      <clr-input-container>
+      <clr-select-container>
         <label for="nationality">Nationality:</label>
-        <input name="nationality" clrInput type="text" formControlName="nationality" required />
+        <select clrSelect name="nationality" formControlName="nationality" required>
+          <option *ngFor="let nationality of (nationality$ | async) | keyvalue" value="{{ nationality.key}}">
+            {{ nationality.value }}</option
+          >
+        </select>
+
         <clr-control-helper>Nationality of the new player</clr-control-helper>
         <clr-control-error>Nationality is required!</clr-control-error>
-      </clr-input-container>
+      </clr-select-container>
 
       <clr-select-container>
         <label>Position:</label>
