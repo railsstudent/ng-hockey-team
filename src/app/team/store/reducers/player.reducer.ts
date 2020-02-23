@@ -6,7 +6,6 @@ import { PlayerActions } from '../actions';
 export interface PlayerState extends EntityState<Player> {
   error: string | null;
   message: string | null;
-  closeAlert: boolean;
   loaded: boolean;
   loading: boolean;
 }
@@ -16,7 +15,6 @@ export const playerAdapter: EntityAdapter<Player> = createEntityAdapter<Player>(
 const initialState: PlayerState = playerAdapter.getInitialState({
   error: null,
   message: null,
-  closeAlert: false,
   loaded: false,
   loading: false,
 });
@@ -28,7 +26,6 @@ export const playerReducer = createReducer(
     message: null,
     error: null,
     loading: true,
-    closeAlert: false,
   })),
   on(PlayerActions.addPlayerSuccess, (state, { player, message }) => ({
     ...playerAdapter.addOne(player, state),
@@ -45,7 +42,6 @@ export const playerReducer = createReducer(
     message: null,
     error: null,
     loading: true,
-    closeAlert: false,
   })),
   on(PlayerActions.updatePlayerSuccess, (state, { player, message }) => {
     const updatedPlayer = {
@@ -68,7 +64,6 @@ export const playerReducer = createReducer(
     message: null,
     error: null,
     loading: true,
-    closeAlert: false,
   })),
   on(PlayerActions.deletePlayerSuccess, (state, { playerId, message }) => ({
     ...playerAdapter.removeOne(playerId, state),
@@ -85,7 +80,6 @@ export const playerReducer = createReducer(
     message: null,
     error: null,
     loading: true,
-    closeAlert: false,
   })),
   on(PlayerActions.loadPlayerSuccess, (state, { player }) => ({
     ...playerAdapter.addOne(player, state),
@@ -101,7 +95,6 @@ export const playerReducer = createReducer(
     message: null,
     error: null,
     loading: true,
-    closeAlert: false,
   })),
   on(PlayerActions.loadPlayersSuccess, (state, { players }) => ({
     ...playerAdapter.addAll(players, state),
@@ -118,11 +111,6 @@ export const playerReducer = createReducer(
     ...state,
     message: null,
     error: null,
-    closeAlert: false,
-  })),
-  on(PlayerActions.UpdateCloseAlert, (state, { closeAlert }) => ({
-    ...state,
-    closeAlert,
   })),
 );
 
@@ -142,4 +130,3 @@ export const getError = (state: PlayerState) => state.error;
 export const getMessage = (state: PlayerState) => state.message;
 export const getLoaded = (state: PlayerState) => state.loaded;
 export const getLoading = (state: PlayerState) => state.loading;
-export const getCloseAlert = (state: PlayerState) => state.closeAlert;

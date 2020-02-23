@@ -31,8 +31,6 @@ export const getSelectedTeam = createSelector(getTeamEntities, getRouterInfo, (e
   return team ? fromTeam.calculateTeamPercentages(team) : undefined;
 });
 
-export const getCloseAlert = createSelector(fromFeature.getTeamsFeature, fromTeam.getCloseAlert);
-
 export const getTeamsLoaded = createSelector(fromFeature.getTeamsFeature, fromTeam.getLoaded);
 
 export const getTeamLoading = createSelector(fromFeature.getTeamsFeature, fromTeam.getLoading);

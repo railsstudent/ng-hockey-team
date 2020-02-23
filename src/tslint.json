@@ -2,6 +2,6 @@
   "extends": ["../tslint.json", "rxjs-tslint-rules"],
   "rules": {
     "directive-selector": [true, "attribute", ["app", "team"], "camelCase"],
-    "component-selector": [true, "element", ["app", "team", "player", "division"], "kebab-case"]
+    "component-selector": [true, "element", ["app", "team", "player", "division", "alert"], "kebab-case"]
   }
 }

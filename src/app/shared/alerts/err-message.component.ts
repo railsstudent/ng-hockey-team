@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { getCloseAlert, getTeamErrorMessage, LeagueState, TeamActions } from '../../store';
+import { Store } from '@ngrx/store';
+import { AlertActions, AlertState } from '../../store';
 
 @Component({
-  selector: 'team-err-message',
+  selector: 'alert-err-message',
   template: `
     <div class="alert alert-danger team-alert" role="alert" *ngIf="error && !closeAlert">
       <div class="alert-items">
@@ -19,20 +19,20 @@ import { getCloseAlert, getTeamErrorMessage, LeagueState, TeamActions } from '..
       </button>
     </div>
   `,
-  styleUrls: ['./team-err-message.component.scss'],
+  styleUrls: ['./err-message.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamErrMessageComponent implements OnInit {
+export class ErrMessageComponent implements OnInit {
   @Input()
   error: string;
   @Input()
   closeAlert: boolean;
 
-  constructor(private store: Store<LeagueState>) {}
+  constructor(private store: Store<AlertState>) {}
 
   ngOnInit() {}
 
   closeAlertMessage() {
-    this.store.dispatch(TeamActions.UpdateCloseAlert({ closeAlert: true }));
+    this.store.dispatch(AlertActions.closeAlert());
   }
 }

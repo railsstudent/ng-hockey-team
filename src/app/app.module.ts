@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { ConfigModule } from './config.module';
 import { CoreModule } from './core';
 import { SharedModule } from './shared';
-import { CustomSerializer, metaReducers, reducers } from './store';
+import { CustomSerializer, metaReducers, rootReducers } from './store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +20,7 @@ import { CustomSerializer, metaReducers, reducers } from './store';
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
-    StoreModule.forRoot(reducers, {
+    StoreModule.forRoot(rootReducers, {
       metaReducers,
       runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
     }),

@@ -10,8 +10,8 @@ export interface LeagueState extends fromRoot.AppState {
 }
 
 export const reducers: ActionReducerMap<LeagueState, any> = {
+  ...fromRoot.rootReducers,
   teams: fromTeam.reducer,
-  router: fromRouter.routerReducer,
   players: fromPlayer.reducer,
 };
 

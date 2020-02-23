@@ -1,7 +1,7 @@
 <article class="team-container">
   <team-title [url]="'/team'">Add New Team</team-title>
-  <team-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></team-err-message>
-  <team-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></team-success-message>
+  <alert-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></alert-err-message>
+  <alert-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></alert-success-message>
   <main class="form-container">
     <form clrForm [formGroup]="form" (ngSubmit)="addTeam$.next()" #f="ngForm">
       <clr-input-container>

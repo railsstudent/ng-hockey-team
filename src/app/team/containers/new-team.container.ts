@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { AlertActions, getAlertCloseAlert } from 'src/app/store';
 import { ProgressService } from '../../shared/progress.service';
-import { getCloseAlert, getTeamErrorMessage, getTeamLoading, getTeamMessage, LeagueState, TeamActions } from '../store';
+import { getTeamErrorMessage, getTeamLoading, getTeamMessage, LeagueState, TeamActions } from '../store';
 
 @Component({
   templateUrl: './new-team.container.html',
@@ -20,7 +21,7 @@ export class NewTeamContainer implements OnInit, OnDestroy {
   message$: Observable<string | null>;
 
   error$ = this.store.pipe(select(getTeamErrorMessage));
-  closeAlert$ = this.store.pipe(select(getCloseAlert));
+  closeAlert$ = this.store.pipe(select(getAlertCloseAlert));
   loading$ = this.store.pipe(select(getTeamLoading));
   addTeam$ = new Subject();
   unsubscribe$ = new Subject();
@@ -65,7 +66,7 @@ export class NewTeamContainer implements OnInit, OnDestroy {
         tap(() => this.store.dispatch(TeamActions.AddTeam(this.form.value))),
         takeUntil(this.unsubscribe$),
       )
-      .subscribe();
+      .subscribe(() => this.store.dispatch(AlertActions.openAlert()));
   }
 
   get divisionCtrl() {

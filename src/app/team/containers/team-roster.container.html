@@ -3,7 +3,7 @@
     <ng-container *appContentLoaderIf="!o.loading; height 150">
       <team-title [url]="'/team/list'">{{ o.team.division }} - {{ o.team.name }}</team-title>
       <section class="roster-container">
-        <team-err-message [error]="error$| async" [closeAlert]="hideError$ | async"></team-err-message>
+        <alert-err-message [error]="error$ | async" [closeAlert]="hideError$ | async"></alert-err-message>
         <section class="main-content">
           <ng-container *ngIf="(isSmallScreen$ | async); else horizontalTable">
             <team-stat-vertical-table

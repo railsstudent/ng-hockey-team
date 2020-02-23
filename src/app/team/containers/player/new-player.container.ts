@@ -4,10 +4,10 @@ import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { delay, finalize, takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
+import { AlertActions, getAlertCloseAlert } from '../../../store';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
 import { PlayerService } from '../../services';
 import {
-  getPlayerCloseAlert,
   getPlayerErrorMessage,
   getPlayerLoading,
   getPlayerMessage,
@@ -15,7 +15,6 @@ import {
   LeagueState,
   PlayerActions,
 } from '../../store';
-import { getCloseAlert } from '../../store/';
 import { futureTimeValidator, minimumAgeValidator, singlePositionValidator } from '../../validators';
 
 const MIN_AGE = 18;
@@ -33,7 +32,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
 
   error$ = this.store.pipe(select(getPlayerErrorMessage));
   message$ = this.store.pipe(select(getPlayerMessage));
-  closeAlert$ = this.store.pipe(select(getPlayerCloseAlert));
+  closeAlert$ = this.store.pipe(select(getAlertCloseAlert));
   addPlayer$ = new Subject<NewPlayer>();
   teamNames: { [key: string]: string } = {};
   nationality$ = this.service.nationality$;
@@ -106,6 +105,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
           isAssistantCaptain: 'false',
           yearOfExperience: 0,
         });
+        this.store.dispatch(AlertActions.openAlert());
       });
 
     this.service.getNationalities();

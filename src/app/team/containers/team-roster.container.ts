@@ -5,9 +5,9 @@ import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
+import { AlertActions, getAlertCloseAlert } from 'src/app/store';
 import { UpdateTeamValue } from '../models';
 import {
-  getCloseAlert,
   getCurrentDivision,
   getSelectedTeam,
   getTeamErrorMessage,
@@ -35,7 +35,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   isSmallScreen$ = this.breakpointObserver.observe(['(max-width: 767px)']).pipe(map(x => x.matches));
   team$ = this.store.pipe(select(getSelectedTeam));
   error$ = this.store.pipe(select(getTeamErrorMessage));
-  hideError$ = this.store.pipe(select(getCloseAlert));
+  hideError$ = this.store.pipe(select(getAlertCloseAlert));
   loading$ = this.store.pipe(select(getTeamLoading));
   currentDivision$ = this.store.pipe(select(getCurrentDivision));
 
@@ -83,7 +83,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   closeAlert() {
-    this.store.dispatch(TeamActions.UpdateCloseAlert({ closeAlert: true }));
+    this.store.dispatch(AlertActions.closeAlert());
   }
 
   gotoTeam(teamId: string) {

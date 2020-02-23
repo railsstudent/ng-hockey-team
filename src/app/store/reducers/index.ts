@@ -1,6 +1,4 @@
-import { Params, RouterStateSnapshot } from '@angular/router';
 import * as fromRouter from '@ngrx/router-store';
-import { RouterStateSerializer } from '@ngrx/router-store';
 import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector, MetaReducer } from '@ngrx/store';
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
@@ -9,46 +7,26 @@ import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector,
  */
 
 import { environment } from '../../../environments/environment';
+import * as fromAlert from './alert-reducer';
+import { RouterStateUrl } from './custom-serializer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
+  alert: fromAlert.AlertState;
 }
 
-export const reducers: ActionReducerMap<AppState> = {
+export const rootReducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
+  alert: fromAlert.reducer,
 };
-
-export interface RouterStateUrl {
-  url: string;
-  params: Params;
-  queryParams: Params;
-}
-
-export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
-  serialize(routerState: RouterStateSnapshot): RouterStateUrl {
-    let route = routerState.root;
-
-    while (route.firstChild) {
-      route = route.firstChild;
-    }
-
-    const {
-      url,
-      root: { queryParams },
-    } = routerState;
-    const { params } = route;
-
-    // Only return an object including the URL, params and query params
-    // instead of the entire snapshot
-    return { url, params, queryParams };
-  }
-}
 
 export const getRouterFeature = createFeatureSelector<AppState, fromRouter.RouterReducerState<RouterStateUrl>>(
   'router',
 );
 
 export const selectRouterInfo = createSelector(getRouterFeature, state => state.state);
+
+export const getAlertFeature = createFeatureSelector<AppState, fromAlert.AlertState>('alert');
 
 // console.log all actions
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -61,3 +39,5 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [debug] : [];
+export * from './custom-serializer';
+export * from './alert-reducer';

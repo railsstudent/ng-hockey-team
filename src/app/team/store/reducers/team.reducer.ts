@@ -7,7 +7,6 @@ export interface State extends EntityState<Team> {
   // additional entities state properties
   error: string | null;
   message: string | null;
-  closeAlert: boolean;
   loaded: boolean;
   loading: boolean;
 }
@@ -18,7 +17,6 @@ export const initialState: State = adapter.getInitialState({
   // additional entity state properties
   error: null,
   message: null,
-  closeAlert: false,
   loaded: false,
   loading: false,
 });
@@ -30,7 +28,6 @@ const teamReducer = createReducer(
     ...adapter.addAll(teams, state),
     error: null,
     message: null,
-    closeAlert: false,
     loaded: true,
     loading: false,
   })),
@@ -38,7 +35,6 @@ const teamReducer = createReducer(
     ...state,
     message: null,
     error: error || null,
-    closeAlert: false,
     loading: false,
     loaded: false,
   })),
@@ -46,28 +42,24 @@ const teamReducer = createReducer(
     ...state,
     message: null,
     error: null,
-    closeAlert: false,
     loading: true,
   })),
   on(TeamActions.DeleteTeam, state => ({
     ...state,
     message: null,
     error: null,
-    closeAlert: false,
     loading: true,
   })),
   on(TeamActions.UpdateTeamRecord, state => ({
     ...state,
     message: null,
     error: null,
-    closeAlert: false,
     loading: true,
   })),
   on(TeamActions.AddTeamSuccess, (state, { team, message }) => ({
     ...adapter.addOne(team, state),
     error: null,
     message,
-    closeAlert: false,
     loading: false,
   })),
   on(TeamActions.AddTeamFailure, (state, { error }) => ({
@@ -95,15 +87,10 @@ const teamReducer = createReducer(
       loading: false,
     };
   }),
-  on(TeamActions.UpdateCloseAlert, (state, { closeAlert }) => ({
-    ...state,
-    closeAlert,
-  })),
   on(TeamActions.NavigateAction, state => ({
     ...state,
     message: null,
     error: null,
-    closeAlert: false,
   })),
   on(TeamActions.DeleteTeamSuccess, (state, { teamId, message }) => ({
     ...adapter.removeOne(teamId, state),
@@ -123,7 +110,6 @@ export const { selectIds, selectEntities, selectAll, selectTotal } = adapter.get
 
 export const getMessage = (state: State) => state.message;
 export const getError = (state: State) => state.error;
-export const getCloseAlert = (state: State) => state.closeAlert;
 export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
