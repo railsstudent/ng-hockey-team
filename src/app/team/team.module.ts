@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared';
 import {
   MatchCounterComponent,
+  PlayerSummaryComponent,
   TeamComponent,
   TeamStandingTableComponent,
   TeamStatHorizontalTableComponent,
@@ -14,6 +15,7 @@ import {
 import {
   DivisionStandingContainer,
   ListingContainer,
+  ListPlayerComponent,
   NewPlayerContainer,
   NewTeamContainer,
   TeamAnalysisContainer,
@@ -22,6 +24,7 @@ import {
 } from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
+import { LeaderCodePipe } from './pipes';
 import { PlayerMenuCardModule } from './player-menu-card';
 import { PlayerEffects, reducers, TeamEffects } from './store';
 import { TeamMenuCardModule } from './team-menu-card';
@@ -43,6 +46,9 @@ import { TeamRoutingModule } from './team-routing.module';
     TeamTitleComponent,
     TeamStatisticsContainer,
     NewPlayerContainer,
+    PlayerSummaryComponent,
+    LeaderCodePipe,
+    ListPlayerComponent,
   ],
   imports: [
     CommonModule,
