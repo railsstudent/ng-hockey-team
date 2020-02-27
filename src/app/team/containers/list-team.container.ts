@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { EMPTY, Subject } from 'rxjs';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
 import { TeamWithPercentages } from '../models';
 import { getAllTeamWithPercentages, getTeamLoading, LeagueState, TeamActions } from '../store';
@@ -38,6 +38,10 @@ export class ListingContainer implements OnInit, OnDestroy {
     this.loading$
       .pipe(
         tap(value => (value ? this.progress.show() : this.progress.hide())),
+        catchError(() => {
+          this.progress.hide();
+          return EMPTY;
+        }),
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
