@@ -21,29 +21,29 @@ const initialState: PlayerState = playerAdapter.getInitialState({
 
 export const playerReducer = createReducer(
   initialState,
-  on(PlayerActions.addPlayer, state => ({
+  on(PlayerActions.AddPlayer, state => ({
     ...state,
     message: null,
     error: null,
     loading: true,
   })),
-  on(PlayerActions.addPlayerSuccess, (state, { player, message }) => ({
+  on(PlayerActions.AddPlayerSuccess, (state, { player, message }) => ({
     ...playerAdapter.addOne(player, state),
     message,
     loading: false,
   })),
-  on(PlayerActions.addPlayerFailure, (state, { error }) => ({
+  on(PlayerActions.AddPlayerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
-  on(PlayerActions.updatePlayer, state => ({
+  on(PlayerActions.UpdatePlayer, state => ({
     ...state,
     message: null,
     error: null,
     loading: true,
   })),
-  on(PlayerActions.updatePlayerSuccess, (state, { player, message }) => {
+  on(PlayerActions.UpdatePlayerSuccess, (state, { player, message }) => {
     const updatedPlayer = {
       id: player.id,
       changes: player,
@@ -54,54 +54,54 @@ export const playerReducer = createReducer(
       loading: false,
     };
   }),
-  on(PlayerActions.updatePlayerFailure, (state, { error }) => ({
+  on(PlayerActions.UpdatePlayerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
-  on(PlayerActions.deletePlayer, state => ({
+  on(PlayerActions.DeletePlayer, state => ({
     ...state,
     message: null,
     error: null,
     loading: true,
   })),
-  on(PlayerActions.deletePlayerSuccess, (state, { playerId, message }) => ({
+  on(PlayerActions.DeletePlayerSuccess, (state, { playerId, message }) => ({
     ...playerAdapter.removeOne(playerId, state),
     message,
     loading: false,
   })),
-  on(PlayerActions.deletePlayerFailure, (state, { error }) => ({
+  on(PlayerActions.DeletePlayerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
-  on(PlayerActions.loadPlayer, state => ({
+  on(PlayerActions.LoadPlayer, state => ({
     ...state,
     message: null,
     error: null,
     loading: true,
   })),
-  on(PlayerActions.loadPlayerSuccess, (state, { player }) => ({
+  on(PlayerActions.LoadPlayerSuccess, (state, { player }) => ({
     ...playerAdapter.addOne(player, state),
     loading: false,
   })),
-  on(PlayerActions.loadPlayerFailure, (state, { error }) => ({
+  on(PlayerActions.LoadPlayerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
-  on(PlayerActions.loadPlayers, state => ({
+  on(PlayerActions.LoadPlayers, state => ({
     ...state,
     message: null,
     error: null,
     loading: true,
   })),
-  on(PlayerActions.loadPlayersSuccess, (state, { players }) => ({
+  on(PlayerActions.LoadPlayersSuccess, (state, { players }) => ({
     ...playerAdapter.addAll(players, state),
     loaded: true,
     loading: false,
   })),
-  on(PlayerActions.loadPlayersFailure, (state, { error }) => ({
+  on(PlayerActions.LoadPlayersFailure, (state, { error }) => ({
     ...state,
     error,
     loaded: false,

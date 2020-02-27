@@ -87,7 +87,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
       .pipe(
         delay(0),
         tap(() => this.progress.show()),
-        tap(newPlayer => this.store.dispatch(PlayerActions.addPlayer({ newPlayer }))),
+        tap(newPlayer => this.store.dispatch(PlayerActions.AddPlayer({ newPlayer }))),
         finalize(() => this.progress.hide()),
         takeUntil(this.unsubscribe$),
       )

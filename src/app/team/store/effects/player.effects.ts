@@ -14,12 +14,12 @@ export class PlayerEffects {
 
   addPlayer$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(PlayerActions.addPlayer),
+      ofType(PlayerActions.AddPlayer),
       exhaustMap(({ newPlayer }) => {
         const player$ = this.service.addPlayer(newPlayer).pipe(delay(DELAY));
         return player$.pipe(
-          map(player => PlayerActions.addPlayerSuccess({ player, message: 'Player is created successfully' })),
-          catchError((error: string) => of(PlayerActions.addPlayerFailure({ error })).pipe(delay(DELAY))),
+          map(player => PlayerActions.AddPlayerSuccess({ player, message: 'Player is created successfully' })),
+          catchError((error: string) => of(PlayerActions.AddPlayerFailure({ error })).pipe(delay(DELAY))),
         );
       }),
     ),
@@ -27,19 +27,19 @@ export class PlayerEffects {
 
   updatePlayer$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(PlayerActions.updatePlayer),
+      ofType(PlayerActions.UpdatePlayer),
       concatMap(({ player }) => {
         const { id: playerId } = player;
         if (typeof playerId === 'undefined' || playerId === null || playerId === '') {
-          return of(PlayerActions.updatePlayerFailure({ error: 'Player id does not exist' })).pipe(delay(DELAY));
+          return of(PlayerActions.UpdatePlayerFailure({ error: 'Player id does not exist' })).pipe(delay(DELAY));
         }
 
         const player$ = this.service.updatePlayer(player).pipe(delay(DELAY));
         return player$.pipe(
           map(updatedPlayer =>
-            PlayerActions.updatePlayerSuccess({ player: updatedPlayer, message: 'Player is updated successfully' }),
+            PlayerActions.UpdatePlayerSuccess({ player: updatedPlayer, message: 'Player is updated successfully' }),
           ),
-          catchError((error: string) => of(PlayerActions.updatePlayerFailure({ error })).pipe(delay(DELAY))),
+          catchError((error: string) => of(PlayerActions.UpdatePlayerFailure({ error })).pipe(delay(DELAY))),
         );
       }),
     ),
@@ -47,17 +47,17 @@ export class PlayerEffects {
 
   deletePlayer$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(PlayerActions.deletePlayer),
+      ofType(PlayerActions.DeletePlayer),
       mergeMap(({ playerId }) => {
         if (typeof playerId === 'undefined' || playerId === null || playerId === '') {
-          return of(PlayerActions.deletePlayerFailure({ error: 'Player id does not exist' }));
+          return of(PlayerActions.DeletePlayerFailure({ error: 'Player id does not exist' }));
         }
         const player$ = this.service.deletePlayer(playerId).pipe(delay(DELAY));
         return player$.pipe(
           map(player =>
-            PlayerActions.deletePlayerSuccess({ playerId: player.id, message: 'Player is deleted successfully' }),
+            PlayerActions.DeletePlayerSuccess({ playerId: player.id, message: 'Player is deleted successfully' }),
           ),
-          catchError((error: string) => of(PlayerActions.deletePlayerFailure({ error })).pipe(delay(DELAY))),
+          catchError((error: string) => of(PlayerActions.DeletePlayerFailure({ error })).pipe(delay(DELAY))),
         );
       }),
     ),
@@ -65,15 +65,15 @@ export class PlayerEffects {
 
   loadPlayer$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(PlayerActions.loadPlayer),
+      ofType(PlayerActions.LoadPlayer),
       switchMap(({ playerId }) => {
         if (!playerId) {
-          return of(PlayerActions.loadPlayerFailure({ error: 'Player id does not exist' }));
+          return of(PlayerActions.LoadPlayerFailure({ error: 'Player id does not exist' }));
         }
         const player$ = this.service.getPlayer(playerId).pipe(delay(DELAY));
         return player$.pipe(
-          map(player => PlayerActions.loadPlayerSuccess({ player })),
-          catchError((error: string) => of(PlayerActions.loadPlayerFailure({ error })).pipe(delay(DELAY))),
+          map(player => PlayerActions.LoadPlayerSuccess({ player })),
+          catchError((error: string) => of(PlayerActions.LoadPlayerFailure({ error })).pipe(delay(DELAY))),
         );
       }),
     ),
@@ -81,12 +81,12 @@ export class PlayerEffects {
 
   loadPlayers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(PlayerActions.loadPlayers),
+      ofType(PlayerActions.LoadPlayers),
       switchMap(() => {
         const player$ = this.service.getAll().pipe(delay(DELAY));
         return player$.pipe(
-          map(players => PlayerActions.loadPlayersSuccess({ players })),
-          catchError((error: string) => of(PlayerActions.loadPlayersFailure({ error })).pipe(delay(DELAY))),
+          map(players => PlayerActions.LoadPlayersSuccess({ players })),
+          catchError((error: string) => of(PlayerActions.LoadPlayersFailure({ error })).pipe(delay(DELAY))),
         );
       }),
     ),

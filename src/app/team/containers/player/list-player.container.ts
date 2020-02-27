@@ -8,10 +8,10 @@ import { LeagueState, PlayerActions } from '../../store';
   templateUrl: './list-player.container.html',
   styleUrls: ['./list-player.container.scss'],
 })
-export class ListPlayerComponent implements OnInit {
+export class ListPlayerContainer implements OnInit {
   constructor(private store: Store<LeagueState>, private progress: ProgressService) {}
 
   ngOnInit() {
-    this.store.dispatch(PlayerActions.loadPlayers());
+    this.store.dispatch(PlayerActions.LoadPlayers());
   }
 }

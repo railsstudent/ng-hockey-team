@@ -22,4 +22,8 @@ export class PlayerMenuCardComponent implements OnInit {
   openAddPlayerForm() {
     this.store.dispatch(PlayerActions.NavigateAction('/team/players/new'));
   }
+
+  openPlayerList() {
+    this.store.dispatch(PlayerActions.NavigateAction('/team/players/list'));
+  }
 }

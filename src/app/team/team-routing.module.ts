@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
   ListingContainer,
+  ListPlayerContainer,
   NewPlayerContainer,
   NewTeamContainer,
   TeamRosterContainer,
@@ -42,6 +43,11 @@ const routes: Routes = [
   {
     path: 'players/new',
     component: NewPlayerContainer,
+    canActivate: [TeamGuard],
+  },
+  {
+    path: 'players/list',
+    component: ListPlayerContainer,
     canActivate: [TeamGuard],
   },
 ];
