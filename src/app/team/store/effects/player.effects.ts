@@ -12,6 +12,7 @@ const DELAY = 2000;
 export class PlayerEffects {
   constructor(private actions$: Actions, private service: PlayerService, private router: Router) {}
 
+  @Effect()
   addPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.AddPlayer),
@@ -25,6 +26,7 @@ export class PlayerEffects {
     ),
   );
 
+  @Effect()
   updatePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.UpdatePlayer),
@@ -45,6 +47,7 @@ export class PlayerEffects {
     ),
   );
 
+  @Effect()
   deletePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.DeletePlayer),
@@ -63,6 +66,7 @@ export class PlayerEffects {
     ),
   );
 
+  @Effect()
   loadPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.LoadPlayer),
@@ -79,6 +83,7 @@ export class PlayerEffects {
     ),
   );
 
+  @Effect()
   loadPlayers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.LoadPlayers),
@@ -90,11 +95,5 @@ export class PlayerEffects {
         );
       }),
     ),
-  );
-
-  @Effect({ dispatch: false })
-  navigate$ = this.actions$.pipe(
-    ofType(PlayerActions.NavigateAction.type),
-    tap(({ url, queryParams, pathParams }) => this.router.navigate([url, ...(pathParams as any[])], queryParams)),
   );
 }

@@ -1,4 +1,3 @@
-import { Params } from '@angular/router';
 import { createAction, props, union } from '@ngrx/store';
 import { Team } from '../../models';
 
@@ -14,10 +13,6 @@ export const UpdateTeamRecord = createAction(
 );
 export const UpdateTeamRecordSuccess = createAction('[Team] Update Team Record Success', props<{ team: Team }>());
 export const UpdateTeamRecordFailure = createAction('[Team] Update Team Record Failure', props<{ error: string }>());
-export const NavigateAction = createAction(
-  '[Team] Navigate to next url',
-  (url: string, pathParams: any[] = [], queryParams: Params = {}) => ({ url, pathParams, queryParams }),
-);
 export const DeleteTeam = createAction('[Team] Delete Team', props<{ teamId: string }>());
 export const DeleteTeamSuccess = createAction(
   '[Team] Delete Team Success',
@@ -35,7 +30,6 @@ const all = union({
   UpdateTeamRecord,
   UpdateTeamRecordSuccess,
   UpdateTeamRecordFailure,
-  NavigateAction,
   DeleteTeam,
   DeleteTeamSuccess,
   DeleteTeamFailure,

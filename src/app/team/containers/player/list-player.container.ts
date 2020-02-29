@@ -2,7 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { EMPTY, Subject } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
+import { NavigationActions } from 'src/app/store';
 import { ProgressService } from '../../../shared/';
+import { Player } from '../../models';
 import { getAllPlayers, getPlayerLoading, LeagueState, PlayerActions } from '../../store';
 
 @Component({
@@ -31,6 +33,20 @@ export class ListPlayerContainer implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
+  }
+
+  trackByFunction(index: number, item: Player) {
+    return item.id;
+  }
+
+  showPlayer(playerId: string) {
+    const url = '/team/players/details';
+    const pathParams = [playerId];
+    this.store.dispatch(NavigationActions.NextRoute(url, pathParams));
+  }
+
+  deleteCurrentPlayer(playerId: string) {
+    this.store.dispatch(PlayerActions.DeletePlayer({ playerId }));
   }
 
   ngOnDestroy() {

@@ -1,22 +1,21 @@
 <article class="team-container">
   <team-title [url]="'/team/players'">Players</team-title>
-  <!-- <main class="list-container">
-    <ng-container *ngIf="{ teams: teams$ | async, loading: loading$ | async } as o">
+  <main class="list-container">
+    <ng-container *ngIf="{ players: players$ | async, loading: loading$ | async } as o">
       <ng-container *appContentLoaderIf="!o.loading; height 150">
         <section class="clr-row">
           <div
-            *ngFor="let team of o.teams; index as i; trackBy: trackByFunction"
+            *ngFor="let player of o.players; index as i; trackBy: trackByFunction"
             class="clr-col-lg-4 clr-col-md-6 clr-col-sm-6 clr-col-12"
           >
-            <team-summary
-              [team]="team"
-              [index]="i"
-              (gotoTeam)="showTeamRoster($event)"
-              (deleteTeam)="deleteCurrentTeam($event)"
-            ></team-summary>
+            <player-summary
+              [player]="player"
+              (gotoPlayer)="showPlayer($event)"
+              (deleteTeam)="deleteCurrentPlayer($event)"
+            ></player-summary>
           </div>
         </section>
       </ng-container>
     </ng-container>
-  </main> -->
+  </main>
 </article>

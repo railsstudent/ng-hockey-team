@@ -1,8 +1,9 @@
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NavigationActions } from 'src/app/store';
 import { PortalService } from '../../core';
-import { LeagueState, TeamActions } from '../store';
+import { LeagueState } from '../store';
 
 @Component({
   selector: 'team-menu-card',
@@ -21,6 +22,6 @@ export class TeamMenuCardComponent implements OnInit {
   }
 
   openAddTeamForm() {
-    this.store.dispatch(TeamActions.NavigateAction('/team/new'));
+    this.store.dispatch(NavigationActions.NextRoute('/team/new'));
   }
 }

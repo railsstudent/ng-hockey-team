@@ -48,6 +48,10 @@ const routes: Routes = [
   {
     path: 'players/list',
     component: ListPlayerContainer,
+  },
+  {
+    path: 'players/details/:id',
+    component: ListPlayerContainer,
     canActivate: [TeamGuard],
   },
 ];

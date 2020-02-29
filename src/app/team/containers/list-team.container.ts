@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { EMPTY, Subject } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
+import { NavigationActions } from 'src/app/store';
 import { TeamWithPercentages } from '../models';
 import { getAllTeamWithPercentages, getTeamLoading, LeagueState, TeamActions } from '../store';
 
@@ -48,7 +49,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.store.dispatch(TeamActions.NavigateAction('/team'));
+    this.store.dispatch(NavigationActions.NextRoute('/team'));
   }
 
   trackByFunction(index: number, team: TeamWithPercentages) {
@@ -58,7 +59,7 @@ export class ListingContainer implements OnInit, OnDestroy {
   showTeamRoster(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
+    this.store.dispatch(NavigationActions.NextRoute(url, pathParams));
   }
 
   deleteCurrentTeam(teamId: string) {

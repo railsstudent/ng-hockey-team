@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { NavigationActions } from 'src/app/store';
 import {
   getTeamLoading,
   getTopDefensiveTeams,
@@ -7,7 +8,6 @@ import {
   getTopThreeTeams,
   getWorstDefensiveTeams,
   getWorstOffensiveTeams,
-  TeamActions,
 } from '../store';
 
 @Component({
@@ -29,6 +29,6 @@ export class TeamAnalysisContainer {
   gotoTeam(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
+    this.store.dispatch(NavigationActions.NextRoute(url, pathParams));
   }
 }

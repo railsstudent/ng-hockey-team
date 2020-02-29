@@ -3,14 +3,13 @@
 <div class="clr-row">
   <div class="clr-col-12 clr-col-sm-6 clr-col-md-6 clr-col-lg-4">
     <div class="card">
-      er
       <div class="card-header">{{ player.name }} {{ player | leaderCode }}</div>
       <div class="card-block">
         <div class="card-title">
           <p>Team: {{ (player.team && player.team.name) || 'Free Agent' }}</p>
         </div>
         <div class="card-text">
-          <p>Nationality: {{ nationalityDisplay }}</p>
+          <p>Nationality:</p>
         </div>
       </div>
       <div class="card-footer">

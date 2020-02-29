@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { NavigationActions } from 'src/app/store';
 import { getOverallStanding, getTeamLoading, LeagueState, TeamActions } from '../store';
 
 @Component({
@@ -17,11 +18,11 @@ export class TeamStatisticsContainer {
   gotoTeam(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
+    this.store.dispatch(NavigationActions.NextRoute(url, pathParams));
   }
 
   createTeam() {
     const url = '/team/new';
-    this.store.dispatch(TeamActions.NavigateAction(url));
+    this.store.dispatch(NavigationActions.NextRoute(url));
   }
 }

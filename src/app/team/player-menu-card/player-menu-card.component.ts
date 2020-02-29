@@ -2,7 +2,8 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PortalService } from 'src/app/core';
-import { LeagueState, PlayerActions } from '../store';
+import { NavigationActions } from 'src/app/store';
+import { LeagueState } from '../store';
 
 @Component({
   selector: 'player-menu-card',
@@ -20,10 +21,10 @@ export class PlayerMenuCardComponent implements OnInit {
   }
 
   openAddPlayerForm() {
-    this.store.dispatch(PlayerActions.NavigateAction('/team/players/new'));
+    this.store.dispatch(NavigationActions.NextRoute('/team/players/new'));
   }
 
   openPlayerList() {
-    this.store.dispatch(PlayerActions.NavigateAction('/team/players/list'));
+    this.store.dispatch(NavigationActions.NextRoute('/team/players/list'));
   }
 }

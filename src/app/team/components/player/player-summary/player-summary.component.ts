@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Player } from '../../../models';
 
 @Component({
@@ -10,8 +10,14 @@ export class PlayerSummaryComponent implements OnInit {
   @Input()
   player: Player;
 
-  @Input()
-  nationalityDisplay = '';
+  @Output()
+  gotoPlayer = new EventEmitter<string>();
+
+  @Output()
+  deletePlayer = new EventEmitter<string>();
+
+  // @Input()
+  // nationalityDisplay = '';
 
   constructor() {}
 

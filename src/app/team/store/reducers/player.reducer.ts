@@ -107,11 +107,6 @@ export const playerReducer = createReducer(
     loaded: false,
     loading: false,
   })),
-  on(PlayerActions.NavigateAction, state => ({
-    ...state,
-    message: null,
-    error: null,
-  })),
 );
 
 export function reducer(state: PlayerState | undefined, actions: Action) {

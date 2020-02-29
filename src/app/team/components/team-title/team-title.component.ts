@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LeagueState, TeamActions } from '../../store';
+import { NavigationActions } from 'src/app/store';
+import { LeagueState } from '../../store';
 
 @Component({
   selector: 'team-title',
@@ -15,6 +16,6 @@ export class TeamTitleComponent {
   constructor(private store: Store<LeagueState>) {}
 
   back() {
-    this.store.dispatch(TeamActions.NavigateAction(this.url));
+    this.store.dispatch(NavigationActions.NextRoute(this.url));
   }
 }

@@ -87,11 +87,6 @@ const teamReducer = createReducer(
       loading: false,
     };
   }),
-  on(TeamActions.NavigateAction, state => ({
-    ...state,
-    message: null,
-    error: null,
-  })),
   on(TeamActions.DeleteTeamSuccess, (state, { teamId, message }) => ({
     ...adapter.removeOne(teamId, state),
     message,

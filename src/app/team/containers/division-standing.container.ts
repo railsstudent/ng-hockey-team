@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component, Inject, OnDestroy } from '@angular/
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { map, shareReplay, takeUntil } from 'rxjs/operators';
+import { NavigationActions } from 'src/app/store';
 import { DIVISION_ORDER } from '../../shared';
-import { getDivisionStanding, getTeamLoading, LeagueState, TeamActions } from '../store';
+import { getDivisionStanding, getTeamLoading, LeagueState } from '../store';
 
 @Component({
   selector: 'division-standing',
@@ -25,13 +26,13 @@ export class DivisionStandingContainer implements OnDestroy {
   gotoTeam(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
+    this.store.dispatch(NavigationActions.NextRoute(url, pathParams));
   }
 
   createTeam(division = '') {
     const url = '/team/new';
     const queryParams = { queryParams: { division } };
-    this.store.dispatch(TeamActions.NavigateAction(url, [], queryParams));
+    this.store.dispatch(NavigationActions.NextRoute(url, [], queryParams));
   }
 
   ngOnDestroy() {

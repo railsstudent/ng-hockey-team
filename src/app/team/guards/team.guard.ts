@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
-import { first, tap } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { getPlayersLoaded, getTeamsLoaded, LeagueState, PlayerActions, TeamActions } from '../store';
 
 @Injectable()
@@ -11,11 +11,8 @@ export class TeamGuard implements CanActivate {
   playersLoaded = false;
 
   constructor(private store: Store<LeagueState>) {
-    combineLatest(this.store.pipe(select(getTeamsLoaded)), this.store.pipe(select(getPlayersLoaded)))
-      .pipe(
-        tap(v => console.log('loaded', v)),
-        first(),
-      )
+    combineLatest([this.store.pipe(select(getTeamsLoaded)), this.store.pipe(select(getPlayersLoaded))])
+      .pipe(first())
       .subscribe(([loaded, playersLoaded]) => {
         this.loaded = loaded;
         this.playersLoaded = playersLoaded;

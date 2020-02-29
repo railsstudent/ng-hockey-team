@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
-import { AlertActions, getAlertCloseAlert } from 'src/app/store';
+import { AlertActions, getAlertCloseAlert, NavigationActions } from 'src/app/store';
 import { UpdateTeamValue } from '../models';
 import {
   getCurrentDivision,
@@ -79,7 +79,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   }
 
   returnToMenu() {
-    this.store.dispatch(TeamActions.NavigateAction('/team/list'));
+    this.store.dispatch(NavigationActions.NextRoute('/team/list'));
   }
 
   closeAlert() {
@@ -89,7 +89,7 @@ export class TeamRosterContainer implements OnInit, OnDestroy {
   gotoTeam(teamId: string) {
     const url = '/team/roster';
     const pathParams = [teamId];
-    this.store.dispatch(TeamActions.NavigateAction(url, pathParams));
+    this.store.dispatch(NavigationActions.NextRoute(url, pathParams));
   }
 
   ngOnDestroy() {

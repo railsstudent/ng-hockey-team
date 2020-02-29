@@ -1,5 +1,4 @@
-import { Params } from '@angular/router';
-import { createAction, props, union } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { NewPlayer, Player } from '../../models';
 
 export const AddPlayer = createAction('[Player] Add Player', props<{ newPlayer: NewPlayer }>());
@@ -30,7 +29,3 @@ export const LoadPlayerFailure = createAction('[Player] Load Player Failure', pr
 export const LoadPlayers = createAction('[Player] Load Players');
 export const LoadPlayersSuccess = createAction('[Player] Load Players Success', props<{ players: Player[] }>());
 export const LoadPlayersFailure = createAction('[Player] Load Players Failure', props<{ error: string }>());
-export const NavigateAction = createAction(
-  '[Player] Navigate to next url',
-  (url: string, pathParams: any[] = [], queryParams: Params = {}) => ({ url, pathParams, queryParams }),
-);

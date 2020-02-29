@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { ConfigModule } from './config.module';
 import { CoreModule } from './core';
 import { SharedModule } from './shared';
-import { CustomSerializer, metaReducers, rootReducers } from './store';
+import { CustomSerializer, metaReducers, NavigationEffects, rootReducers } from './store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +24,7 @@ import { CustomSerializer, metaReducers, rootReducers } from './store';
       metaReducers,
       runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([NavigationEffects]),
     StoreDevtoolsModule.instrument({ name: 'ng hockey teams', maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
