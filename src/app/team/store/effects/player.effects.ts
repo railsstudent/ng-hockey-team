@@ -96,4 +96,15 @@ export class PlayerEffects {
       }),
     ),
   );
+
+  @Effect()
+  loadNationalities$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlayerActions.LoadNationalities),
+      switchMap(() => {
+        const player$ = this.service.getNationalities().pipe(delay(DELAY));
+        return player$.pipe(map(nationalities => PlayerActions.LoadNationalitiesSuccess({ nationalities })));
+      }),
+    ),
+  );
 }

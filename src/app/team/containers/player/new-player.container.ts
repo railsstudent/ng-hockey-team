@@ -8,6 +8,7 @@ import { AlertActions, getAlertCloseAlert } from '../../../store';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
 import { PlayerService } from '../../services';
 import {
+  getNationalities,
   getPlayerErrorMessage,
   getPlayerLoading,
   getPlayerMessage,
@@ -35,8 +36,8 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
   closeAlert$ = this.store.pipe(select(getAlertCloseAlert));
   addPlayer$ = new Subject<NewPlayer>();
   teamNames: { [key: string]: string } = {};
-  nationality$ = this.service.nationality$;
   loading$ = this.store.pipe(select(getPlayerLoading));
+  nationality$ = this.store.pipe(select(getNationalities));
 
   form: FormGroup;
 

@@ -9,6 +9,7 @@ import { getPlayersLoaded, getTeamsLoaded, LeagueState, PlayerActions, TeamActio
 export class TeamGuard implements CanActivate {
   loaded = false;
   playersLoaded = false;
+  nationalityLoaded = false;
 
   constructor(private store: Store<LeagueState>) {
     combineLatest([this.store.pipe(select(getTeamsLoaded)), this.store.pipe(select(getPlayersLoaded))])
@@ -27,11 +28,19 @@ export class TeamGuard implements CanActivate {
         this.store.dispatch(TeamActions.LoadTeams());
       }
     }
+
+    if (next.url && next.url.length && ['players/new', 'players/details'].some(prefix => path.startsWith(prefix))) {
+      if (!this.nationalityLoaded) {
+        this.store.dispatch(PlayerActions.LoadNationalities());
+      }
+    }
+
     if (next.url && next.url.length && ['players/details'].some(prefix => path.startsWith(prefix))) {
       if (!this.playersLoaded) {
         this.store.dispatch(PlayerActions.LoadPlayers());
       }
     }
+
     return true;
   }
 }

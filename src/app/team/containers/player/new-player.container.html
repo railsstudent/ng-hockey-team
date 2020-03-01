@@ -120,11 +120,6 @@
 
       <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Add</button>
     </form>
-    <pre>
-      Form values: {{ form.value | json }}
-      Errors: {{ dob.errors | json }}
-      Form errors: {{ form.errors | json }}
-    </pre>
     <div *ngIf="form.errors && form.errors.singlePosition" class="error-box">
       You cannot be both captain and assistant captain.
     </div>

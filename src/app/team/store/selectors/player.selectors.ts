@@ -16,3 +16,6 @@ export const getSelectedPlayer = createSelector(
   getRouterInfo,
   (entities, router) => router.params && router.params.id && entities[router.params.id],
 );
+
+export const getNationalityLoaded = createSelector(fromFeature.getPlayersFeature, fromPlayer.getNationalityLoaded);
+export const getNationalities = createSelector(fromFeature.getPlayersFeature, fromPlayer.getNationalities);

@@ -29,3 +29,9 @@ export const LoadPlayerFailure = createAction('[Player] Load Player Failure', pr
 export const LoadPlayers = createAction('[Player] Load Players');
 export const LoadPlayersSuccess = createAction('[Player] Load Players Success', props<{ players: Player[] }>());
 export const LoadPlayersFailure = createAction('[Player] Load Players Failure', props<{ error: string }>());
+
+export const LoadNationalities = createAction('[Player] Load Nationalities');
+export const LoadNationalitiesSuccess = createAction(
+  '[Player] Load Nationalities Success',
+  props<{ nationalities: { [key: string]: string } }>(),
+);

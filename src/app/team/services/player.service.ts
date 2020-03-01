@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { differenceInYears } from 'date-fns';
-import { EMPTY, Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
 import { NewPlayer, Player } from '../models';
 
@@ -13,9 +13,6 @@ const JSON_URL = 'assets/nationality.json';
   providedIn: 'root',
 })
 export class PlayerService {
-  private nationalitySub$ = new Subject<{ [key: string]: string }>();
-  nationality$ = this.nationalitySub$.asObservable();
-
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Player[]> {
@@ -95,15 +92,12 @@ export class PlayerService {
   }
 
   getNationalities() {
-    return this.http
-      .get<{ [key: string]: string }>(JSON_URL)
-      .pipe(
-        tap(result => this.nationalitySub$.next({ '': '', ...result })),
-        catchError(() => {
-          this.nationalitySub$.next({});
-          return EMPTY;
-        }),
-      )
-      .subscribe();
+    return this.http.get<{ [key: string]: string }>(JSON_URL).pipe(
+      map(result => ({
+        '': '',
+        ...result,
+      })),
+      catchError(() => of({})),
+    );
   }
 }

@@ -8,6 +8,8 @@ export interface PlayerState extends EntityState<Player> {
   message: string | null;
   loaded: boolean;
   loading: boolean;
+  nationalities: { [key: string]: string };
+  nationalityLoaded: boolean;
 }
 
 export const playerAdapter: EntityAdapter<Player> = createEntityAdapter<Player>();
@@ -17,6 +19,8 @@ const initialState: PlayerState = playerAdapter.getInitialState({
   message: null,
   loaded: false,
   loading: false,
+  nationalities: {},
+  nationalityLoaded: false,
 });
 
 export const playerReducer = createReducer(
@@ -107,6 +111,14 @@ export const playerReducer = createReducer(
     loaded: false,
     loading: false,
   })),
+  on(PlayerActions.LoadNationalities, state => state),
+  on(PlayerActions.LoadNationalitiesSuccess, (state, { nationalities }) => {
+    return {
+      ...state,
+      nationalities,
+      nationalityLoaded: true,
+    };
+  }),
 );
 
 export function reducer(state: PlayerState | undefined, actions: Action) {
@@ -125,3 +137,5 @@ export const getError = (state: PlayerState) => state.error;
 export const getMessage = (state: PlayerState) => state.message;
 export const getLoaded = (state: PlayerState) => state.loaded;
 export const getLoading = (state: PlayerState) => state.loading;
+export const getNationalityLoaded = (state: PlayerState) => state.nationalityLoaded;
+export const getNationalities = (state: PlayerState) => state.nationalities;
