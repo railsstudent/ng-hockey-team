@@ -73,6 +73,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         isCaptain: new FormControl('false', { validators: [Validators.required] }),
         isAssistantCaptain: new FormControl('false', { validators: [Validators.required] }),
         yearOfExperience: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
+        jerseyNo: new FormControl(''),
       },
       { validators: singlePositionValidator() },
     );

@@ -36,8 +36,6 @@ export class PlayerService {
   }
 
   addPlayer(newPlayer: NewPlayer): Observable<Player> {
-    console.log('addPlayer fired....', newPlayer);
-
     const playerStr = localStorage.getItem(PLAYERS_KEY);
     const playerArray = playerStr ? (JSON.parse(playerStr) as Player[]) : [];
 

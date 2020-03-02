@@ -20,6 +20,7 @@ export interface NewPlayer {
   isCaptain: boolean;
   isAssistantCaptain: boolean;
   yearOfExperience: number;
+  jerseyNo?: string;
 }
 
 export interface Player extends NewPlayer {

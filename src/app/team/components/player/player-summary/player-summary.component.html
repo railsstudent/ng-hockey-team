@@ -2,10 +2,12 @@
   <div class="card-header">{{ player.name }} {{ player | leaderCode }}</div>
   <div class="card-block">
     <div class="card-title">
-      <p>Team: {{ teamName }}</p>
+      <h3>Team: {{ teamName }}</h3>
     </div>
     <div class="card-text">
-      <p>Nationality: {{ nationality }}</p>
+      <div>Position: {{ player.position }}</div>
+      <div>Jersey No.: {{ player.jerseyNo || 'N/A' }}</div>
+      <div>Nationality: {{ nationality }}</div>
     </div>
   </div>
   <div class="card-footer">

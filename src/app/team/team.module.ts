@@ -24,7 +24,7 @@ import {
 } from './containers/';
 import { TeamCounterArrowsVisibleDirective } from './directives';
 import { TeamGuard } from './guards';
-import { LeaderCodePipe } from './pipes';
+import { DateOfBirthPipe, LeaderCodePipe } from './pipes';
 import { PlayerMenuCardModule } from './player-menu-card';
 import { PlayerEffects, reducers, TeamEffects } from './store';
 import { TeamMenuCardModule } from './team-menu-card';
@@ -49,6 +49,7 @@ import { TeamRoutingModule } from './team-routing.module';
     PlayerSummaryComponent,
     LeaderCodePipe,
     ListPlayerContainer,
+    DateOfBirthPipe,
   ],
   imports: [
     CommonModule,
