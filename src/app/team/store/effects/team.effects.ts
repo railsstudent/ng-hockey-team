@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, delay, exhaustMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { TeamService } from '../../services';
@@ -12,28 +12,30 @@ const DELAY = 2000;
 export class TeamEffects {
   constructor(private actions$: Actions, private teamService: TeamService, private router: Router) {}
 
-  @Effect()
-  loadTeams$ = this.actions$.pipe(
-    ofType(TeamActions.LoadTeams.type),
-    switchMap(() => {
-      const team$ = this.teamService.getAll().pipe(delay(DELAY));
-      return team$.pipe(
-        map(teams => TeamActions.LoadTeamsSuccess({ teams })),
-        catchError((error: string) => of(TeamActions.LoadTeamsFailure({ error })).pipe(delay(DELAY))),
-      );
-    }),
+  loadTeams$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TeamActions.LoadTeams.type),
+      switchMap(() => {
+        const team$ = this.teamService.getAll().pipe(delay(DELAY));
+        return team$.pipe(
+          map(teams => TeamActions.LoadTeamsSuccess({ teams })),
+          catchError((error: string) => of(TeamActions.LoadTeamsFailure({ error })).pipe(delay(DELAY))),
+        );
+      }),
+    ),
   );
 
-  @Effect()
-  addTeam$ = this.actions$.pipe(
-    ofType(TeamActions.AddTeam.type),
-    exhaustMap(({ division, name }) => {
-      const team$ = this.teamService.addTeam(division, name).pipe(delay(DELAY));
-      return team$.pipe(
-        map(team => TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
-        catchError((error: string) => of(TeamActions.AddTeamFailure({ error })).pipe(delay(DELAY))),
-      );
-    }),
+  addTeam$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TeamActions.AddTeam.type),
+      exhaustMap(({ division, name }) => {
+        const team$ = this.teamService.addTeam(division, name).pipe(delay(DELAY));
+        return team$.pipe(
+          map(team => TeamActions.AddTeamSuccess({ team, message: 'Team is created successfully.' })),
+          catchError((error: string) => of(TeamActions.AddTeamFailure({ error })).pipe(delay(DELAY))),
+        );
+      }),
+    ),
   );
 
   @Effect()
