@@ -12,14 +12,11 @@ export enum SHOOTING_HAND {
 
 export interface NewPlayer {
   name: string;
-  dob: Date;
+  dob: string;
   nationality: string;
   position: PLAYER_POSITION;
   shootingHand?: SHOOTING_HAND;
-  team?: {
-    id: string;
-    name: string;
-  };
+  team?: string;
   isCaptain: boolean;
   isAssistantCaptain: boolean;
   yearOfExperience: number;

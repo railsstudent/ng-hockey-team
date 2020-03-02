@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { differenceInYears } from 'date-fns';
+import { differenceInYears, parse } from 'date-fns';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
@@ -36,12 +36,14 @@ export class PlayerService {
   }
 
   addPlayer(newPlayer: NewPlayer): Observable<Player> {
+    console.log('addPlayer fired....', newPlayer);
+
     const playerStr = localStorage.getItem(PLAYERS_KEY);
     const playerArray = playerStr ? (JSON.parse(playerStr) as Player[]) : [];
 
     const id = uuid();
 
-    const age = differenceInYears(new Date(), newPlayer.dob);
+    const age = differenceInYears(new Date(), parse(newPlayer.dob, 'MM/dd/yyyy', new Date()));
 
     const player: Player = {
       id,

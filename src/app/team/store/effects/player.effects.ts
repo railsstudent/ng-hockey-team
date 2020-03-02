@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, delay, exhaustMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, concatMap, delay, exhaustMap, map, mergeMap, switchMap } from 'rxjs/operators';
 import { PlayerService } from '../../services';
 import { PlayerActions } from '../actions';
 
@@ -10,9 +9,8 @@ const DELAY = 2000;
 
 @Injectable()
 export class PlayerEffects {
-  constructor(private actions$: Actions, private service: PlayerService, private router: Router) {}
+  constructor(private actions$: Actions, private service: PlayerService) {}
 
-  @Effect()
   addPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.AddPlayer),
@@ -26,7 +24,6 @@ export class PlayerEffects {
     ),
   );
 
-  @Effect()
   updatePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.UpdatePlayer),
@@ -47,7 +44,6 @@ export class PlayerEffects {
     ),
   );
 
-  @Effect()
   deletePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.DeletePlayer),
@@ -66,7 +62,6 @@ export class PlayerEffects {
     ),
   );
 
-  @Effect()
   loadPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.LoadPlayer),
@@ -83,7 +78,6 @@ export class PlayerEffects {
     ),
   );
 
-  @Effect()
   loadPlayers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.LoadPlayers),
@@ -97,7 +91,6 @@ export class PlayerEffects {
     ),
   );
 
-  @Effect()
   loadNationalities$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.LoadNationalities),

@@ -1,20 +1,14 @@
-<p>player-summary works!</p>
-
-<div class="clr-row">
-  <div class="clr-col-12 clr-col-sm-6 clr-col-md-6 clr-col-lg-4">
-    <div class="card">
-      <div class="card-header">{{ player.name }} {{ player | leaderCode }}</div>
-      <div class="card-block">
-        <div class="card-title">
-          <p>Team: {{ (player.team && player.team.name) || 'Free Agent' }}</p>
-        </div>
-        <div class="card-text">
-          <p>Nationality:</p>
-        </div>
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-primary">Details</button>
-      </div>
+<div class="card">
+  <div class="card-header">{{ player.name }} {{ player | leaderCode }}</div>
+  <div class="card-block">
+    <div class="card-title">
+      <p>Team: {{ teamName }}</p>
     </div>
+    <div class="card-text">
+      <p>Nationality: {{ nationality }}</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-primary">Details</button>
   </div>
 </div>

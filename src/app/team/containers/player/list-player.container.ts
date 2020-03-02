@@ -5,7 +5,15 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { NavigationActions } from 'src/app/store';
 import { ProgressService } from '../../../shared/';
 import { Player } from '../../models';
-import { getAllPlayers, getPlayerLoading, LeagueState, PlayerActions } from '../../store';
+import {
+  getAllPlayers,
+  getAllTeams,
+  getNationalities,
+  getPlayerLoading,
+  LeagueState,
+  PlayerActions,
+  TeamActions,
+} from '../../store';
 
 @Component({
   selector: 'player-list',
@@ -15,6 +23,8 @@ import { getAllPlayers, getPlayerLoading, LeagueState, PlayerActions } from '../
 export class ListPlayerContainer implements OnInit, OnDestroy {
   players$ = this.store.pipe(select(getAllPlayers));
   loading$ = this.store.pipe(select(getPlayerLoading));
+  nationalities$ = this.store.pipe(select(getNationalities));
+  allTeams$ = this.store.pipe(select(getAllTeams));
 
   unsubscribe$ = new Subject();
 
@@ -22,6 +32,8 @@ export class ListPlayerContainer implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(PlayerActions.LoadPlayers());
+    this.store.dispatch(PlayerActions.LoadNationalities());
+    this.store.dispatch(TeamActions.LoadTeams());
 
     this.loading$
       .pipe(
@@ -33,6 +45,10 @@ export class ListPlayerContainer implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
+
+    this.nationalities$.subscribe(v => console.log('nationalities', v));
+
+    this.allTeams$.subscribe(v => console.log('allTeams', v));
   }
 
   trackByFunction(index: number, item: Player) {

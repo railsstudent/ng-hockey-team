@@ -6,7 +6,6 @@ import { delay, finalize, takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
 import { AlertActions, getAlertCloseAlert } from '../../../store';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
-import { PlayerService } from '../../services';
 import {
   getNationalities,
   getPlayerErrorMessage,
@@ -47,11 +46,12 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
     private store: Store<LeagueState>,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private service: PlayerService,
     private progress: ProgressService,
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(AlertActions.closeAlert());
+
     this.store
       .pipe(select(getTeamNameMap))
       .pipe(takeUntil(this.unsubscribe$))
@@ -88,8 +88,10 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
       .pipe(
         delay(0),
         tap(() => this.progress.show()),
-        tap(newPlayer => this.store.dispatch(PlayerActions.AddPlayer({ newPlayer }))),
-        finalize(() => this.progress.hide()),
+        tap(newPlayer => {
+          console.log('dispatch AddPlayer');
+          this.store.dispatch(PlayerActions.AddPlayer({ newPlayer }));
+        }),
         takeUntil(this.unsubscribe$),
       )
       .subscribe(() => {
@@ -108,8 +110,6 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         });
         this.store.dispatch(AlertActions.openAlert());
       });
-
-    this.service.getNationalities();
   }
 
   get yearOfExperience() {
