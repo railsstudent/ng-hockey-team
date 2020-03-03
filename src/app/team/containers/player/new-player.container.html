@@ -3,6 +3,15 @@
   <alert-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></alert-err-message>
   <alert-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></alert-success-message>
   <main class="form-container">
+    <div class="error-box" *ngIf="form.errors">
+      <div *ngIf="form.errors.singlePosition">
+        You cannot be both captain and assistant captain.
+      </div>
+      <div *ngIf="form.errors.emptyUniformNum">
+        Please assign a number for the player to wear
+      </div>
+    </div>
+
     <form clrForm [formGroup]="form" (ngSubmit)="addPlayer$.next(form.value)" #f="ngForm">
       <clr-input-container>
         <label for="name">Name:</label>
@@ -65,9 +74,9 @@
       </clr-select-container>
 
       <clr-input-container>
-        <label for="jerseyNo">Jersey Number:</label>
-        <input name="jerseyNo" clrInput type="text" formControlName="jerseyNo" />
-        <clr-control-helper>Jersey no. of the new player</clr-control-helper>
+        <label for="uniformNo">Uniform Number:</label>
+        <input name="uniformNo" clrInput type="text" formControlName="uniformNo" />
+        <clr-control-helper>Uniform number of the new player</clr-control-helper>
       </clr-input-container>
 
       <clr-radio-container clrInline>
@@ -126,8 +135,5 @@
 
       <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Add</button>
     </form>
-    <div *ngIf="form.errors && form.errors.singlePosition" class="error-box">
-      You cannot be both captain and assistant captain.
-    </div>
   </main>
 </article>

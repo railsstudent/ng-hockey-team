@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@ang
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { delay, finalize, takeUntil, tap } from 'rxjs/operators';
+import { delay, takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
 import { AlertActions, getAlertCloseAlert } from '../../../store';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
@@ -15,7 +15,12 @@ import {
   LeagueState,
   PlayerActions,
 } from '../../store';
-import { futureTimeValidator, minimumAgeValidator, singlePositionValidator } from '../../validators';
+import {
+  futureTimeValidator,
+  minimumAgeValidator,
+  singlePositionValidator,
+  uniformNumValidator,
+} from '../../validators';
 
 const MIN_AGE = 18;
 
@@ -73,9 +78,9 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         isCaptain: new FormControl('false', { validators: [Validators.required] }),
         isAssistantCaptain: new FormControl('false', { validators: [Validators.required] }),
         yearOfExperience: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
-        jerseyNo: new FormControl(''),
+        uniformNo: new FormControl(''),
       },
-      { validators: singlePositionValidator() },
+      { validators: [singlePositionValidator(), uniformNumValidator()] },
     );
 
     this.loading$
