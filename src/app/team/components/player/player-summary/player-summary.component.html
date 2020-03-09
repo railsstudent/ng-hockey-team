@@ -5,8 +5,8 @@
       <h3>Team: {{ teamName }}</h3>
     </div>
     <div class="card-text">
-      <div>Position: {{ player.position }}</div>
-      <div>Jersey No.: {{ player.jerseyNo || 'N/A' }}</div>
+      <div>Position: {{ player.position + ' / ' + (player.shootingHand || '') }}</div>
+      <div>Uniform No.: {{ player.uniformNo || 'N/A' }}</div>
       <div>Nationality: {{ nationality }}</div>
     </div>
   </div>
