@@ -17,8 +17,8 @@ export interface NewPlayer {
   position: PLAYER_POSITION;
   shootingHand?: SHOOTING_HAND;
   team?: string;
-  isCaptain: boolean;
-  isAssistantCaptain: boolean;
+  isCaptain: string;
+  isAssistantCaptain: string;
   yearOfExperience: number;
   uniformNo?: string;
 }
