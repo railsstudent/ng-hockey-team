@@ -28,7 +28,7 @@ export const getPlayerNationality = createSelector(getNationalities, getSelected
   return 'N/A';
 });
 
-export const getPlayerClub = createSelector(getAllTeams, getSelectedPlayer, (teams, player) => {
+export const getPlayerTeam = createSelector(getAllTeams, getSelectedPlayer, (teams, player) => {
   if (player && player.team && teams && teams.length > 0) {
     const team = teams.find(t => t.id === player.team);
     return team ? team.name : 'N/A';

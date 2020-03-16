@@ -4,16 +4,16 @@ export function freeAgentValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const formGroup = control as FormGroup;
     const teamCtrl = formGroup.get('team');
-    const uniformCtrl = formGroup.get('jerseyNo');
+    const uniformCtrl = formGroup.get('uniformNo');
 
     const invalid =
       !!teamCtrl &&
       !!uniformCtrl &&
-      !!teamCtrl.value &&
-      (typeof uniformCtrl.value === 'undefined' || uniformCtrl.value === null || uniformCtrl.value === '');
+      !!uniformCtrl.value &&
+      (typeof teamCtrl.value === 'undefined' || teamCtrl.value === null || teamCtrl.value === '');
 
     if (invalid) {
-      return { emptyUniformNum: true };
+      return { freeAgent: true };
     }
     return null;
   };

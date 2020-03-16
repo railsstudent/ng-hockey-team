@@ -10,6 +10,9 @@
       <div *ngIf="form.errors.emptyUniformNum">
         Please assign a number for the player to wear
       </div>
+      <div *ngIf="form.errors.freeAgent">
+        Free agent should not have uniform number
+      </div>
     </div>
 
     <form clrForm [formGroup]="form" (ngSubmit)="addPlayer$.next(form.value)" #f="ngForm">

@@ -16,6 +16,7 @@ import {
   PlayerActions,
 } from '../../store';
 import {
+  freeAgentValidator,
   futureTimeValidator,
   minimumAgeValidator,
   singlePositionValidator,
@@ -80,7 +81,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         yearOfExperience: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
         uniformNo: new FormControl(''),
       },
-      { validators: [singlePositionValidator(), uniformNumValidator()] },
+      { validators: [singlePositionValidator(), uniformNumValidator(), freeAgentValidator()] },
     );
 
     this.loading$

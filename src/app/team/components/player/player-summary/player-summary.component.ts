@@ -36,7 +36,6 @@ export class PlayerSummaryComponent implements OnInit, OnDestroy {
         this.player && this.player.nationality ? nationalities[this.player.nationality] || 'N/A' : 'N/A';
     });
 
-    this.teamName = 'Free Agent';
     this.allTeams$.pipe(takeUntil(this.unsubscribe$)).subscribe(teams => {
       const team = teams.find(t => t.id === this.player.team);
       this.teamName = team ? team.name : 'Free Agent';

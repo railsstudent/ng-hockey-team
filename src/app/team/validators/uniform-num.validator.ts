@@ -4,7 +4,7 @@ export function uniformNumValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const formGroup = control as FormGroup;
     const teamCtrl = formGroup.get('team');
-    const uniformCtrl = formGroup.get('jerseyNo');
+    const uniformCtrl = formGroup.get('uniformNo');
 
     const invalid =
       !!teamCtrl &&
