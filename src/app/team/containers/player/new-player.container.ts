@@ -6,6 +6,7 @@ import { delay, takeUntil, tap } from 'rxjs/operators';
 import { ProgressService } from 'src/app/shared/progress.service';
 import { AlertActions, getAlertCloseAlert } from '../../../store';
 import { NewPlayer, PLAYER_POSITION, SHOOTING_HAND } from '../../models';
+import { PlayerService } from '../../services';
 import {
   getNationalities,
   getPlayerErrorMessage,
@@ -54,6 +55,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private progress: ProgressService,
+    private playerService: PlayerService,
   ) {}
 
   ngOnInit() {
@@ -83,12 +85,8 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         uniformNo: new FormControl(''),
       },
       {
-        validators: [
-          singlePositionValidator(),
-          uniformNumValidator(),
-          freeAgentValidator(),
-          distinctUniformNumValidator(),
-        ],
+        validators: [singlePositionValidator(), uniformNumValidator(), freeAgentValidator()],
+        asyncValidators: distinctUniformNumValidator(this.playerService),
       },
     );
 

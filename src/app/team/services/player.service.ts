@@ -100,4 +100,11 @@ export class PlayerService {
       catchError(() => of({})),
     );
   }
+
+  searchUniformNumInTeam(teamId: string, uniformNum: string) {
+    const playerStr = localStorage.getItem(PLAYERS_KEY);
+    const playerArray = playerStr ? (JSON.parse(playerStr) as Player[]) : [];
+    const player = playerArray.find(p => p.team && p.team === teamId && p.uniformNo && p.uniformNo === uniformNum);
+    return player;
+  }
 }

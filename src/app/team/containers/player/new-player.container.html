@@ -8,10 +8,13 @@
         You cannot be both captain and assistant captain.
       </div>
       <div *ngIf="form.errors.emptyUniformNum">
-        Please assign a number for the player to wear
+        Please assign a number for the player to wear.
       </div>
       <div *ngIf="form.errors.freeAgent">
-        Free agent should not have uniform number
+        Free agent should not have uniform number.
+      </div>
+      <div *ngIf="form.errors.uniformNumTaken">
+        The uniform number is taken by {{ form.errors.uniformNumTaken }}.
       </div>
     </div>
 

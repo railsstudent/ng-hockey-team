@@ -1,20 +1,27 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
+import { PlayerService } from '../services';
 
-export function distinctUniformNumValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
+export function distinctUniformNumValidator(service: PlayerService): AsyncValidatorFn {
+  return (control: AbstractControl) => {
     const formGroup = control as FormGroup;
     const teamCtrl = formGroup.get('team');
     const uniformCtrl = formGroup.get('uniformNo');
 
-    const invalid =
-      !!teamCtrl &&
-      !!uniformCtrl &&
-      !!uniformCtrl.value &&
-      (typeof teamCtrl.value === 'undefined' || teamCtrl.value === null || teamCtrl.value === '');
+    if (!!teamCtrl && !!uniformCtrl) {
+      const uniformNum = uniformCtrl.value;
+      const teamId = teamCtrl.value;
 
-    if (invalid) {
-      return { freeAgent: true };
+      if (!!uniformNum && !!teamId) {
+        const player = service.searchUniformNumInTeam(teamId, uniformNum);
+        return Promise.resolve(
+          player
+            ? {
+                uniformNumTaken: player.name,
+              }
+            : null,
+        );
+      }
     }
-    return null;
+    return Promise.resolve(null);
   };
 }
