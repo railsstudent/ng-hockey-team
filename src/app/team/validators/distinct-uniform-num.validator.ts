@@ -1,4 +1,4 @@
-import { AbstractControl, AsyncValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormGroup } from '@angular/forms';
 import { PlayerService } from '../services';
 
 export function distinctUniformNumValidator(service: PlayerService): AsyncValidatorFn {

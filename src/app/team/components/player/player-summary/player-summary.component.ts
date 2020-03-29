@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NavigationActions } from 'src/app/store';
 import { Player } from '../../../models';
 import { getAllTeams, getNationalities, LeagueState } from '../../../store';
 
@@ -40,6 +41,13 @@ export class PlayerSummaryComponent implements OnInit, OnDestroy {
       const team = teams.find(t => t.id === this.player.team);
       this.teamName = team ? team.name : 'Free Agent';
     });
+  }
+
+  openDetails($event: Event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    this.store.dispatch(NavigationActions.NextRoute('/team/players/details', [this.player.id]));
   }
 
   ngOnDestroy() {
