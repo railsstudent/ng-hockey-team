@@ -1,1 +1,21 @@
-<p>player-detail works!</p>
+<div class="card">
+  <div class="card-header">{{ player.name }} {{ player | leaderCode }}</div>
+  <div class="card-block">
+    <div class="card-img">
+      <div class="card-media-block">
+        <img src="https://via.placeholder.com/150" alt="placeholder" class="card-media-image" />
+        <div class="card-media-description">
+          <!-- <span class="card-media-title">{{ teamName === 'Free Agent' ? '' : 'Team: ' }}{{ teamName }}</span>
+                    <span class="card-media-text">
+                        <div>Nationality: {{ nationality }}</div>
+                        <div>Uniform No.: {{ player.uniformNo || 'N/A' }}</div>
+                        <div>Position / Hand: {{ player.position + ' / ' + (player.shootingHand || '') }}</div>
+                    </span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <!-- <button class="btn btn-primary" (click)="openDetails($event)">Details</button> -->
+  </div>
+</div>

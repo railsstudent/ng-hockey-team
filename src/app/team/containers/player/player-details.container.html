@@ -1,8 +1,8 @@
 <article class="player-container">
-  <team-title [url]="'/team/players/list'">Players</team-title>
   <ng-container *ngIf="{ player: player$ | async, loading: loading$ | async } as o">
     <ng-container *appContentLoaderIf="!o.loading; height 150">
-      <player-details *ngIf="o.player" [player]="o.player"></player-details>
+      <team-title [url]="'/team/players/list'">{{ o.player.name }}</team-title>
+      <player-details [player]="o.player"></player-details>
     </ng-container>
   </ng-container>
 </article>
