@@ -3,7 +3,14 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angul
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { getPlayersLoaded, getTeamsLoaded, LeagueState, PlayerActions, TeamActions } from '../store';
+import {
+  getNationalityLoaded,
+  getPlayersLoaded,
+  getTeamsLoaded,
+  LeagueState,
+  PlayerActions,
+  TeamActions,
+} from '../store';
 
 @Injectable()
 export class TeamGuard implements CanActivate {
@@ -12,11 +19,16 @@ export class TeamGuard implements CanActivate {
   nationalityLoaded = false;
 
   constructor(private store: Store<LeagueState>) {
-    combineLatest([this.store.pipe(select(getTeamsLoaded)), this.store.pipe(select(getPlayersLoaded))])
+    combineLatest([
+      this.store.pipe(select(getTeamsLoaded)),
+      this.store.pipe(select(getPlayersLoaded)),
+      this.store.pipe(select(getNationalityLoaded)),
+    ])
       .pipe(first())
-      .subscribe(([loaded, playersLoaded]) => {
+      .subscribe(([loaded, playersLoaded, nationalityLoaded]) => {
         this.loaded = loaded;
         this.playersLoaded = playersLoaded;
+        this.nationalityLoaded = nationalityLoaded;
       });
   }
 

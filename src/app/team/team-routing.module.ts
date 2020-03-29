@@ -5,6 +5,7 @@ import {
   ListPlayerContainer,
   NewPlayerContainer,
   NewTeamContainer,
+  PlayerDetailsContainer,
   TeamRosterContainer,
   TeamStatisticsContainer,
 } from './containers';
@@ -51,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'players/details/:id',
-    component: ListPlayerContainer,
+    component: PlayerDetailsContainer,
     canActivate: [TeamGuard],
   },
 ];

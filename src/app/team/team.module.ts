@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared';
 import {
   MatchCounterComponent,
+  PlayerDetailsComponent,
   PlayerSummaryComponent,
   TeamComponent,
   TeamStandingTableComponent,
@@ -18,6 +19,7 @@ import {
   ListPlayerContainer,
   NewPlayerContainer,
   NewTeamContainer,
+  PlayerDetailsContainer,
   TeamAnalysisContainer,
   TeamRosterContainer,
   TeamStatisticsContainer,
@@ -50,6 +52,8 @@ import { TeamRoutingModule } from './team-routing.module';
     LeaderCodePipe,
     ListPlayerContainer,
     DateOfBirthPipe,
+    PlayerDetailsComponent,
+    PlayerDetailsContainer,
   ],
   imports: [
     CommonModule,
