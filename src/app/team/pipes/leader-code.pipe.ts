@@ -10,6 +10,6 @@ export class LeaderCodePipe implements PipeTransform {
       return '';
     }
     console.log(player.isCaptain, player.isAssistantCaptain);
-    return player.isCaptain === 'true' ? '(C)' : player.isAssistantCaptain === 'true' ? '(A)' : '';
+    return player.isCaptain === 'true' ? '(Captain)' : player.isAssistantCaptain === 'true' ? '(A. Captain)' : '';
   }
 }

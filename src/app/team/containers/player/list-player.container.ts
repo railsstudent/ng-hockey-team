@@ -45,10 +45,6 @@ export class ListPlayerContainer implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
       )
       .subscribe();
-
-    this.nationalities$.subscribe(v => console.log('nationalities', v));
-
-    this.allTeams$.subscribe(v => console.log('allTeams', v));
   }
 
   trackByFunction(index: number, item: Player) {
