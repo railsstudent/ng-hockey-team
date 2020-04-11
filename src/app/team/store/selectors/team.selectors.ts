@@ -66,11 +66,14 @@ export const getWorstDefensiveTeams = createSelector(getAllTeams, teams =>
 );
 
 export const getTeamNameMap = createSelector(getTeamEntities, dict => {
-  return Object.keys(dict).reduce((acc, k) => {
-    const t = dict[k];
-    if (t) {
-      acc[k] = t.name;
-    }
-    return acc;
-  }, {} as { [key: string]: string });
+  return Object.keys(dict).reduce(
+    (acc, k) => {
+      const t = dict[k];
+      if (t) {
+        acc[k] = t.name;
+      }
+      return acc;
+    },
+    { '': '' } as { [key: string]: string },
+  );
 });

@@ -1,26 +1,152 @@
 <div class="card">
   <div class="card-block">
     <div class="card-img">
-      <img src="https://via.placeholder.com/250" alt="placeholder" class="card-media-image" />
+      <img src="https://via.placeholder.com/240" alt="placeholder" class="card-media-image" />
     </div>
+    <main class="form-container">
+      <alert-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></alert-err-message>
+      <alert-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></alert-success-message>
+      <div class="error-box" *ngIf="form.errors">
+        <div *ngIf="form.errors.singlePosition">
+          You cannot be both captain and assistant captain.
+        </div>
+        <div *ngIf="form.errors.emptyUniformNum">
+          Please assign a number for the player to wear.
+        </div>
+        <div *ngIf="form.errors.freeAgent">
+          Free agent should not have uniform number.
+        </div>
+        <div *ngIf="form.errors.uniformNumTaken">The uniform number is taken by {{ form.errors.uniformNumTaken }}.</div>
+      </div>
 
-    <!-- <span class="card-media-title">{{ teamName === 'Free Agent' ? '' : 'Team: ' }}{{ teamName }}</span>
-                        <span class="card-media-text">
-                            <div>Nationality: {{ nationality }}</div>
-                            <div>Uniform No.: {{ player.uniformNo || 'N/A' }}</div>
-                            <div>Position / Hand: {{ player.position + ' / ' + (player.shootingHand || '') }}</div>
-                        </span> -->
-    <form clrForm [formGroup]="form" #f="ngForm">
-      <clr-input-container>
-        <label>Player name</label>
-        <input clrInput type="text" formControlName="name" />
-        <clr-control-error *ngIf="playerName.errors && playerName.errors.required">
-          Player name is required
-        </clr-control-error>
-      </clr-input-container>
-    </form>
+      <form clrForm [formGroup]="form" #f="ngForm" (ngSubmit)="saveDetails($event)">
+        <clr-input-container>
+          <label>Name:</label>
+          <input clrInput type="text" formControlName="name" required />
+          <clr-control-helper>Name of the player</clr-control-helper>
+          <clr-control-error *ngIf="playerName.errors && playerName.errors.required">
+            Player name is required
+          </clr-control-error>
+        </clr-input-container>
+
+        <clr-date-container>
+          <label for="dob">Date of birth:</label>
+          <input type="date" clrDate name="dob" formControlName="dob" required />
+          <clr-control-helper>Date of birth of the player</clr-control-helper>
+          <clr-control-error *ngIf="dob.errors && dob.errors.required">Date of birth is required!</clr-control-error>
+          <clr-control-error *ngIf="dob.errors && dob.errors.minimumAge"
+            >Minimum age is {{ minAge }}!
+          </clr-control-error>
+          <clr-control-error *ngIf="dob.errors && dob.errors.futureTime">You are from the future!</clr-control-error>
+        </clr-date-container>
+
+        <clr-select-container>
+          <label for="nationality">Nationality:</label>
+          <select clrSelect name="nationality" formControlName="nationality" required>
+            <option *ngFor="let nationality of nationality$ | async | keyvalue" value="{{ nationality.key }}">
+              {{ nationality.value }}</option
+            >
+          </select>
+
+          <clr-control-helper>Nationality of the player</clr-control-helper>
+          <clr-control-error>Nationality is required!</clr-control-error>
+        </clr-select-container>
+
+        <clr-select-container>
+          <label>Position:</label>
+          <select clrSelect name="position" formControlName="position" required>
+            <option value="Center">Center</option>
+            <option value="Defenseman">Defenseman</option>
+            <option value="Goalie">Goalie</option>
+            <option value="Winger">Winger</option>
+          </select>
+          <clr-control-helper>Position of the player</clr-control-helper>
+          <clr-control-error>Position is required!</clr-control-error>
+        </clr-select-container>
+
+        <clr-select-container>
+          <label>Shooting Hand:</label>
+          <select clrSelect name="shootingHand" formControlName="shootingHand" required>
+            <option value="Left">Left</option>
+            <option value="Right">Right</option>
+          </select>
+          <clr-control-helper>Team of the player</clr-control-helper>
+        </clr-select-container>
+
+        <clr-select-container>
+          <label>Team:</label>
+          <select clrSelect name="team" formControlName="team">
+            <option *ngFor="let t of teamNames$ | async | keyvalue" value="{{ t.key }}">
+              {{ t.value }}
+            </option>
+          </select>
+          <clr-control-helper>Team of the new player</clr-control-helper>
+          <clr-control-error>Team is required!</clr-control-error>
+        </clr-select-container>
+
+        <clr-input-container>
+          <label for="uniformNo">Uniform Number:</label>
+          <input name="uniformNo" clrInput type="number" formControlName="uniformNo" />
+          <clr-control-helper>Uniform number of the new player</clr-control-helper>
+        </clr-input-container>
+
+        <clr-radio-container clrInline>
+          <label>Captain:</label>
+          <clr-radio-wrapper>
+            <input type="radio" clrRadio name="isCaptain" required value="true" formControlName="isCaptain" />
+            <label>Yes</label>
+          </clr-radio-wrapper>
+          <clr-radio-wrapper>
+            <input type="radio" clrRadio name="isCaptain" required value="false" formControlName="isCaptain" />
+            <label>No</label>
+          </clr-radio-wrapper>
+          <clr-control-helper>Is new player captain?</clr-control-helper>
+          <clr-control-error>Captain is required!</clr-control-error>
+        </clr-radio-container>
+
+        <clr-radio-container clrInline>
+          <label>Assistant Captain:</label>
+          <clr-radio-wrapper>
+            <input
+              type="radio"
+              clrRadio
+              name="isAssistantCaptain"
+              required
+              value="true"
+              formControlName="isAssistantCaptain"
+            />
+            <label>Yes</label>
+          </clr-radio-wrapper>
+          <clr-radio-wrapper>
+            <input
+              type="radio"
+              clrRadio
+              name="isAssistantCaptain"
+              required
+              value="false"
+              formControlName="isAssistantCaptain"
+            />
+            <label>No</label>
+          </clr-radio-wrapper>
+          <clr-control-helper>Is new player assistant captain?</clr-control-helper>
+          <clr-control-error>Assistant captain is required!</clr-control-error>
+        </clr-radio-container>
+
+        <clr-input-container>
+          <label for="yearOfExperience">Year of experience:</label>
+          <input name="yearOfExperience" clrInput type="number" formControlName="yearOfExperience" />
+          <clr-control-helper>Year of experience of the new player</clr-control-helper>
+          <clr-control-error *ngIf="yearOfExperience.errors && yearOfExperience.errors.required"
+            >Year of experience is required!</clr-control-error
+          >
+          <clr-control-error *ngIf="yearOfExperience.errors && yearOfExperience.errors.min"
+            >Year of exerience is at least 0</clr-control-error
+          >
+        </clr-input-container>
+      </form>
+    </main>
   </div>
   <div class="card-footer">
-    <button class="btn btn-primary" (click)="saveDetails($event)" [disabled]="form.invalid">Save</button>
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Save</button>
   </div>
 </div>

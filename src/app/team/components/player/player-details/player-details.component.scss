@@ -1,8 +1,22 @@
+$img-width: 15em;
+
 .card-img {
     img {
-        max-width: 5.5em;
-        max-height: 5.5em;
-        width: 5.5em;
-        height: 5.5em;
+        max-width: $img-width;
+        max-height: $img-width;
+        width: $img-width;
+        height: $img-width;
+    }
+}
+
+.form-container {
+    .error-box {
+        margin-top: 0.5rem;
+
+        color: red;
+        font-size: 0.75rem;
+        padding: 0.5rem;
+        background-color: pink;
+        border: 1px solid red;
     }
 }

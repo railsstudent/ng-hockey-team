@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
@@ -42,7 +42,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
   message$ = this.store.pipe(select(getPlayerMessage));
   closeAlert$ = this.store.pipe(select(getAlertCloseAlert));
   addPlayer$ = new Subject<NewPlayer>();
-  teamNames: { [key: string]: string } = {};
+  teamNames$ = this.store.pipe(select(getTeamNameMap));
   loading$ = this.store.pipe(select(getPlayerLoading));
   nationality$ = this.store.pipe(select(getNationalities));
 
@@ -53,21 +53,12 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
   constructor(
     private store: Store<LeagueState>,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef,
     private progress: ProgressService,
     private playerService: PlayerService,
   ) {}
 
   ngOnInit() {
     this.store.dispatch(AlertActions.closeAlert());
-
-    this.store
-      .pipe(select(getTeamNameMap))
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(v => {
-        this.teamNames = { '': '', ...v };
-        this.cdr.markForCheck();
-      });
 
     this.form = this.fb.group(
       {
@@ -82,7 +73,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         isCaptain: new FormControl('false', { validators: [Validators.required] }),
         isAssistantCaptain: new FormControl('false', { validators: [Validators.required] }),
         yearOfExperience: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
-        uniformNo: new FormControl(''),
+        uniformNo: new FormControl(null),
       },
       {
         validators: [singlePositionValidator(), uniformNumValidator(), freeAgentValidator()],
@@ -101,10 +92,7 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
       .pipe(
         delay(0),
         tap(() => this.progress.show()),
-        tap(newPlayer => {
-          console.log('dispatch AddPlayer');
-          this.store.dispatch(PlayerActions.AddPlayer({ newPlayer }));
-        }),
+        tap(newPlayer => this.store.dispatch(PlayerActions.AddPlayer({ newPlayer }))),
         takeUntil(this.unsubscribe$),
       )
       .subscribe(() => {

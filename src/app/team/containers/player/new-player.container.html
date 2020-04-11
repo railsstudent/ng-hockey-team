@@ -65,13 +65,13 @@
           <option value="Left">Left</option>
           <option value="Right">Right</option>
         </select>
-        <clr-control-helper>Team of the new player</clr-control-helper>
+        <clr-control-helper>Shooting hand of the new player</clr-control-helper>
       </clr-select-container>
 
       <clr-select-container>
         <label>Team:</label>
         <select clrSelect name="team" formControlName="team">
-          <option *ngFor="let t of teamNames | keyvalue" value="{{ t.key }}">
+          <option *ngFor="let t of teamNames$ | async | keyvalue" value="{{ t.key }}">
             {{ t.value }}
           </option>
         </select>

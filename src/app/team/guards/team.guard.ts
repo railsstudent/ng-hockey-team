@@ -35,7 +35,11 @@ export class TeamGuard implements CanActivate {
   // tslint:disable-next-line:variable-name
   canActivate(next: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
     const path = next.url.map(u => u.path).join('/');
-    if (next.url && next.url.length && ['roster', 'statistcs', 'players/new'].some(prefix => path.startsWith(prefix))) {
+    if (
+      next.url &&
+      next.url.length &&
+      ['roster', 'statistcs', 'players/new', 'players/details'].some(prefix => path.startsWith(prefix))
+    ) {
       if (!this.loaded) {
         this.store.dispatch(TeamActions.LoadTeams());
       }
