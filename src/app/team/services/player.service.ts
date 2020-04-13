@@ -66,9 +66,12 @@ export class PlayerService {
       return throwError('Player does not exist.');
     }
 
+    const age = differenceInYears(new Date(), parse(player.dob, 'MM/dd/yyyy', new Date()));
+
     const updatedPlayer = {
       ...existingPlayer,
       ...player,
+      age,
     };
 
     const updatedPlayerArray = playerArray.map(p => (p.id !== updatedPlayer.id ? p : updatedPlayer));

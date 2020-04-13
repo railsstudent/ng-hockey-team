@@ -1,28 +1,30 @@
 <div class="card">
-  <div class="card-block">
-    <div class="card-img">
-      <img src="https://via.placeholder.com/240" alt="placeholder" class="card-media-image" />
-    </div>
-    <main class="form-container">
-      <alert-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></alert-err-message>
-      <alert-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></alert-success-message>
-      <div class="error-box" *ngIf="form.errors">
-        <div *ngIf="form.errors.singlePosition">
-          You cannot be both captain and assistant captain.
-        </div>
-        <div *ngIf="form.errors.emptyUniformNum">
-          Please assign a number for the player to wear.
-        </div>
-        <div *ngIf="form.errors.freeAgent">
-          Free agent should not have uniform number.
-        </div>
-        <div *ngIf="form.errors.uniformNumTaken">The uniform number is taken by {{ form.errors.uniformNumTaken }}.</div>
+  <form clrForm [formGroup]="form" #f="ngForm" (ngSubmit)="saveDetails($event)">
+    <div class="card-block">
+      <div class="card-img">
+        <img src="https://via.placeholder.com/240" alt="placeholder" class="card-media-image" />
       </div>
+      <main class="form-container">
+        <alert-err-message [error]="error$ | async" [closeAlert]="closeAlert$ | async"></alert-err-message>
+        <alert-success-message [msg]="message$ | async" [closeAlert]="closeAlert$ | async"></alert-success-message>
+        <div class="error-box" *ngIf="form.errors">
+          <div *ngIf="form.errors.singlePosition">
+            You cannot be both captain and assistant captain.
+          </div>
+          <div *ngIf="form.errors.emptyUniformNum">
+            Please assign a number for the player to wear.
+          </div>
+          <div *ngIf="form.errors.freeAgent">
+            Free agent should not have uniform number.
+          </div>
+          <div *ngIf="form.errors.uniformNumTaken">
+            The uniform number is taken by {{ form.errors.uniformNumTaken }}.
+          </div>
+        </div>
 
-      <form clrForm [formGroup]="form" #f="ngForm" (ngSubmit)="saveDetails($event)">
         <clr-input-container>
-          <label>Name:</label>
-          <input clrInput type="text" formControlName="name" required />
+          <label for="name">Name:</label>
+          <input clrInput name="name" type="text" formControlName="name" required />
           <clr-control-helper>Name of the player</clr-control-helper>
           <clr-control-error *ngIf="playerName.errors && playerName.errors.required">
             Player name is required
@@ -39,6 +41,12 @@
           </clr-control-error>
           <clr-control-error *ngIf="dob.errors && dob.errors.futureTime">You are from the future!</clr-control-error>
         </clr-date-container>
+
+        <clr-input-container>
+          <label for="age">Age:</label>
+          <input clrInput name="age" type="number" formControlName="age" required readonly />
+          <clr-control-helper>Age of the player</clr-control-helper>
+        </clr-input-container>
 
         <clr-select-container>
           <label for="nationality">Nationality:</label>
@@ -143,10 +151,10 @@
             >Year of exerience is at least 0</clr-control-error
           >
         </clr-input-container>
-      </form>
-    </main>
-  </div>
-  <div class="card-footer">
-    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Save</button>
-  </div>
+      </main>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Save</button>
+    </div>
+  </form>
 </div>

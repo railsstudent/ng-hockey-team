@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
+import { differenceInYears, parse } from 'date-fns';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { getAlertCloseAlert } from 'src/app/store';
 import { Player } from 'src/app/team/models';
 import { PlayerService } from 'src/app/team/services';
@@ -10,6 +13,7 @@ import {
   getPlayerMessage,
   getTeamNameMap,
   LeagueState,
+  PlayerActions,
 } from 'src/app/team/store';
 import {
   distinctUniformNumValidator,
@@ -28,7 +32,7 @@ const MIN_AGE = 18;
   styleUrls: ['./player-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlayerDetailsComponent implements OnInit {
+export class PlayerDetailsComponent implements OnInit, OnDestroy {
   @Input()
   player: Player;
 
@@ -40,6 +44,7 @@ export class PlayerDetailsComponent implements OnInit {
   closeAlert$ = this.store.pipe(select(getAlertCloseAlert));
   teamNames$ = this.store.pipe(select(getTeamNameMap));
   nationality$ = this.store.pipe(select(getNationalities));
+  unsubscribe$ = new Subject();
 
   constructor(private fb: FormBuilder, private store: Store<LeagueState>, private playerService: PlayerService) {}
 
@@ -47,8 +52,9 @@ export class PlayerDetailsComponent implements OnInit {
     this.form = this.fb.group(
       {
         name: new FormControl(this.player.name, { validators: [Validators.required], updateOn: 'blur' }),
-        dob: new FormControl(this.convertMdyDate(this.player.dob), {
+        dob: new FormControl(this.player.dob, {
           validators: [Validators.required, minimumAgeValidator(MIN_AGE), futureTimeValidator()],
+          updateOn: 'blur',
         }),
         nationality: new FormControl(this.player.nationality, { validators: [Validators.required] }),
         position: new FormControl(this.player.position, { validators: [Validators.required] }),
@@ -60,18 +66,29 @@ export class PlayerDetailsComponent implements OnInit {
           validators: [Validators.required, Validators.min(0)],
         }),
         uniformNo: new FormControl(this.player.uniformNo),
+        age: new FormControl(this.player.age),
+        id: new FormControl(this.player.id),
       },
       {
         validators: [singlePositionValidator(), uniformNumValidator(), freeAgentValidator()],
-        asyncValidators: distinctUniformNumValidator(this.playerService),
+        asyncValidators: [distinctUniformNumValidator(this.playerService)],
       },
     );
+
+    this.dob.valueChanges
+      .pipe(
+        map(dob => differenceInYears(new Date(), parse(dob, 'MM/dd/yyyy', new Date()))),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe(age => {
+        this.age.setValue(age);
+      });
   }
 
-  convertMdyDate(value: string) {
-    const [yyyy, mm, dd] = value.split('/');
-    return `${mm}/${dd}/${yyyy}`;
-  }
+  // convertMdyDate(value: string) {
+  //   const [yyyy, mm, dd] = value.split('/');
+  //   return `${mm}/${dd}/${yyyy}`;
+  // }
 
   get playerName() {
     return this.form && (this.form.controls.name as AbstractControl);
@@ -89,10 +106,23 @@ export class PlayerDetailsComponent implements OnInit {
     return this.form && (this.form.controls.yearOfExperience as AbstractControl);
   }
 
+  get age() {
+    return this.form && (this.form.controls.age as AbstractControl);
+  }
+
   saveDetails($event: Event) {
     $event.preventDefault();
     $event.stopPropagation();
 
-    console.log(this.form.value);
+    this.store.dispatch(
+      PlayerActions.UpdatePlayer({
+        player: this.form.value,
+      }),
+    );
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
