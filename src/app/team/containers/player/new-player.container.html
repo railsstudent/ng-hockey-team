@@ -13,6 +13,12 @@
       <div *ngIf="form.errors.freeAgent">
         Free agent should not have uniform number.
       </div>
+      <div *ngIf="form.errors.freeAgentCaptain">
+        Free agent cannot be captain.
+      </div>
+      <div *ngIf="form.errors.freeAgentAssistantCaptain">
+        Free agent cannot be assistant captain.
+      </div>
       <div *ngIf="form.errors.uniformNumTaken">
         The uniform number is taken by {{ form.errors.uniformNumTaken }}.
       </div>

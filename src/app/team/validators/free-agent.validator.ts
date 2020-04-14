@@ -5,15 +5,26 @@ export function freeAgentValidator(): ValidatorFn {
     const formGroup = control as FormGroup;
     const teamCtrl = formGroup.get('team');
     const uniformCtrl = formGroup.get('uniformNo');
+    const captainCtrl = formGroup.get('isCaptain');
+    const assistantCaptainCtrl = formGroup.get('isAssistantCaptain');
 
-    const invalid =
-      !!teamCtrl &&
-      !!uniformCtrl &&
-      !!uniformCtrl.value &&
-      (typeof teamCtrl.value === 'undefined' || teamCtrl.value === null || teamCtrl.value === '');
+    if (teamCtrl && uniformCtrl && captainCtrl && assistantCaptainCtrl) {
+      const uniformValue = uniformCtrl.value;
+      const teamValue = teamCtrl.value;
+      const captainValue = captainCtrl.value === 'true';
+      const assistantCaptainValue = assistantCaptainCtrl.value === 'true';
 
-    if (invalid) {
-      return { freeAgent: true };
+      if (!!uniformValue && !teamValue) {
+        return { freeAgent: true };
+      }
+
+      if (!uniformValue && !teamValue && captainValue) {
+        return { freeAgentCaptain: true };
+      }
+
+      if (!uniformValue && !teamValue && assistantCaptainValue) {
+        return { freeAgentAssistantCaptain: true };
+      }
     }
     return null;
   };
