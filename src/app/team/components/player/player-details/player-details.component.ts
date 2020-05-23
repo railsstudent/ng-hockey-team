@@ -20,7 +20,7 @@ import {
   freeAgentValidator,
   futureTimeValidator,
   minimumAgeValidator,
-  singlePositionValidator,
+  singleTitleValidator,
   uniformNumValidator,
 } from 'src/app/team/validators';
 
@@ -70,7 +70,7 @@ export class PlayerDetailsComponent implements OnInit, OnDestroy {
         id: new FormControl(this.player.id),
       },
       {
-        validators: [singlePositionValidator(), uniformNumValidator(), freeAgentValidator()],
+        validators: [singleTitleValidator(), uniformNumValidator(), freeAgentValidator()],
         asyncValidators: [distinctUniformNumValidator(this.playerService)],
       },
     );

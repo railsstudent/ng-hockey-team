@@ -110,4 +110,13 @@ export class PlayerService {
     const player = playerArray.find(p => p.team && p.team === teamId && p.uniformNo && p.uniformNo === uniformNum);
     return player;
   }
+
+  findLeaderCountSummary(teamId: string) {
+    const playerStr = localStorage.getItem(PLAYERS_KEY);
+    const playerArray = playerStr ? (JSON.parse(playerStr) as Player[]) : [];
+    const numCaptain = playerArray.filter(p => p.team && p.team === teamId && p.isCaptain === 'true').length;
+    const numAssistantCaptain = playerArray.filter(p => p.team && p.team === teamId && p.isAssistantCaptain === 'true')
+      .length;
+    return { captain: numCaptain, assistantCaptain: numAssistantCaptain };
+  }
 }

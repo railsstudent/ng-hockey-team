@@ -22,6 +22,14 @@
       <div *ngIf="form.errors.uniformNumTaken">
         The uniform number is taken by {{ form.errors.uniformNumTaken }}.
       </div>
+      <div *ngIf="form.errors.maxNumCaptains">
+        The team can have {{ form.errors.maxNumCaptains.count }} captain{{ form.errors.maxNumCaptains.count >
+        maxCaptains ? 's' : '' }}.
+      </div>
+      <div *ngIf="form.errors.maxNumACaptains">
+        The team can have {{ form.errors.maxNumACaptains.count }} assistant captain{{ form.errors.maxNumACaptains.count
+        > maxACaptains ? 's' : '' }}.
+      </div>
     </div>
 
     <form clrForm [formGroup]="form" (ngSubmit)="addPlayer$.next(form.value)" #f="ngForm">

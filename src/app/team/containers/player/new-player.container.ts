@@ -20,12 +20,15 @@ import {
   distinctUniformNumValidator,
   freeAgentValidator,
   futureTimeValidator,
+  leaderCountValidator,
   minimumAgeValidator,
-  singlePositionValidator,
+  singleTitleValidator,
   uniformNumValidator,
 } from '../../validators';
 
 const MIN_AGE = 18;
+const MAX_CAPTAINS = 1;
+const MAX_ASSISTANT_CAPTAINS = 3;
 
 @Component({
   selector: 'player-new-player-container',
@@ -37,6 +40,8 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
   f: FormGroupDirective;
 
   minAge = MIN_AGE;
+  maxCaptains = MAX_CAPTAINS;
+  maxACaptains = MAX_ASSISTANT_CAPTAINS;
 
   error$ = this.store.pipe(select(getPlayerErrorMessage));
   message$ = this.store.pipe(select(getPlayerMessage));
@@ -76,8 +81,11 @@ export class NewPlayerContainer implements OnInit, OnDestroy {
         uniformNo: new FormControl(null),
       },
       {
-        validators: [singlePositionValidator(), uniformNumValidator(), freeAgentValidator()],
-        asyncValidators: distinctUniformNumValidator(this.playerService),
+        validators: [singleTitleValidator(), uniformNumValidator(), freeAgentValidator()],
+        asyncValidators: [
+          distinctUniformNumValidator(this.playerService),
+          leaderCountValidator(this.playerService, this.maxCaptains, this.maxACaptains),
+        ],
       },
     );
 
