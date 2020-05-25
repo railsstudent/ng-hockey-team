@@ -61,6 +61,16 @@ export class ListPlayerContainer implements OnInit, OnDestroy {
     this.store.dispatch(PlayerActions.DeletePlayer({ playerId }));
   }
 
+  gotoAddPlayer($event: Event) {
+    if ($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      const url = '/team/players/new';
+      this.store.dispatch(NavigationActions.NextRoute(url));
+    }
+  }
+
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
