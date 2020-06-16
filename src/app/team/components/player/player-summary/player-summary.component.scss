@@ -18,3 +18,23 @@
         cursor: pointer;
     }
 }
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+  
+    button.btn {
+      > span {
+        margin-right: 0.5rem;
+      }
+    }
+  
+    button.btn:not(:last-of-type) {
+      margin-right: 0.5rem;
+    }
+  
+    button.btn:last-of-type {
+      margin-right: 0;
+    }
+}
+  

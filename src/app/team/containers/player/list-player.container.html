@@ -1,9 +1,9 @@
 <article class="team-container">
-  <team-title [url]="'/team/players'">Players</team-title>
+  <team-title [url]="'/team/players'">
+    Players
+    <button class="btn btn-primary" (click)="gotoAddPlayer($event)" header-right>Add player</button>
+  </team-title>
   <main class="list-container">
-    <div>
-      <button class="btn btn-primary" (click)="gotoAddPlayer($event)">Add player</button>
-    </div>
     <ng-container *ngIf="{ players: players$ | async, loading: loading$ | async } as o">
       <ng-container *appContentLoaderIf="!o.loading; height 150">
         <section class="clr-row">
