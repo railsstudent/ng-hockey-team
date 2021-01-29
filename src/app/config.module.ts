@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BAD_WORDS, DIVISION_ORDER } from './shared';
 
-@NgModule()
+@NgModule({})
 export class ConfigModule {
   static forRoot(): ModuleWithProviders<ConfigModule> {
     return {
