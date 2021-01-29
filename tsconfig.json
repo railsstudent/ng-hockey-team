@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "noFallthroughCasesInSwitch": true,
-    "target": "es5",
+    "target": "es2015",
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": false,
