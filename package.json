@@ -25,6 +25,8 @@
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
     "@angular/router": "~10.2.4",
+    "@cds/angular": "^5.0.0",
+    "@cds/core": "^5.0.0",
     "@clr/angular": "^2.3.4",
     "@clr/icons": "^2.3.3",
     "@clr/ui": "^2.3.3",
