@@ -4,7 +4,7 @@ import { BAD_WORDS, DIVISION_ORDER } from './shared';
 
 @NgModule()
 export class ConfigModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<ConfigModule> {
     return {
       ngModule: ConfigModule,
       providers: [
