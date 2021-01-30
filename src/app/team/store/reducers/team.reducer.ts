@@ -25,7 +25,7 @@ const teamReducer = createReducer(
   initialState,
   on(TeamActions.LoadTeams, state => ({ ...state, loading: true })),
   on(TeamActions.LoadTeamsSuccess, (state, { teams }) => ({
-    ...adapter.addAll(teams, state),
+    ...adapter.setAll(teams, state),
     error: null,
     message: null,
     loaded: true,

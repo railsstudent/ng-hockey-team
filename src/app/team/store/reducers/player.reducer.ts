@@ -101,7 +101,7 @@ export const playerReducer = createReducer(
     loading: true,
   })),
   on(PlayerActions.LoadPlayersSuccess, (state, { players }) => ({
-    ...playerAdapter.addAll(players, state),
+    ...playerAdapter.setAll(players, state),
     loaded: true,
     loading: false,
   })),
